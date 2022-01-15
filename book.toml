@@ -1,0 +1,28 @@
+[book]
+authors = ["solareenlo"]
+language = "ja"
+multilingual = false
+src = "src"
+title = "RFC 2812 クライアントプロトコル"
+
+[output.html]
+theme = "src/theme"
+additional-css = [
+  "src/theme/solarized-light-hljs.css",
+  "src/theme/solarized-dark-hljs.css",
+]
+additional-js = [
+  "src/theme/theme-solarized_dark.js",
+  "src/theme/theme-solarized_light.js",
+]
+git-repository-url = "https://github.com/solareenlo/rfc2812"
+git-repository-icon = "fa-github"
+edit-url-template = "https://github.com/solareenlo/rfc2812/edit/main/{path}"
+mathjax-support = true
+copy-fonts = true
+
+[output.html.playground]
+editable = false
+copyable = true
+copy-js = true
+line-numbers = true
