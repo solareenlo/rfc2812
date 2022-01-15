@@ -1,0 +1,479 @@
+<!DOCTYPE HTML>
+<html lang="ja" class="sidebar-visible no-js light">
+    <head>
+        <link rel="preload" as="font" type="../font/woff2" href="fonts/noto-serif-jp-v15-japanese-200.woff2" crossorigin>
+        <link rel="preload" as="font" type="../font/woff2" href="fonts/noto-serif-jp-v15-japanese-300.woff2" crossorigin>
+        <link rel="preload" as="font" type="../font/woff2" href="fonts/noto-serif-jp-v15-japanese-500.woff2" crossorigin>
+        <link rel="preload" as="font" type="../font/woff2" href="fonts/noto-serif-jp-v15-japanese-600.woff2" crossorigin>
+        <link rel="preload" as="font" type="../font/woff2" href="fonts/noto-serif-jp-v15-japanese-700.woff2" crossorigin>
+        <link rel="preload" as="font" type="../font/woff2" href="fonts/noto-serif-jp-v15-japanese-900.woff2" crossorigin>
+        <link rel="preload" as="font" type="../font/woff2" href="fonts/noto-serif-jp-v15-japanese-regular.woff2" crossorigin>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>エラー返信 - RFC 2812 クライアントプロトコル</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        <link rel="stylesheet" href="../fonts/font.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../src/theme/solarized-light-hljs.css">
+        <link rel="stylesheet" href="../src/theme/solarized-dark-hljs.css">
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">Home</a></li><li class="chapter-item expanded "><a href="../labels/index.html"><strong aria-hidden="true">1.</strong> ラベル</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../labels/servers.html"><strong aria-hidden="true">1.1.</strong> サーバ</a></li><li class="chapter-item expanded "><a href="../labels/clients.html"><strong aria-hidden="true">1.2.</strong> クライアント</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../labels/users.html"><strong aria-hidden="true">1.2.1.</strong> ユーザ</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../labels/operators.html"><strong aria-hidden="true">1.2.1.1.</strong> オペレータ</a></li></ol></li><li class="chapter-item expanded "><a href="../labels/services.html"><strong aria-hidden="true">1.2.2.</strong> サービス</a></li></ol></li><li class="chapter-item expanded "><a href="../labels/channels.html"><strong aria-hidden="true">1.3.</strong> チャネル</a></li></ol></li><li class="chapter-item expanded "><a href="../the-irc-client-specification/index.html"><strong aria-hidden="true">2.</strong> IRC クライアント仕様</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../the-irc-client-specification/overview.html"><strong aria-hidden="true">2.1.</strong> 概要</a></li><li class="chapter-item expanded "><a href="../the-irc-client-specification/character-codes.html"><strong aria-hidden="true">2.2.</strong> 文字コード</a></li><li class="chapter-item expanded "><a href="../the-irc-client-specification/messages.html"><strong aria-hidden="true">2.3.</strong> メッセージ</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../the-irc-client-specification/message-format-in-augumented-bnf.html"><strong aria-hidden="true">2.3.1.</strong> 拡張 BNF によるメッセージフォーマット</a></li></ol></li><li class="chapter-item expanded "><a href="../the-irc-client-specification/numeric-replies.html"><strong aria-hidden="true">2.4.</strong> 数値返信</a></li><li class="chapter-item expanded "><a href="../the-irc-client-specification/wildcard-expressions.html"><strong aria-hidden="true">2.5.</strong> ワイルドカード表現</a></li></ol></li><li class="chapter-item expanded "><a href="../message-details/index.html"><strong aria-hidden="true">3.</strong> メッセージの詳細</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../message-details/connection-registration.html"><strong aria-hidden="true">3.1.</strong> コネクション登録</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../message-details/password-message.html"><strong aria-hidden="true">3.1.1.</strong> Password メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/nick-message.html"><strong aria-hidden="true">3.1.2.</strong> Nick メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/user-message.html"><strong aria-hidden="true">3.1.3.</strong> User メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/oper-message.html"><strong aria-hidden="true">3.1.4.</strong> Oper メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/user-mode-message.html"><strong aria-hidden="true">3.1.5.</strong> User モードメッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/service-message.html"><strong aria-hidden="true">3.1.6.</strong> Service メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/quit.html"><strong aria-hidden="true">3.1.7.</strong> Quit</a></li><li class="chapter-item expanded "><a href="../message-details/squit.html"><strong aria-hidden="true">3.1.8.</strong> Squit</a></li></ol></li><li class="chapter-item expanded "><a href="../message-details/channel-operations.html"><strong aria-hidden="true">3.2.</strong> チャネル操作</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../message-details/join-message.html"><strong aria-hidden="true">3.2.1.</strong> Join メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/part-message.html"><strong aria-hidden="true">3.2.2.</strong> Part メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/channel-mode-message.html"><strong aria-hidden="true">3.2.3.</strong> Channel モードメッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/topic-message.html"><strong aria-hidden="true">3.2.4.</strong> Topic メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/names-message.html"><strong aria-hidden="true">3.2.5.</strong> Names メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/list-message.html"><strong aria-hidden="true">3.2.6.</strong> List メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/invite-message.html"><strong aria-hidden="true">3.2.7.</strong> Invite メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/kick-command.html"><strong aria-hidden="true">3.2.8.</strong> Kick コマンド</a></li></ol></li><li class="chapter-item expanded "><a href="../message-details/sending-messages.html"><strong aria-hidden="true">3.3.</strong> メッセージの送信</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../message-details/private-messages.html"><strong aria-hidden="true">3.3.1.</strong> Private メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/notice.html"><strong aria-hidden="true">3.3.2.</strong> Notice</a></li></ol></li><li class="chapter-item expanded "><a href="../message-details/server-queries-and-commands.html"><strong aria-hidden="true">3.4.</strong> サーバへのクエリとコマンド</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../message-details/motd-message.html"><strong aria-hidden="true">3.4.1.</strong> Motd メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/lusers-message.html"><strong aria-hidden="true">3.4.2.</strong> Lusers メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/version-message.html"><strong aria-hidden="true">3.4.3.</strong> Version メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/stats-message.html"><strong aria-hidden="true">3.4.4.</strong> Stats メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/links-message.html"><strong aria-hidden="true">3.4.5.</strong> Links メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/time-message.html"><strong aria-hidden="true">3.4.6.</strong> Time メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/connect-message.html"><strong aria-hidden="true">3.4.7.</strong> Connect メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/trace-message.html"><strong aria-hidden="true">3.4.8.</strong> Trace メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/admin-command.html"><strong aria-hidden="true">3.4.9.</strong> Admin コマンド</a></li><li class="chapter-item expanded "><a href="../message-details/info-command.html"><strong aria-hidden="true">3.4.10.</strong> Info コマンド</a></li></ol></li><li class="chapter-item expanded "><a href="../message-details/service-query-and-commands.html"><strong aria-hidden="true">3.5.</strong> サービスへのクエリとコマンド</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../message-details/servlist-message.html"><strong aria-hidden="true">3.5.1.</strong> Servlist メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/squery.html"><strong aria-hidden="true">3.5.2.</strong> Squery</a></li></ol></li><li class="chapter-item expanded "><a href="../message-details/user-based-queries.html"><strong aria-hidden="true">3.6.</strong> ユーザベースのクエリ</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../message-details/who-query.html"><strong aria-hidden="true">3.6.1.</strong> Who クエリ</a></li><li class="chapter-item expanded "><a href="../message-details/whois-query.html"><strong aria-hidden="true">3.6.2.</strong> Whois クエリ</a></li><li class="chapter-item expanded "><a href="../message-details/whowas.html"><strong aria-hidden="true">3.6.3.</strong> Whowas</a></li></ol></li><li class="chapter-item expanded "><a href="../message-details/miscellaneous-messages.html"><strong aria-hidden="true">3.7.</strong> その他のメッセージ</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../message-details/kill-message.html"><strong aria-hidden="true">3.7.1.</strong> Kill メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/ping-message.html"><strong aria-hidden="true">3.7.2.</strong> Ping メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/pong-message.html"><strong aria-hidden="true">3.7.3.</strong> Pong メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/error.html"><strong aria-hidden="true">3.7.4.</strong> Error</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../optional-features/index.html"><strong aria-hidden="true">4.</strong> オプション機能</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../optional-features/away.html"><strong aria-hidden="true">4.1.</strong> Away</a></li><li class="chapter-item expanded "><a href="../optional-features/rehash-message.html"><strong aria-hidden="true">4.2.</strong> Rehash メッセージ</a></li><li class="chapter-item expanded "><a href="../optional-features/die-message.html"><strong aria-hidden="true">4.3.</strong> Die メッセージ</a></li><li class="chapter-item expanded "><a href="../optional-features/restart-message.html"><strong aria-hidden="true">4.4.</strong> Restart メッセージ</a></li><li class="chapter-item expanded "><a href="../optional-features/summon-message.html"><strong aria-hidden="true">4.5.</strong> Summon メッセージ</a></li><li class="chapter-item expanded "><a href="../optional-features/users.html"><strong aria-hidden="true">4.6.</strong> Users</a></li><li class="chapter-item expanded "><a href="../optional-features/operwall-message.html"><strong aria-hidden="true">4.7.</strong> Operwall メッセージ</a></li><li class="chapter-item expanded "><a href="../optional-features/userhost-message.html"><strong aria-hidden="true">4.8.</strong> Userhost メッセージ</a></li><li class="chapter-item expanded "><a href="../optional-features/ison-message.html"><strong aria-hidden="true">4.9.</strong> Ison メッセージ</a></li></ol></li><li class="chapter-item expanded "><a href="../replies/index.html"><strong aria-hidden="true">5.</strong> 返信</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../replies/command-responses.html"><strong aria-hidden="true">5.1.</strong> コマンド返答</a></li><li class="chapter-item expanded "><a href="../replies/error-replies.html" class="active"><strong aria-hidden="true">5.2.</strong> エラー返信</a></li><li class="chapter-item expanded "><a href="../replies/reserved-numerics.html"><strong aria-hidden="true">5.3.</strong> 予約済み数値</a></li></ol></li><li class="chapter-item expanded "><a href="../current-implementations/index.html"><strong aria-hidden="true">6.</strong> 現在の実装</a></li><li class="chapter-item expanded "><a href="../current-problems/index.html"><strong aria-hidden="true">7.</strong> 現在の問題点</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../current-problems/nicknames.html"><strong aria-hidden="true">7.1.</strong> ニックネーム</a></li><li class="chapter-item expanded "><a href="../current-problems/limitation-of-wildcards.html"><strong aria-hidden="true">7.2.</strong> ワイルドカードの制限</a></li><li class="chapter-item expanded "><a href="../current-problems/security-considerations.html"><strong aria-hidden="true">7.3.</strong> セキュリティへの配慮</a></li></ol></li><li class="chapter-item expanded "><a href="../current-support-and-availability/index.html"><strong aria-hidden="true">8.</strong> 現在のサポートと可用性</a></li><li class="chapter-item expanded "><a href="../acknowledgements/index.html"><strong aria-hidden="true">9.</strong> 謝辞</a></li><li class="chapter-item expanded "><a href="../references/index.html"><strong aria-hidden="true">10.</strong> 参考</a></li><li class="chapter-item expanded "><a href="../authors-address/index.html"><strong aria-hidden="true">11.</strong> Author's Address</a></li><li class="chapter-item expanded "><a href="../full-copyright-statement/index.html"><strong aria-hidden="true">12.</strong> Full Copyright Statement</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="solarized-light">Solarized Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="solarized-dark">Solarized Dark</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">RFC 2812 クライアントプロトコル</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/solareenlo/rfc2812" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/solareenlo/rfc2812/edit/main/src/replies/error-replies.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="52-エラー返信"><a class="header" href="#52-エラー返信">5.2 エラー返信</a></h1>
+<p>400から599の範囲にエラー返信が見られます。</p>
+<pre><code>401    ERR_NOSUCHNICK
+      &quot;&lt;nickname&gt; :No such nick/channel&quot;
+</code></pre>
+<ul>
+<li>コマンドに与えられたニックネームパラメータが現在未使用であることを示すために使用されます。</li>
+</ul>
+<pre><code>402    ERR_NOSUCHSERVER
+      &quot;&lt;server name&gt; :No such server&quot;
+</code></pre>
+<ul>
+<li>指定されたサーバ名が現在存在しないことを示すために使用されます。</li>
+</ul>
+<pre><code>403    ERR_NOSUCHCHANNEL
+      &quot;&lt;channel name&gt; :No such channel&quot;
+</code></pre>
+<ul>
+<li>与えられたチャネル名が無効であることを示すために使用されます。</li>
+</ul>
+<pre><code>404    ERR_CANNOTSENDTOCHAN
+      &quot;&lt;channel name&gt; :Cannot send to channel&quot;
+</code></pre>
+<ul>
+<li>(a) <code>mode +n</code> が設定されているチャネルにいない、または (b) <code>mode +m</code> が設定されているチャネルの chanop（または <code>mode +v</code>）でない、またはユーザが禁止されていてそのチャネルに PRIVMSG メッセージを送信しようとしているユーザに対して送信されます。</li>
+</ul>
+<pre><code>405    ERR_TOOMANYCHANNELS
+      &quot;&lt;channel name&gt; :You have joined too many channels&quot;
+</code></pre>
+<ul>
+<li>ユーザが許可された最大数のチャネルに参加し、さらに別のチャネルに参加しようとしたときに送信されます。</li>
+</ul>
+<pre><code>406    ERR_WASNOSUCHNICK
+      &quot;&lt;nickname&gt; :There was no such nickname&quot;
+</code></pre>
+<ul>
+<li>WHOWAS により、そのニックネームの履歴情報がないことを示すために返されます。</li>
+</ul>
+<pre><code>407    ERR_TOOMANYTARGETS
+      &quot;&lt;target&gt; :&lt;error code&gt; recipients. &lt;abort message&gt;&quot;
+</code></pre>
+<ul>
+<li>
+<p>PRIVMSG/NOTICE を user@host の宛先フォーマットで、user@host が複数存在する場合に送信しようとしたクライアントに返されます。</p>
+</li>
+<li>
+<p>PRIVMSG/NOTICE をあまりにも多くの受信者に送信しようとしたクライアントに返されます。</p>
+</li>
+<li>
+<p>安全なチャネルに JOIN しようとするクライアントが、そのようなチャネルが複数存在する場合に返されます。</p>
+</li>
+</ul>
+<pre><code>408    ERR_NOSUCHSERVICE
+      &quot;&lt;service name&gt; :No such service&quot;
+</code></pre>
+<ul>
+<li>存在しないサービスに対して SQUERY を送信しようとしたクライアントに返されます。</li>
+</ul>
+<pre><code>409    ERR_NOORIGIN
+      &quot;:No origin specified&quot;
+</code></pre>
+<ul>
+<li>PING または PONG メッセージの発信者パラメータがありません。</li>
+</ul>
+<pre><code>411    ERR_NORECIPIENT
+      &quot;:No recipient given (&lt;command&gt;)&quot;
+412    ERR_NOTEXTTOSEND
+      &quot;:No text to send&quot;
+413    ERR_NOTOPLEVEL
+      &quot;&lt;mask&gt; :No toplevel domain specified&quot;
+414    ERR_WILDTOPLEVEL
+      &quot;&lt;mask&gt; :Wildcard in toplevel domain&quot;
+415    ERR_BADMASK
+      &quot;&lt;mask&gt; :Bad Server/host mask&quot;
+</code></pre>
+<ul>
+<li>412 - 415は、何らかの理由でメッセージが届かなかったことを示すために PRIVMSG が返すものです。ERR_NOTOPLEVEL と ERR_WILDTOPLEVEL は <code>PRIVMSG $&lt;server&gt;</code> または <code>PRIVMSG #&lt;host&gt;</code> を不正に使用しようとしたときに返されるエラーです。</li>
+</ul>
+<pre><code>421    ERR_UNKNOWNCOMMAND
+      &quot;&lt;command&gt; :Unknown command&quot;
+</code></pre>
+<ul>
+<li>送信されたコマンドがサーバによって不明であることを示すために、登録されたクライアントに返されます。</li>
+</ul>
+<pre><code>422    ERR_NOMOTD
+      &quot;:MOTD File is missing&quot;
+</code></pre>
+<ul>
+<li>サーバーの MOTD ファイルを開くことができませんでした。</li>
+</ul>
+<pre><code>423    ERR_NOADMININFO
+      &quot;&lt;server&gt; :No administrative info available&quot;
+</code></pre>
+<ul>
+<li>ADMIN メッセージの応答として、適切な情報の検索に失敗した場合にサーバから返されます。</li>
+</ul>
+<pre><code>424    ERR_FILEERROR
+      &quot;:File error doing &lt;file op&gt; on &lt;file&gt;&quot;
+</code></pre>
+<ul>
+<li>メッセージの処理中にファイル操作の失敗を報告するために使用される一般的なエラーメッセージです。</li>
+</ul>
+<pre><code>431    ERR_NONICKNAMEGIVEN
+      &quot;:No nickname given&quot;
+</code></pre>
+<ul>
+<li>コマンドに期待したニックネームパラメータが見つからなかった場合に返されます。</li>
+</ul>
+<pre><code>432    ERR_ERRONEUSNICKNAME
+      &quot;&lt;nick&gt; :Erroneous nickname&quot;
+</code></pre>
+<ul>
+<li>定義された文字セットに該当しない文字を含む NICK メッセージを受信した後に返されます。有効なニックネームの詳細については、<a href="../the-irc-client-specification/message-format-in-augumented-bnf.html">2.3.1 節</a> を参照してください。</li>
+</ul>
+<pre><code>433    ERR_NICKNAMEINUSE
+      &quot;&lt;nick&gt; :Nickname is already in use&quot;
+</code></pre>
+<ul>
+<li>NICK メッセージが処理された結果、現在存在するニックネームを変更しようとしたときに返されます。</li>
+</ul>
+<pre><code>436    ERR_NICKCOLLISION
+      &quot;&lt;nick&gt; :Nickname collision KILL from &lt;user&gt;@&lt;host&gt;&quot;
+</code></pre>
+<ul>
+<li>ニックネームの衝突（他のサーバによってすでに存在する NICK の登録）を検出したときにサーバからクライアントに返されます。</li>
+</ul>
+<pre><code>437    ERR_UNAVAILRESOURCE
+      &quot;&lt;nick/channel&gt; :Nick/channel is temporarily unavailable&quot;
+</code></pre>
+<ul>
+<li>
+<p>チャネル遅延メカニズムによって現在ブロックされているチャネルに参加しようとするユーザに対してサーバから返されます。</p>
+</li>
+<li>
+<p>ニックネーム遅延メカニズムによって希望するニックネームがブロックされた場合に、ニックネームを変更しようとするユーザにサーバから返されます。</p>
+</li>
+</ul>
+<pre><code>441    ERR_USERNOTINCHANNEL
+      &quot;&lt;nick&gt; &lt;channel&gt; :They aren't on that channel&quot;
+</code></pre>
+<ul>
+<li>コマンドのターゲットユーザが指定されたチャネルにいないことを示すために、サーバから返されます。</li>
+</ul>
+<pre><code>442    ERR_NOTONCHANNEL
+      &quot;&lt;channel&gt; :You're not on that channel&quot;
+</code></pre>
+<ul>
+<li>クライアントがメンバでないチャネルに影響を与えるコマンドを実行しようとしたときに、サーバから返されます。</li>
+</ul>
+<pre><code>443    ERR_USERONCHANNEL
+      &quot;&lt;user&gt; &lt;channel&gt; :is already on channel&quot;
+</code></pre>
+<ul>
+<li>クライアントが、既に参加しているチャネルにユーザを招待しようとしたときに返されます。</li>
+</ul>
+<pre><code>444    ERR_NOLOGIN
+      &quot;&lt;user&gt; :User not logged in&quot;
+</code></pre>
+<ul>
+<li>あるユーザに対する SUMMON コマンドがログインしていないために実行できなかった場合に、SUMMON から返されます。</li>
+</ul>
+<pre><code>445    ERR_SUMMONDISABLED
+      &quot;:SUMMON has been disabled&quot;
+</code></pre>
+<ul>
+<li>SUMMON コマンドの応答として返されます。これを実装していないサーバは必ず返さなければなりません。</li>
+</ul>
+<pre><code>446    ERR_USERSDISABLED
+      &quot;:USERS has been disabled&quot;
+</code></pre>
+<ul>
+<li>USERS コマンドの応答として返されます。これを実装していないサーバは必ず返さなければなりません。</li>
+</ul>
+<pre><code>451    ERR_NOTREGISTERED
+      &quot;:You have not registered&quot;
+</code></pre>
+<ul>
+<li>サーバが返す値で、サーバが詳細な解析を許可する前にクライアントを登録する必要があることを示します。</li>
+</ul>
+<pre><code>461    ERR_NEEDMOREPARAMS
+      &quot;&lt;command&gt; :Not enough parameters&quot;
+</code></pre>
+<ul>
+<li>サーバが多数のコマンドで返すもので、クライアントに十分なパラメータが供給されていないことを示します。</li>
+</ul>
+<pre><code>462    ERR_ALREADYREGISTRED
+      &quot;:Unauthorized command (already registered)&quot;
+</code></pre>
+<ul>
+<li>2つ目の USER メッセージからパスワードやユーザ情報などの登録情報の一部を変更しようとするリンクに対して、サーバから返されるメッセージです。</li>
+</ul>
+<pre><code>463    ERR_NOPERMFORHOST
+      &quot;:Your host isn't among the privileged&quot;
+</code></pre>
+<ul>
+<li>接続しようとしたホストからの接続を許可するように設定されていないサーバに登録しようとしたクライアントに返されます。</li>
+</ul>
+<pre><code>464    ERR_PASSWDMISMATCH
+      &quot;:Password incorrect&quot;
+</code></pre>
+<ul>
+<li>パスワードが要求された接続の登録に失敗したことを示すために返されるもので、パスワードが与えられなかったか、不正確であったためです。</li>
+</ul>
+<pre><code>465    ERR_YOUREBANNEDCREEP
+      &quot;:You are banned from this server&quot;
+</code></pre>
+<ul>
+<li>接続を明示的に拒否するように設定されたサーバに接続し、自分自身を登録しようとした後に返されます。</li>
+</ul>
+<pre><code>466    ERR_YOUWILLBEBANNED
+</code></pre>
+<ul>
+<li>サーバからユーザに送信され、間もなくサーバへのアクセスが拒否されることを知らせます。</li>
+</ul>
+<pre><code>467    ERR_KEYSET
+      &quot;&lt;channel&gt; :Channel key already set&quot;
+471    ERR_CHANNELISFULL
+      &quot;&lt;channel&gt; :Cannot join channel (+l)&quot;
+472    ERR_UNKNOWNMODE
+      &quot;&lt;char&gt; :is unknown mode char to me for &lt;channel&gt;&quot;
+473    ERR_INVITEONLYCHAN
+      &quot;&lt;channel&gt; :Cannot join channel (+i)&quot;
+474    ERR_BANNEDFROMCHAN
+      &quot;&lt;channel&gt; :Cannot join channel (+b)&quot;
+475    ERR_BADCHANNELKEY
+      &quot;&lt;channel&gt; :Cannot join channel (+k)&quot;
+476    ERR_BADCHANMASK
+      &quot;&lt;channel&gt; :Bad Channel Mask&quot;
+477    ERR_NOCHANMODES
+      &quot;&lt;channel&gt; :Channel doesn't support modes&quot;
+478    ERR_BANLISTFULL
+      &quot;&lt;channel&gt; &lt;char&gt; :Channel list is full&quot;
+
+481    ERR_NOPRIVILEGES
+      &quot;:Permission Denied- You're not an IRC operator&quot;
+</code></pre>
+<ul>
+<li>操作にオペレータ権限が必要なコマンドは、試行に失敗したことを示すためにこのエラーを返さなければなりません。</li>
+</ul>
+<pre><code>482    ERR_CHANOPRIVSNEEDED
+      &quot;&lt;channel&gt; :You're not channel operator&quot;
+</code></pre>
+<ul>
+<li>MODE メッセージのような &quot;chanop&quot; 権限を必要とするコマンドは、試行するクライアントが指定されたチャネルの chanop でない場合、このエラーを返さなければなりません。</li>
+</ul>
+<pre><code>483    ERR_CANTKILLSERVER
+      &quot;:You can't kill a server!&quot;
+</code></pre>
+<ul>
+<li>サーバ上で KILL コマンドを使用しようとすると、拒否され、このエラーが直接クライアントに返されます。</li>
+</ul>
+<pre><code>484    ERR_RESTRICTED
+      &quot;:Your connection is restricted!&quot;
+</code></pre>
+<ul>
+<li>接続時にサーバからユーザに送信され、接続の制限を示します（ユーザモード <code>+r</code>）。</li>
+</ul>
+<pre><code>485    ERR_UNIQOPPRIVSNEEDED
+      &quot;:You're not the original channel operator&quot;
+</code></pre>
+<ul>
+<li>&quot;チャネル作成者&quot; 権限を必要とする MODE は、試行するクライアントが指定されたチャネルのチャノップでない場合、このエラーを返さなければなりません。</li>
+</ul>
+<pre><code>491    ERR_NOOPERHOST
+      &quot;:No O-lines for your host&quot;
+</code></pre>
+<ul>
+<li>クライアントが OPER メッセージを送信し、サーバがクライアントのホストからの接続をオペレータとして許可するように設定されていない場合、このエラーを返さなければなりません。</li>
+</ul>
+<pre><code>501    ERR_UMODEUNKNOWNFLAG
+      &quot;:Unknown MODE flag&quot;
+</code></pre>
+<ul>
+<li>ニックネームパラメータを持つ MODE メッセージが送信され、送信されたモードフラグが認識されなかったことを示すためにサーバによって返されます。</li>
+</ul>
+<pre><code>502    ERR_USERSDONTMATCH
+      &quot;:Cannot change mode for other users&quot;
+</code></pre>
+<ul>
+<li>自分以外のユーザのユーザーモードを表示または変更しようとしたユーザに送られるエラー。</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../replies/command-responses.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="../replies/reserved-numerics.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../replies/command-responses.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="../replies/reserved-numerics.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript" src="../src/theme/theme-solarized_dark.js"></script>
+        <script type="text/javascript" src="../src/theme/theme-solarized_light.js"></script>
+    </body>
+</html>

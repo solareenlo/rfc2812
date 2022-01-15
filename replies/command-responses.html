@@ -1,0 +1,538 @@
+<!DOCTYPE HTML>
+<html lang="ja" class="sidebar-visible no-js light">
+    <head>
+        <link rel="preload" as="font" type="../font/woff2" href="fonts/noto-serif-jp-v15-japanese-200.woff2" crossorigin>
+        <link rel="preload" as="font" type="../font/woff2" href="fonts/noto-serif-jp-v15-japanese-300.woff2" crossorigin>
+        <link rel="preload" as="font" type="../font/woff2" href="fonts/noto-serif-jp-v15-japanese-500.woff2" crossorigin>
+        <link rel="preload" as="font" type="../font/woff2" href="fonts/noto-serif-jp-v15-japanese-600.woff2" crossorigin>
+        <link rel="preload" as="font" type="../font/woff2" href="fonts/noto-serif-jp-v15-japanese-700.woff2" crossorigin>
+        <link rel="preload" as="font" type="../font/woff2" href="fonts/noto-serif-jp-v15-japanese-900.woff2" crossorigin>
+        <link rel="preload" as="font" type="../font/woff2" href="fonts/noto-serif-jp-v15-japanese-regular.woff2" crossorigin>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>コマンド返答 - RFC 2812 クライアントプロトコル</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        <link rel="stylesheet" href="../fonts/font.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../src/theme/solarized-light-hljs.css">
+        <link rel="stylesheet" href="../src/theme/solarized-dark-hljs.css">
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">Home</a></li><li class="chapter-item expanded "><a href="../labels/index.html"><strong aria-hidden="true">1.</strong> ラベル</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../labels/servers.html"><strong aria-hidden="true">1.1.</strong> サーバ</a></li><li class="chapter-item expanded "><a href="../labels/clients.html"><strong aria-hidden="true">1.2.</strong> クライアント</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../labels/users.html"><strong aria-hidden="true">1.2.1.</strong> ユーザ</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../labels/operators.html"><strong aria-hidden="true">1.2.1.1.</strong> オペレータ</a></li></ol></li><li class="chapter-item expanded "><a href="../labels/services.html"><strong aria-hidden="true">1.2.2.</strong> サービス</a></li></ol></li><li class="chapter-item expanded "><a href="../labels/channels.html"><strong aria-hidden="true">1.3.</strong> チャネル</a></li></ol></li><li class="chapter-item expanded "><a href="../the-irc-client-specification/index.html"><strong aria-hidden="true">2.</strong> IRC クライアント仕様</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../the-irc-client-specification/overview.html"><strong aria-hidden="true">2.1.</strong> 概要</a></li><li class="chapter-item expanded "><a href="../the-irc-client-specification/character-codes.html"><strong aria-hidden="true">2.2.</strong> 文字コード</a></li><li class="chapter-item expanded "><a href="../the-irc-client-specification/messages.html"><strong aria-hidden="true">2.3.</strong> メッセージ</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../the-irc-client-specification/message-format-in-augumented-bnf.html"><strong aria-hidden="true">2.3.1.</strong> 拡張 BNF によるメッセージフォーマット</a></li></ol></li><li class="chapter-item expanded "><a href="../the-irc-client-specification/numeric-replies.html"><strong aria-hidden="true">2.4.</strong> 数値返信</a></li><li class="chapter-item expanded "><a href="../the-irc-client-specification/wildcard-expressions.html"><strong aria-hidden="true">2.5.</strong> ワイルドカード表現</a></li></ol></li><li class="chapter-item expanded "><a href="../message-details/index.html"><strong aria-hidden="true">3.</strong> メッセージの詳細</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../message-details/connection-registration.html"><strong aria-hidden="true">3.1.</strong> コネクション登録</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../message-details/password-message.html"><strong aria-hidden="true">3.1.1.</strong> Password メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/nick-message.html"><strong aria-hidden="true">3.1.2.</strong> Nick メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/user-message.html"><strong aria-hidden="true">3.1.3.</strong> User メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/oper-message.html"><strong aria-hidden="true">3.1.4.</strong> Oper メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/user-mode-message.html"><strong aria-hidden="true">3.1.5.</strong> User モードメッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/service-message.html"><strong aria-hidden="true">3.1.6.</strong> Service メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/quit.html"><strong aria-hidden="true">3.1.7.</strong> Quit</a></li><li class="chapter-item expanded "><a href="../message-details/squit.html"><strong aria-hidden="true">3.1.8.</strong> Squit</a></li></ol></li><li class="chapter-item expanded "><a href="../message-details/channel-operations.html"><strong aria-hidden="true">3.2.</strong> チャネル操作</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../message-details/join-message.html"><strong aria-hidden="true">3.2.1.</strong> Join メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/part-message.html"><strong aria-hidden="true">3.2.2.</strong> Part メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/channel-mode-message.html"><strong aria-hidden="true">3.2.3.</strong> Channel モードメッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/topic-message.html"><strong aria-hidden="true">3.2.4.</strong> Topic メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/names-message.html"><strong aria-hidden="true">3.2.5.</strong> Names メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/list-message.html"><strong aria-hidden="true">3.2.6.</strong> List メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/invite-message.html"><strong aria-hidden="true">3.2.7.</strong> Invite メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/kick-command.html"><strong aria-hidden="true">3.2.8.</strong> Kick コマンド</a></li></ol></li><li class="chapter-item expanded "><a href="../message-details/sending-messages.html"><strong aria-hidden="true">3.3.</strong> メッセージの送信</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../message-details/private-messages.html"><strong aria-hidden="true">3.3.1.</strong> Private メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/notice.html"><strong aria-hidden="true">3.3.2.</strong> Notice</a></li></ol></li><li class="chapter-item expanded "><a href="../message-details/server-queries-and-commands.html"><strong aria-hidden="true">3.4.</strong> サーバへのクエリとコマンド</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../message-details/motd-message.html"><strong aria-hidden="true">3.4.1.</strong> Motd メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/lusers-message.html"><strong aria-hidden="true">3.4.2.</strong> Lusers メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/version-message.html"><strong aria-hidden="true">3.4.3.</strong> Version メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/stats-message.html"><strong aria-hidden="true">3.4.4.</strong> Stats メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/links-message.html"><strong aria-hidden="true">3.4.5.</strong> Links メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/time-message.html"><strong aria-hidden="true">3.4.6.</strong> Time メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/connect-message.html"><strong aria-hidden="true">3.4.7.</strong> Connect メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/trace-message.html"><strong aria-hidden="true">3.4.8.</strong> Trace メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/admin-command.html"><strong aria-hidden="true">3.4.9.</strong> Admin コマンド</a></li><li class="chapter-item expanded "><a href="../message-details/info-command.html"><strong aria-hidden="true">3.4.10.</strong> Info コマンド</a></li></ol></li><li class="chapter-item expanded "><a href="../message-details/service-query-and-commands.html"><strong aria-hidden="true">3.5.</strong> サービスへのクエリとコマンド</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../message-details/servlist-message.html"><strong aria-hidden="true">3.5.1.</strong> Servlist メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/squery.html"><strong aria-hidden="true">3.5.2.</strong> Squery</a></li></ol></li><li class="chapter-item expanded "><a href="../message-details/user-based-queries.html"><strong aria-hidden="true">3.6.</strong> ユーザベースのクエリ</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../message-details/who-query.html"><strong aria-hidden="true">3.6.1.</strong> Who クエリ</a></li><li class="chapter-item expanded "><a href="../message-details/whois-query.html"><strong aria-hidden="true">3.6.2.</strong> Whois クエリ</a></li><li class="chapter-item expanded "><a href="../message-details/whowas.html"><strong aria-hidden="true">3.6.3.</strong> Whowas</a></li></ol></li><li class="chapter-item expanded "><a href="../message-details/miscellaneous-messages.html"><strong aria-hidden="true">3.7.</strong> その他のメッセージ</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../message-details/kill-message.html"><strong aria-hidden="true">3.7.1.</strong> Kill メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/ping-message.html"><strong aria-hidden="true">3.7.2.</strong> Ping メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/pong-message.html"><strong aria-hidden="true">3.7.3.</strong> Pong メッセージ</a></li><li class="chapter-item expanded "><a href="../message-details/error.html"><strong aria-hidden="true">3.7.4.</strong> Error</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../optional-features/index.html"><strong aria-hidden="true">4.</strong> オプション機能</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../optional-features/away.html"><strong aria-hidden="true">4.1.</strong> Away</a></li><li class="chapter-item expanded "><a href="../optional-features/rehash-message.html"><strong aria-hidden="true">4.2.</strong> Rehash メッセージ</a></li><li class="chapter-item expanded "><a href="../optional-features/die-message.html"><strong aria-hidden="true">4.3.</strong> Die メッセージ</a></li><li class="chapter-item expanded "><a href="../optional-features/restart-message.html"><strong aria-hidden="true">4.4.</strong> Restart メッセージ</a></li><li class="chapter-item expanded "><a href="../optional-features/summon-message.html"><strong aria-hidden="true">4.5.</strong> Summon メッセージ</a></li><li class="chapter-item expanded "><a href="../optional-features/users.html"><strong aria-hidden="true">4.6.</strong> Users</a></li><li class="chapter-item expanded "><a href="../optional-features/operwall-message.html"><strong aria-hidden="true">4.7.</strong> Operwall メッセージ</a></li><li class="chapter-item expanded "><a href="../optional-features/userhost-message.html"><strong aria-hidden="true">4.8.</strong> Userhost メッセージ</a></li><li class="chapter-item expanded "><a href="../optional-features/ison-message.html"><strong aria-hidden="true">4.9.</strong> Ison メッセージ</a></li></ol></li><li class="chapter-item expanded "><a href="../replies/index.html"><strong aria-hidden="true">5.</strong> 返信</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../replies/command-responses.html" class="active"><strong aria-hidden="true">5.1.</strong> コマンド返答</a></li><li class="chapter-item expanded "><a href="../replies/error-replies.html"><strong aria-hidden="true">5.2.</strong> エラー返信</a></li><li class="chapter-item expanded "><a href="../replies/reserved-numerics.html"><strong aria-hidden="true">5.3.</strong> 予約済み数値</a></li></ol></li><li class="chapter-item expanded "><a href="../current-implementations/index.html"><strong aria-hidden="true">6.</strong> 現在の実装</a></li><li class="chapter-item expanded "><a href="../current-problems/index.html"><strong aria-hidden="true">7.</strong> 現在の問題点</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../current-problems/nicknames.html"><strong aria-hidden="true">7.1.</strong> ニックネーム</a></li><li class="chapter-item expanded "><a href="../current-problems/limitation-of-wildcards.html"><strong aria-hidden="true">7.2.</strong> ワイルドカードの制限</a></li><li class="chapter-item expanded "><a href="../current-problems/security-considerations.html"><strong aria-hidden="true">7.3.</strong> セキュリティへの配慮</a></li></ol></li><li class="chapter-item expanded "><a href="../current-support-and-availability/index.html"><strong aria-hidden="true">8.</strong> 現在のサポートと可用性</a></li><li class="chapter-item expanded "><a href="../acknowledgements/index.html"><strong aria-hidden="true">9.</strong> 謝辞</a></li><li class="chapter-item expanded "><a href="../references/index.html"><strong aria-hidden="true">10.</strong> 参考</a></li><li class="chapter-item expanded "><a href="../authors-address/index.html"><strong aria-hidden="true">11.</strong> Author's Address</a></li><li class="chapter-item expanded "><a href="../full-copyright-statement/index.html"><strong aria-hidden="true">12.</strong> Full Copyright Statement</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="solarized-light">Solarized Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="solarized-dark">Solarized Dark</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">RFC 2812 クライアントプロトコル</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/solareenlo/rfc2812" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/solareenlo/rfc2812/edit/main/src/replies/command-responses.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="51-コマンド返答"><a class="header" href="#51-コマンド返答">5.1 コマンド返答</a></h1>
+<p>001から099の範囲の数値は、クライアントとサーバの接続にのみ使用され、サーバ間を移動することはありません。コマンドに対する応答として生成されるリプライは、200から399の範囲にあります。</p>
+<pre><code>001    RPL_WELCOME
+       &quot;Welcome to the Internet Relay Network
+        &lt;nick&gt;!&lt;user&gt;@&lt;host&gt;&quot;
+002    RPL_YOURHOST
+       &quot;Your host is &lt;servername&gt;, running version &lt;ver&gt;&quot;
+003    RPL_CREATED
+       &quot;This server was created &lt;date&gt;&quot;
+004    RPL_MYINFO
+       &quot;&lt;servername&gt; &lt;version&gt; &lt;available user modes&gt;
+        &lt;available channel modes&gt;&quot;
+</code></pre>
+<ul>
+<li>サーバは、登録に成功したユーザに対して、返信001～004を送信します。</li>
+</ul>
+<pre><code>005    RPL_BOUNCE
+       &quot;Try server &lt;server name&gt;, port &lt;port number&gt;&quot;
+</code></pre>
+<ul>
+<li>代替サーバを提案するために、サーバからユーザに送信されます。これは、サーバがすでに満杯で接続を拒否された場合によく使われます。</li>
+</ul>
+<pre><code>302    RPL_USERHOST
+       &quot;:*1&lt;reply&gt; *( &quot; &quot; &lt;reply&gt; )&quot;
+</code></pre>
+<ul>
+<li>
+<p>USERHOST がクエリリストの返信を一覧表示するために使用する返信フォーマット。返信文字列は以下のように構成されます。</p>
+<p><code>reply = nickname [ &quot;*&quot; ] &quot;=&quot; ( &quot;+&quot; / &quot;-&quot; ) hostname</code></p>
+<p><code>*</code> は、クライアントがオペレータとして登録されているかどうかを示します。<code>-</code>, <code>+</code> は，それぞれクライアントが AWAY メッセージを設定しているか否かを示します。</p>
+</li>
+</ul>
+<pre><code>303    RPL_ISON
+       &quot;:*1&lt;nick&gt; *( &quot; &quot; &lt;nick&gt; )&quot;
+</code></pre>
+<ul>
+<li>ISON がクエリリストに対する返信を一覧表示するために使用する返信フォーマット。</li>
+</ul>
+<pre><code>301    RPL_AWAY
+       &quot;&lt;nick&gt; :&lt;away message&gt;&quot;
+305    RPL_UNAWAY
+       &quot;:You are no longer marked as being away&quot;
+306    RPL_NOWAWAY
+       &quot;:You have been marked as being away&quot;
+</code></pre>
+<ul>
+<li>これらの応答は、AWAY コマンドと一緒に使用されます（許可されている場合）。RPL_AWAY は、離席中のクライアントに PRIVMSG を送信するすべてのクライアントに送信されます。RPL_AWAY は、クライアントが接続されているサーバによってのみ送信されます。応答 RPL_UNAWAY と RPL_NOWAWAY は、クライアントが AWAY メッセージを削除して設定するときに送信されます。</li>
+</ul>
+<pre><code>311    RPL_WHOISUSER
+       &quot;&lt;nick&gt; &lt;user&gt; &lt;host&gt; * :&lt;real name&gt;&quot;
+312    RPL_WHOISSERVER
+       &quot;&lt;nick&gt; &lt;server&gt; :&lt;server info&gt;&quot;
+313    RPL_WHOISOPERATOR
+       &quot;&lt;nick&gt; :is an IRC operator&quot;
+
+317    RPL_WHOISIDLE
+       &quot;&lt;nick&gt; &lt;integer&gt; :seconds idle&quot;
+318    RPL_ENDOFWHOIS
+       &quot;&lt;nick&gt; :End of WHOIS list&quot;
+319    RPL_WHOISCHANNELS
+       &quot;&lt;nick&gt; :*( ( &quot;@&quot; / &quot;+&quot; ) &lt;channel&gt; &quot; &quot; )&quot;
+</code></pre>
+<ul>
+<li>返信 311 - 313, 317 - 319 は、すべて WHOIS メッセージに応答して生成される返信です。十分な数のパラメータが存在する場合、応答サーバは上記の数値から応答を作成するか（クエリニックが見つかった場合）、エラー応答を返す必要があります。RPL_WHOISUSER の <code>*</code> はワイルドカードとしてではなく、リテラル文字として存在します。各返事セットについて、RPL_WHOISCHANNELS だけが複数回現れるかもしれません（チャネル名の長いリストの場合）。チャネル名の横にある <code>@</code> と <code>+</code> の文字は、クライアントがチャネルオペレータであるか、モデレートされたチャネルで発言する許可を得ているかどうかを示します。RPL_ENDOFWHOIS 応答は、WHOIS メッセージの処理の終了をマークするために使用されます。</li>
+</ul>
+<pre><code>314    RPL_WHOWASUSER
+       &quot;&lt;nick&gt; &lt;user&gt; &lt;host&gt; * :&lt;real name&gt;&quot;
+369    RPL_ENDOFWHOWAS
+       &quot;&lt;nick&gt; :End of WHOWAS&quot;
+</code></pre>
+<ul>
+<li>WHOWAS メッセージに返信するとき、サーバは提示されたリストの各ニックネームに対して RPL_WHOWASUSER、RPL_WHOISSERVER または ERR_WASNOSUCHNICK の返信を使用しなければなりません。すべての応答バッチの終わりには、たとえ1つの応答しかなく、それがエラーであったとしても、RPL_ENDOFWHOWAS がなければなりません。</li>
+</ul>
+<pre><code>321    RPL_LISTSTART
+       Obsolete. Not used.
+
+322    RPL_LIST
+       &quot;&lt;channel&gt; &lt;# visible&gt; :&lt;topic&gt;&quot;
+323    RPL_LISTEND
+       &quot;:End of LIST&quot;
+</code></pre>
+<ul>
+<li>返信 RPL_LIST、RPL_LISTENDは、LIST コマンドに対するサーバの応答のデータと終了を伴う実際の返信をマークします。返送可能なチャネルがない場合は、終了応答のみを送信する必要があります。</li>
+</ul>
+<pre><code>325    RPL_UNIQOPIS
+       &quot;&lt;channel&gt; &lt;nickname&gt;&quot;
+
+324    RPL_CHANNELMODEIS
+       &quot;&lt;channel&gt; &lt;mode&gt; &lt;mode params&gt;&quot;
+
+331    RPL_NOTOPIC
+       &quot;&lt;channel&gt; :No topic is set&quot;
+332    RPL_TOPIC
+       &quot;&lt;channel&gt; :&lt;topic&gt;&quot;
+</code></pre>
+<ul>
+<li>チャネルのトピックを決定する TOPIC メッセージを送信する場合、2つの返信のうち 1つを送信します。トピックが設定されていれば、RPL_TOPIC が返送され、そうでなければ RPL_NOTOPIC が返送されます。</li>
+</ul>
+<pre><code>341    RPL_INVITING
+       &quot;&lt;channel&gt; &lt;nick&gt;&quot;
+</code></pre>
+<ul>
+<li>試行された INVITE メッセージが成功し、エンドクライアントに渡されることを示すためにサーバから返されます。</li>
+</ul>
+<pre><code>342    RPL_SUMMONING
+       &quot;&lt;user&gt; :Summoning user to IRC&quot;
+</code></pre>
+<ul>
+<li>SUMMON メッセージに応答したサーバが、そのユーザを呼び出していることを示すために返されます。</li>
+</ul>
+<pre><code>346    RPL_INVITELIST
+       &quot;&lt;channel&gt; &lt;invitemask&gt;&quot;
+347    RPL_ENDOFINVITELIST
+       &quot;&lt;channel&gt; :End of channel invite list&quot;
+</code></pre>
+<ul>
+<li>与えられたチャネルの &quot;招待マスク&quot; をリストするとき、サーバは RPL_INVITELIST と RPL_ENDOFINVITELIST メッセージを使用してリストを送り返すことが要求されます。別々の RPL_INVITELIST が各アクティブマスクに対して送信されます。マスクがリストされた後、または1つも存在しない場合、RPL_ENDOFINVITELIST を送信する必要があります。</li>
+</ul>
+<pre><code>348    RPL_EXCEPTLIST
+       &quot;&lt;channel&gt; &lt;exceptionmask&gt;&quot;
+349    RPL_ENDOFEXCEPTLIST
+       &quot;&lt;channel&gt; :End of channel exception list&quot;
+</code></pre>
+<ul>
+<li>与えられたチャネルの &quot;例外マスク&quot; をリストするとき、サーバは RPL_EXCEPTLIST および RPL_ENDOFEXCEPTLIST メッセージを使用してリストを送り返すことが要求されます。アクティブなマスクごとに個別の RPL_EXCEPTLIST が送信されます。マスクがリストアップされた後、または1つも存在しない場合は、RPL_ENDOFEXCEPTLIST を送信する必要があります。</li>
+</ul>
+<pre><code>351    RPL_VERSION
+       &quot;&lt;version&gt;.&lt;debuglevel&gt; &lt;server&gt; :&lt;comments&gt;&quot;
+</code></pre>
+<ul>
+<li>
+<p>サーバがそのバージョンの詳細を示す返信。<code>&lt;version&gt;</code> はパッチレベルのリビジョンを含む使用中のソフトウェアのバージョンで、<code>&lt;debuglevel&gt;</code> はサーバが &quot;デバッグモード&quot; で動作しているかどうかを示すために使用されます。</p>
+<p>&quot;comments&quot; 欄には、バージョンに関するコメントや、さらなるバージョンに関する詳細情報を入力することができます。</p>
+</li>
+</ul>
+<pre><code>352    RPL_WHOREPLY
+       &quot;&lt;channel&gt; &lt;user&gt; &lt;host&gt; &lt;server&gt; &lt;nick&gt;
+       ( &quot;H&quot; / &quot;G&quot; &gt; [&quot;*&quot;] [ ( &quot;@&quot; / &quot;+&quot; ) ]
+       :&lt;hopcount&gt; &lt;real name&gt;&quot;
+
+315    RPL_ENDOFWHO
+       &quot;&lt;name&gt; :End of WHO list&quot;
+</code></pre>
+<ul>
+<li>RPL_WHOREPLY と RPL_ENDOFWHO のペアは、WHO メッセージに答えるために使用されます。RPL_WHOREPLY は、WHO クエリに適切なマッチがある場合にのみ送信されます。WHO メッセージで供給されるパラメータのリストがある場合、<code>&lt;name&gt;</code> を項目とする各リスト項目を処理した後に RPL_ENDOFWHO を送信する必要があります。</li>
+</ul>
+<pre><code>353    RPL_NAMREPLY
+       &quot;( &quot;=&quot; / &quot;*&quot; / &quot;@&quot; ) &lt;channel&gt;
+        :[ &quot;@&quot; / &quot;+&quot; ] &lt;nick&gt; *( &quot; &quot; [ &quot;@&quot; / &quot;+&quot; ] &lt;nick&gt; )
+  - &quot;@&quot; is used for secret channels, &quot;*&quot; for private
+    channels, and &quot;=&quot; for others (public channels).
+
+366    RPL_ENDOFNAMES
+       &quot;&lt;channel&gt; :End of NAMES list&quot;
+</code></pre>
+<ul>
+<li>NAMES メッセージに返信するために、RPL_NAMREPLY と RPL_ENDOFNAMES からなる返信ペアがサーバからクライアントに返送されます。クエリのように見つかったチャネルがない場合、RPL_ENDOFNAMES だけが返されます。この例外は、NAMES メッセージがパラメータなしで送信され、すべての可視チャネルとコンテンツが一連の RPL_NAMEREPLY メッセージで送り返され、RPL_ENDOFNAMES で終了をマークする場合です。</li>
+</ul>
+<pre><code>364    RPL_LINKS
+       &quot;&lt;mask&gt; &lt;server&gt; :&lt;hopcount&gt; &lt;server info&gt;&quot;
+365    RPL_ENDOFLINKS
+       &quot;&lt;mask&gt; :End of LINKS list&quot;
+</code></pre>
+<ul>
+<li>LINKS メッセージに返信する際、サーバは RPL_LINKS 数値を使用して返信を送り、RPL_ENDOFLINKS 返信を使用してリストの終わりをマークしなければなりません。</li>
+</ul>
+<pre><code>367    RPL_BANLIST
+       &quot;&lt;channel&gt; &lt;banmask&gt;&quot;
+368    RPL_ENDOFBANLIST
+       &quot;&lt;channel&gt; :End of channel ban list&quot;
+</code></pre>
+<ul>
+<li>特定のチャネルのアクティブな &quot;禁止&quot; をリストアップする場合、サーバは RPL_BANLIST と RPL_ENDOFBANLIST メッセージを使用してリストを送り返すことが要求されます。アクティブな禁止マスクごとに別々の RPL_BANLIST が送信されます。禁止マスクがリストアップされた後、または1つも存在しない場合は、RPL_ENDOFBANLIST を送信する必要があります。</li>
+</ul>
+<pre><code>371    RPL_INFO
+       &quot;:&lt;string&gt;&quot;
+374    RPL_ENDOFINFO
+       &quot;:End of INFO list&quot;
+</code></pre>
+<ul>
+<li>INFO メッセージに応答するサーバは、そのすべての &quot;info&quot; を一連の RPL_INFO メッセージで送信し、返信の終わりを示すために RPL_ENDOFINFO 返信をすることが要求されます。</li>
+</ul>
+<pre><code>375    RPL_MOTDSTART
+       &quot;:- &lt;server&gt; Message of the day - &quot;
+372    RPL_MOTD
+       &quot;:- &lt;text&gt;&quot;
+376    RPL_ENDOFMOTD
+       &quot;:End of MOTD command&quot;
+</code></pre>
+<ul>
+<li>MOTD メッセージに応答し、MOTD ファイルが見つかった場合、RPL_MOTD 形式の返信で、1行80文字以内で1行ずつ表示されます。これらは、RPL_MOTD の前に RPL_MOTDSTART、後に RPL_ENDOFMOTD で囲む必要があります。</li>
+</ul>
+<pre><code>381    RPL_YOUREOPER
+       &quot;:You are now an IRC operator&quot;
+</code></pre>
+<ul>
+<li>RPL_YOUREOPER は、OPER メッセージを正常に発行し、オペレータ・ステータスを得たばかりのクライアントに返送されます。</li>
+</ul>
+<pre><code>382    RPL_REHASHING
+       &quot;&lt;config file&gt; :Rehashing&quot;
+</code></pre>
+<ul>
+<li>REHASH オプションが使用され、オペレータが REHASH メッセージを送信する場合、RPL_REHASHING がオペレータに返送されます。</li>
+</ul>
+<pre><code>383    RPL_YOURESERVICE
+       &quot;You are service &lt;servicename&gt;&quot;
+</code></pre>
+<ul>
+<li>登録に成功したときにサーバからサービスに送信されます。</li>
+</ul>
+<pre><code>391    RPL_TIME
+       &quot;&lt;server&gt; :&lt;string showing server's local time&gt;&quot;
+</code></pre>
+<ul>
+<li>TIME メッセージに返信する場合、サーバは上記の RPL_TIME 形式を使用して返信を送信する必要があります。時刻を示す文字列は、そこに正しい曜日と時刻を含むだけでよいです。時刻を示す文字列には、それ以上の要件はありません。</li>
+</ul>
+<pre><code>392    RPL_USERSSTART
+       &quot;:UserID   Terminal  Host&quot;
+393    RPL_USERS
+       &quot;:&lt;username&gt; &lt;ttyline&gt; &lt;hostname&gt;&quot;
+394    RPL_ENDOFUSERS
+       &quot;:End of users&quot;
+395    RPL_NOUSERS
+       &quot;:Nobody logged in&quot;
+</code></pre>
+<ul>
+<li>USERS メッセージがサーバによって処理される場合、応答 RPL_USERSTART、RPL_USERS、RPL_ENDOFUSERS、RPL_NOUSERS が使用されます。RPL_USERSSTART を最初に送信し、その後に一連の RPL_USERS または単一の RPL_NOUSER のいずれかを送信する必要があります。これに続くのは RPL_ENDOFUSERS です。</li>
+</ul>
+<pre><code>200    RPL_TRACELINK
+       &quot;Link &lt;version &amp; debug level&gt; &lt;destination&gt;
+        &lt;next server&gt; V&lt;protocol version&gt;
+        &lt;link uptime in seconds&gt; &lt;backstream sendq&gt;
+        &lt;upstream sendq&gt;&quot;
+201    RPL_TRACECONNECTING
+       &quot;Try. &lt;class&gt; &lt;server&gt;&quot;
+202    RPL_TRACEHANDSHAKE
+       &quot;H.S. &lt;class&gt; &lt;server&gt;&quot;
+203    RPL_TRACEUNKNOWN
+       &quot;???? &lt;class&gt; [&lt;client IP address in dot form&gt;]&quot;
+204    RPL_TRACEOPERATOR
+       &quot;Oper &lt;class&gt; &lt;nick&gt;&quot;
+205    RPL_TRACEUSER
+       &quot;User &lt;class&gt; &lt;nick&gt;&quot;
+206    RPL_TRACESERVER
+       &quot;Serv &lt;class&gt; &lt;int&gt;S &lt;int&gt;C &lt;server&gt;
+        &lt;nick!user|*!*&gt;@&lt;host|server&gt; V&lt;protocol version&gt;&quot;
+207    RPL_TRACESERVICE
+       &quot;Service &lt;class&gt; &lt;name&gt; &lt;type&gt; &lt;active type&gt;&quot;
+208    RPL_TRACENEWTYPE
+       &quot;&lt;newtype&gt; 0 &lt;client name&gt;&quot;
+209    RPL_TRACECLASS
+       &quot;Class &lt;class&gt; &lt;count&gt;&quot;
+210    RPL_TRACERECONNECT
+       Unused.
+261    RPL_TRACELOG
+       &quot;File &lt;logfile&gt; &lt;debug level&gt;&quot;
+262    RPL_TRACEEND
+       &quot;&lt;server name&gt; &lt;version &amp; debug level&gt; :End of TRACE&quot;
+</code></pre>
+<ul>
+<li><code>RPL_TRACE*</code> はすべて TRACE メッセージに応答してサーバから返されます。いくつ返されるかは、TRACE メッセージとそれがオペレータによって送信されたかどうかに依存します。どれが最初に起こるか、あらかじめ定義された順序はありません。リプライ RPL_TRACEUNKNOWN、RPL_TRACECONNECTING、RPL_TRACEHANDSHAKE はすべて、完全に確立されていない接続、不明、まだ接続しようとしている、または &quot;サーバハンドシェイク&quot; の完了プロセスのいずれかに使用されています。RPL_TRACELINK は、TRACE メッセージを処理し、それを別のサーバに渡す必要があるすべてのサーバによって送信されます。IRC ネットワーク を横断する TRACE コマンドに応答して送信される RPL_TRACELINK のリストは、その経路に沿ったサーバ自身の実際の接続性を反映する必要があります。RPL_TRACENEWTYPE は、他のカテゴリに当てはまらないが、とにかく表示される接続に使用されます。RPL_TRACEEND は、リストの終わりを示すために送信されます。</li>
+</ul>
+<pre><code>211    RPL_STATSLINKINFO
+       &quot;&lt;linkname&gt; &lt;sendq&gt; &lt;sent messages&gt;
+        &lt;sent Kbytes&gt; &lt;received messages&gt;
+        &lt;received Kbytes&gt; &lt;time open&gt;&quot;
+</code></pre>
+<ul>
+<li>接続に関する統計情報を報告します。<code>&lt;linkname&gt;</code> は特定の接続を識別し、<code>&lt;sendq&gt;</code> はキューに入れられ送信待ちのデータ量、<code>&lt;sent messages&gt;</code> は送信したメッセージ数、<code>&lt;sent Kbytes&gt;</code> は送信データ量（Kbytes 単位）を表わします。<code>&lt;received messages&gt;</code> と <code>&lt;received Kbytes&gt;</code> は、それぞれ受信データの <code>&lt;sent messages&gt;</code> と <code>&lt;sent Kbytes&gt;</code> に相当します。<code>&lt;time open&gt;</code> は、接続が開かれてから何日経ったかを秒単位で示します。</li>
+</ul>
+<pre><code>212    RPL_STATSCOMMANDS
+       &quot;&lt;command&gt; &lt;count&gt; &lt;byte count&gt; &lt;remote count&gt;&quot;
+</code></pre>
+<ul>
+<li>コマンドの使用に関する統計情報を報告します。</li>
+</ul>
+<pre><code>219    RPL_ENDOFSTATS
+       &quot;&lt;stats letter&gt; :End of STATS report&quot;
+
+242    RPL_STATSUPTIME
+       &quot;:Server Up %d days %d:%02d:%02d&quot;
+</code></pre>
+<ul>
+<li>サーバーの稼働時間を報告します。</li>
+</ul>
+<pre><code>243    RPL_STATSOLINE
+       &quot;O &lt;hostmask&gt; * &lt;name&gt;&quot;
+</code></pre>
+<ul>
+<li>ユーザが IRC オペレータになることを許可するホストを報告します。</li>
+</ul>
+<pre><code>221    RPL_UMODEIS
+       &quot;&lt;user mode string&gt;&quot;
+</code></pre>
+<ul>
+<li>クライアント自身のモードに関するクエリに答えるために、RPL_UMODEIS が返送されます。</li>
+</ul>
+<pre><code>234    RPL_SERVLIST
+       &quot;&lt;name&gt; &lt;server&gt; &lt;mask&gt; &lt;type&gt; &lt;hopcount&gt; &lt;info&gt;&quot;
+
+235    RPL_SERVLISTEND
+       &quot;&lt;mask&gt; &lt;type&gt; :End of service listing&quot;
+</code></pre>
+<ul>
+<li>SERVLIST メッセージに応答してサービスをリストアップするとき、サーバは RPL_SERVLIST と RPL_SERVLISTEND メッセージを使用してリストを送り返すことが要求されます。各サービスに対して別々の RPL_SERVLIST が送信されます。サービスがリストアップされた後、または何も存在しない場合は、RPL_SERVLISTEND を送信する必要があります。</li>
+</ul>
+<pre><code>251    RPL_LUSERCLIENT
+       &quot;:There are &lt;integer&gt; users and &lt;integer&gt;
+        services on &lt;integer&gt; servers&quot;
+252    RPL_LUSEROP
+       &quot;&lt;integer&gt; :operator(s) online&quot;
+253    RPL_LUSERUNKNOWN
+       &quot;&lt;integer&gt; :unknown connection(s)&quot;
+254    RPL_LUSERCHANNELS
+       &quot;&lt;integer&gt; :channels formed&quot;
+255    RPL_LUSERME
+       &quot;:I have &lt;integer&gt; clients and &lt;integer&gt;
+         servers&quot;
+</code></pre>
+<ul>
+<li>LUSERS メッセージの処理では、サーバは RPL_LUSERCLIENT、RPL_LUSEROP、RPL_USERUNKNOWN、RPL_LUSERCHANNELS および RPL_LUSERME から一式の応答を送信します。返信するとき、サーバは RPL_LUSERCLIENT と RPL_LUSERME を送り返さなければなりません。他の返信は、それらにゼロでないカウントが見つかった場合にのみ送り返されます。</li>
+</ul>
+<pre><code>256    RPL_ADMINME
+       &quot;&lt;server&gt; :Administrative info&quot;
+257    RPL_ADMINLOC1
+       &quot;:&lt;admin info&gt;&quot;
+258    RPL_ADMINLOC2
+       &quot;:&lt;admin info&gt;&quot;
+259    RPL_ADMINEMAIL
+       &quot;:&lt;admin info&gt;&quot;
+</code></pre>
+<ul>
+<li>ADMIN メッセージに返信する場合、サーバは RPL_ADMINME から RPL_ADMINEMAIL までの返信を使用し、それぞれにテキストメッセージを提供することが期待されています。RPL_ADMINLOC1 には、サーバがある都市、州、国の説明が期待され、次に機関の詳細 RPL_ADMINLOC2、最後にサーバの管理連絡先 RPL_ADMINEMAIL にはメールアドレスが必要です。</li>
+</ul>
+<pre><code>263    RPL_TRYAGAIN
+       &quot;&lt;command&gt; :Please wait a while and try again.&quot;
+</code></pre>
+<ul>
+<li>サーバがコマンドを処理せずにドロップした場合、応答 RPL_TRYAGAIN を使用して発信元クライアントに通知する必要があります。</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../replies/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="../replies/error-replies.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../replies/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="../replies/error-replies.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript" src="../src/theme/theme-solarized_dark.js"></script>
+        <script type="text/javascript" src="../src/theme/theme-solarized_light.js"></script>
+    </body>
+</html>

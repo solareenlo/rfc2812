@@ -1,0 +1,1983 @@
+<!DOCTYPE HTML>
+<html lang="ja" class="sidebar-visible no-js light">
+    <head>
+        <link rel="preload" as="font" type="../font/woff2" href="fonts/noto-serif-jp-v15-japanese-200.woff2" crossorigin>
+        <link rel="preload" as="font" type="../font/woff2" href="fonts/noto-serif-jp-v15-japanese-300.woff2" crossorigin>
+        <link rel="preload" as="font" type="../font/woff2" href="fonts/noto-serif-jp-v15-japanese-500.woff2" crossorigin>
+        <link rel="preload" as="font" type="../font/woff2" href="fonts/noto-serif-jp-v15-japanese-600.woff2" crossorigin>
+        <link rel="preload" as="font" type="../font/woff2" href="fonts/noto-serif-jp-v15-japanese-700.woff2" crossorigin>
+        <link rel="preload" as="font" type="../font/woff2" href="fonts/noto-serif-jp-v15-japanese-900.woff2" crossorigin>
+        <link rel="preload" as="font" type="../font/woff2" href="fonts/noto-serif-jp-v15-japanese-regular.woff2" crossorigin>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>RFC 2812 クライアントプロトコル</title>
+        <meta name="robots" content="noindex" />
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+        <link rel="stylesheet" href="fonts/font.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/theme/solarized-light-hljs.css">
+        <link rel="stylesheet" href="src/theme/solarized-dark-hljs.css">
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="index.html">Home</a></li><li class="chapter-item expanded "><a href="labels/index.html"><strong aria-hidden="true">1.</strong> ラベル</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="labels/servers.html"><strong aria-hidden="true">1.1.</strong> サーバ</a></li><li class="chapter-item expanded "><a href="labels/clients.html"><strong aria-hidden="true">1.2.</strong> クライアント</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="labels/users.html"><strong aria-hidden="true">1.2.1.</strong> ユーザ</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="labels/operators.html"><strong aria-hidden="true">1.2.1.1.</strong> オペレータ</a></li></ol></li><li class="chapter-item expanded "><a href="labels/services.html"><strong aria-hidden="true">1.2.2.</strong> サービス</a></li></ol></li><li class="chapter-item expanded "><a href="labels/channels.html"><strong aria-hidden="true">1.3.</strong> チャネル</a></li></ol></li><li class="chapter-item expanded "><a href="the-irc-client-specification/index.html"><strong aria-hidden="true">2.</strong> IRC クライアント仕様</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="the-irc-client-specification/overview.html"><strong aria-hidden="true">2.1.</strong> 概要</a></li><li class="chapter-item expanded "><a href="the-irc-client-specification/character-codes.html"><strong aria-hidden="true">2.2.</strong> 文字コード</a></li><li class="chapter-item expanded "><a href="the-irc-client-specification/messages.html"><strong aria-hidden="true">2.3.</strong> メッセージ</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="the-irc-client-specification/message-format-in-augumented-bnf.html"><strong aria-hidden="true">2.3.1.</strong> 拡張 BNF によるメッセージフォーマット</a></li></ol></li><li class="chapter-item expanded "><a href="the-irc-client-specification/numeric-replies.html"><strong aria-hidden="true">2.4.</strong> 数値返信</a></li><li class="chapter-item expanded "><a href="the-irc-client-specification/wildcard-expressions.html"><strong aria-hidden="true">2.5.</strong> ワイルドカード表現</a></li></ol></li><li class="chapter-item expanded "><a href="message-details/index.html"><strong aria-hidden="true">3.</strong> メッセージの詳細</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="message-details/connection-registration.html"><strong aria-hidden="true">3.1.</strong> コネクション登録</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="message-details/password-message.html"><strong aria-hidden="true">3.1.1.</strong> Password メッセージ</a></li><li class="chapter-item expanded "><a href="message-details/nick-message.html"><strong aria-hidden="true">3.1.2.</strong> Nick メッセージ</a></li><li class="chapter-item expanded "><a href="message-details/user-message.html"><strong aria-hidden="true">3.1.3.</strong> User メッセージ</a></li><li class="chapter-item expanded "><a href="message-details/oper-message.html"><strong aria-hidden="true">3.1.4.</strong> Oper メッセージ</a></li><li class="chapter-item expanded "><a href="message-details/user-mode-message.html"><strong aria-hidden="true">3.1.5.</strong> User モードメッセージ</a></li><li class="chapter-item expanded "><a href="message-details/service-message.html"><strong aria-hidden="true">3.1.6.</strong> Service メッセージ</a></li><li class="chapter-item expanded "><a href="message-details/quit.html"><strong aria-hidden="true">3.1.7.</strong> Quit</a></li><li class="chapter-item expanded "><a href="message-details/squit.html"><strong aria-hidden="true">3.1.8.</strong> Squit</a></li></ol></li><li class="chapter-item expanded "><a href="message-details/channel-operations.html"><strong aria-hidden="true">3.2.</strong> チャネル操作</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="message-details/join-message.html"><strong aria-hidden="true">3.2.1.</strong> Join メッセージ</a></li><li class="chapter-item expanded "><a href="message-details/part-message.html"><strong aria-hidden="true">3.2.2.</strong> Part メッセージ</a></li><li class="chapter-item expanded "><a href="message-details/channel-mode-message.html"><strong aria-hidden="true">3.2.3.</strong> Channel モードメッセージ</a></li><li class="chapter-item expanded "><a href="message-details/topic-message.html"><strong aria-hidden="true">3.2.4.</strong> Topic メッセージ</a></li><li class="chapter-item expanded "><a href="message-details/names-message.html"><strong aria-hidden="true">3.2.5.</strong> Names メッセージ</a></li><li class="chapter-item expanded "><a href="message-details/list-message.html"><strong aria-hidden="true">3.2.6.</strong> List メッセージ</a></li><li class="chapter-item expanded "><a href="message-details/invite-message.html"><strong aria-hidden="true">3.2.7.</strong> Invite メッセージ</a></li><li class="chapter-item expanded "><a href="message-details/kick-command.html"><strong aria-hidden="true">3.2.8.</strong> Kick コマンド</a></li></ol></li><li class="chapter-item expanded "><a href="message-details/sending-messages.html"><strong aria-hidden="true">3.3.</strong> メッセージの送信</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="message-details/private-messages.html"><strong aria-hidden="true">3.3.1.</strong> Private メッセージ</a></li><li class="chapter-item expanded "><a href="message-details/notice.html"><strong aria-hidden="true">3.3.2.</strong> Notice</a></li></ol></li><li class="chapter-item expanded "><a href="message-details/server-queries-and-commands.html"><strong aria-hidden="true">3.4.</strong> サーバへのクエリとコマンド</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="message-details/motd-message.html"><strong aria-hidden="true">3.4.1.</strong> Motd メッセージ</a></li><li class="chapter-item expanded "><a href="message-details/lusers-message.html"><strong aria-hidden="true">3.4.2.</strong> Lusers メッセージ</a></li><li class="chapter-item expanded "><a href="message-details/version-message.html"><strong aria-hidden="true">3.4.3.</strong> Version メッセージ</a></li><li class="chapter-item expanded "><a href="message-details/stats-message.html"><strong aria-hidden="true">3.4.4.</strong> Stats メッセージ</a></li><li class="chapter-item expanded "><a href="message-details/links-message.html"><strong aria-hidden="true">3.4.5.</strong> Links メッセージ</a></li><li class="chapter-item expanded "><a href="message-details/time-message.html"><strong aria-hidden="true">3.4.6.</strong> Time メッセージ</a></li><li class="chapter-item expanded "><a href="message-details/connect-message.html"><strong aria-hidden="true">3.4.7.</strong> Connect メッセージ</a></li><li class="chapter-item expanded "><a href="message-details/trace-message.html"><strong aria-hidden="true">3.4.8.</strong> Trace メッセージ</a></li><li class="chapter-item expanded "><a href="message-details/admin-command.html"><strong aria-hidden="true">3.4.9.</strong> Admin コマンド</a></li><li class="chapter-item expanded "><a href="message-details/info-command.html"><strong aria-hidden="true">3.4.10.</strong> Info コマンド</a></li></ol></li><li class="chapter-item expanded "><a href="message-details/service-query-and-commands.html"><strong aria-hidden="true">3.5.</strong> サービスへのクエリとコマンド</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="message-details/servlist-message.html"><strong aria-hidden="true">3.5.1.</strong> Servlist メッセージ</a></li><li class="chapter-item expanded "><a href="message-details/squery.html"><strong aria-hidden="true">3.5.2.</strong> Squery</a></li></ol></li><li class="chapter-item expanded "><a href="message-details/user-based-queries.html"><strong aria-hidden="true">3.6.</strong> ユーザベースのクエリ</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="message-details/who-query.html"><strong aria-hidden="true">3.6.1.</strong> Who クエリ</a></li><li class="chapter-item expanded "><a href="message-details/whois-query.html"><strong aria-hidden="true">3.6.2.</strong> Whois クエリ</a></li><li class="chapter-item expanded "><a href="message-details/whowas.html"><strong aria-hidden="true">3.6.3.</strong> Whowas</a></li></ol></li><li class="chapter-item expanded "><a href="message-details/miscellaneous-messages.html"><strong aria-hidden="true">3.7.</strong> その他のメッセージ</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="message-details/kill-message.html"><strong aria-hidden="true">3.7.1.</strong> Kill メッセージ</a></li><li class="chapter-item expanded "><a href="message-details/ping-message.html"><strong aria-hidden="true">3.7.2.</strong> Ping メッセージ</a></li><li class="chapter-item expanded "><a href="message-details/pong-message.html"><strong aria-hidden="true">3.7.3.</strong> Pong メッセージ</a></li><li class="chapter-item expanded "><a href="message-details/error.html"><strong aria-hidden="true">3.7.4.</strong> Error</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="optional-features/index.html"><strong aria-hidden="true">4.</strong> オプション機能</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="optional-features/away.html"><strong aria-hidden="true">4.1.</strong> Away</a></li><li class="chapter-item expanded "><a href="optional-features/rehash-message.html"><strong aria-hidden="true">4.2.</strong> Rehash メッセージ</a></li><li class="chapter-item expanded "><a href="optional-features/die-message.html"><strong aria-hidden="true">4.3.</strong> Die メッセージ</a></li><li class="chapter-item expanded "><a href="optional-features/restart-message.html"><strong aria-hidden="true">4.4.</strong> Restart メッセージ</a></li><li class="chapter-item expanded "><a href="optional-features/summon-message.html"><strong aria-hidden="true">4.5.</strong> Summon メッセージ</a></li><li class="chapter-item expanded "><a href="optional-features/users.html"><strong aria-hidden="true">4.6.</strong> Users</a></li><li class="chapter-item expanded "><a href="optional-features/operwall-message.html"><strong aria-hidden="true">4.7.</strong> Operwall メッセージ</a></li><li class="chapter-item expanded "><a href="optional-features/userhost-message.html"><strong aria-hidden="true">4.8.</strong> Userhost メッセージ</a></li><li class="chapter-item expanded "><a href="optional-features/ison-message.html"><strong aria-hidden="true">4.9.</strong> Ison メッセージ</a></li></ol></li><li class="chapter-item expanded "><a href="replies/index.html"><strong aria-hidden="true">5.</strong> 返信</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="replies/command-responses.html"><strong aria-hidden="true">5.1.</strong> コマンド返答</a></li><li class="chapter-item expanded "><a href="replies/error-replies.html"><strong aria-hidden="true">5.2.</strong> エラー返信</a></li><li class="chapter-item expanded "><a href="replies/reserved-numerics.html"><strong aria-hidden="true">5.3.</strong> 予約済み数値</a></li></ol></li><li class="chapter-item expanded "><a href="current-implementations/index.html"><strong aria-hidden="true">6.</strong> 現在の実装</a></li><li class="chapter-item expanded "><a href="current-problems/index.html"><strong aria-hidden="true">7.</strong> 現在の問題点</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="current-problems/nicknames.html"><strong aria-hidden="true">7.1.</strong> ニックネーム</a></li><li class="chapter-item expanded "><a href="current-problems/limitation-of-wildcards.html"><strong aria-hidden="true">7.2.</strong> ワイルドカードの制限</a></li><li class="chapter-item expanded "><a href="current-problems/security-considerations.html"><strong aria-hidden="true">7.3.</strong> セキュリティへの配慮</a></li></ol></li><li class="chapter-item expanded "><a href="current-support-and-availability/index.html"><strong aria-hidden="true">8.</strong> 現在のサポートと可用性</a></li><li class="chapter-item expanded "><a href="acknowledgements/index.html"><strong aria-hidden="true">9.</strong> 謝辞</a></li><li class="chapter-item expanded "><a href="references/index.html"><strong aria-hidden="true">10.</strong> 参考</a></li><li class="chapter-item expanded "><a href="authors-address/index.html"><strong aria-hidden="true">11.</strong> Author's Address</a></li><li class="chapter-item expanded "><a href="full-copyright-statement/index.html"><strong aria-hidden="true">12.</strong> Full Copyright Statement</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="solarized-light">Solarized Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="solarized-dark">Solarized Dark</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">RFC 2812 クライアントプロトコル</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/solareenlo/rfc2812" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <pre><code>Network Working Group                                            C. Kalt
+Request for Comments: 2812                                    April 2000
+Updates: 1459
+Category: Informational
+</code></pre>
+<h1 align="center">
+Internet Relay Chat: クライアントプロトコル
+</h1>
+<h2 id="本メモの位置づけ"><a class="header" href="#本メモの位置づけ">本メモの位置づけ</a></h2>
+<p>このメモは、インターネットコミュニティのための情報を提供するものです。このメモは、いかなる種類のインターネット標準も規定するものではありません。このメモの配布は無制限です。</p>
+<h2 id="copyright-notice"><a class="header" href="#copyright-notice">Copyright Notice</a></h2>
+<p>Copyright (C) The Internet Society (2000). All Rights Reserved.</p>
+<h2 id="iesg-note"><a class="header" href="#iesg-note">IESG NOTE:</a></h2>
+<p>IRC プロトコル自体は、クライアント間のデータ転送のいくつかの可能性を可能にし、電子メールのような他の転送メカニズムと同様に、データの受信者は、データの取り扱いについて注意しなければなりません。IRC プロトコルのセキュリティ問題については、例えば <a href="http://www.irchelp.org/irchelp/security/">http://www.irchelp.org/irchelp/security/</a> を参照してください。</p>
+<h2 id="概要"><a class="header" href="#概要">概要</a></h2>
+<p>IRC（Internet Relay Chat）プロトコルは、テキストベースの会議用で、サーバに接続可能なソケットプログラムであれば、最もシンプルなクライアントとなります。</p>
+<p>この文書では、クライアントプロトコルを定義し、読者が <a href="https://solareenlo.com/rfc2810">IRC アーキテクチャ [IRC-ARCH]</a> に精通していることを想定しています。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="1-ラベル"><a class="header" href="#1-ラベル">1. ラベル</a></h1>
+<p>本節では、IRC プロトコルの様々な構成要素に使用される識別子を定義します。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="11-サーバ"><a class="header" href="#11-サーバ">1.1 サーバ</a></h1>
+<p>サーバはその名前によって一意に識別され、その名前は最大63文字です。サーバ名に使用できるものとできないものについては、プロトコルの文法規則（<a href="labels/../the-irc-client-specification/message-format-in-augumented-bnf.html">2.3.1 項</a>）を参照してください。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="12-クライアント"><a class="header" href="#12-クライアント">1.2 クライアント</a></h1>
+<p>各クライアントに対して、すべてのサーバは次の情報を持たなければなりません。すなわち、ネットワイドの一意な識別子（そのフォーマットはクライアントのタイプに依存します）、およびそのクライアントを導入したサーバです。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="121-ユーザ"><a class="header" href="#121-ユーザ">1.2.1 ユーザ</a></h1>
+<p>各ユーザーは、最大9文字のユニークなニックネームによって他のユーザと区別されます。ニックネームに使用できるもの、できないものについてはプロトコルの文法規則（<a href="labels/../the-irc-client-specification/message-format-in-augumented-bnf.html">2.3.1 項</a>）を参照してください。</p>
+<p>最大長は9文字に制限されていますが、将来のプロトコルの進化に伴い、より長い文字列が使用される可能性があるため、クライアントはより長い文字列を受け入れるべきです。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="1211-オペレータ"><a class="header" href="#1211-オペレータ">1.2.1.1 オペレータ</a></h1>
+<p>IRC ネットワークの秩序を保つために、特別なユーザ（オペレータ）がネットワーク上で一般的なメンテナンス機能を実行することが許されています。オペレータに与えられた権限は &quot;危険&quot; と見なされることもありますが、それでもしばしば必要とされます。オペレータは、必要に応じてサーバの接続を解除したり再接続したりといった、基本的なネットワーク作業を実行できる必要があります。この必要性を認識し、ここで議論されているプロトコルは、オペレータのみがそのような機能を実行できることを規定しています。<a href="labels/../message-details/squit.html">3.1.8 項 (SQUIT)</a> および <a href="labels/../message-details/connect-message.html">3.4.7 項 (CONNECT)</a> を参照してください。</p>
+<p>さらに議論を呼んだのは、接続されたネットワークからユーザを &quot;強制的に&quot; 排除する能力、つまりオペレータは任意のクライアントとサーバ間の接続を閉じることができることです。この権限の乱用は破壊的で迷惑なものであり、その利点はほとんどないに等しいため、その正当性は非常に微妙なところです。この種のアクションの詳細については、<a href="labels/../message-details/kill-message.html">3.7.1 項 (KILL)</a> を参照してください。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="122-サービス"><a class="header" href="#122-サービス">1.2.2 サービス</a></h1>
+<p>各サービスは、ニックネームとサーバ名からなるサービス名で他のサービスと区別されます。ユーザと同様，ニックネームは最大9文字です．ニックネームに使用できるもの、できないものについてはプロトコルの文法規則（<a href="labels/../the-irc-client-specification/message-format-in-augumented-bnf.html">2.3.1 項</a>）を参照してください。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="13-チャネル"><a class="header" href="#13-チャネル">1.3 チャネル</a></h1>
+<p>チャネル名は、50文字までの文字列（先頭が <code>&amp;</code>、<code>#</code>、<code>+</code>、<code>!</code>）とします。最初の文字が <code>&amp;</code>、<code>#</code>、<code>+</code>、<code>!</code> のいずれかであること以外に、チャネル名にはスペース（<code> </code>）、コントロール G（<code>^G</code> または ASCII 7）、カンマ（<code>,</code>）が含まれてはならないという唯一の制約があります。スペースはパラメータセパレータとして、コマンドはリストアイテムセパレータとしてプロトコルで使用されます。コロン（<code>:</code>）はチャネルマスクの区切り文字として使用することも可能です。チャネル名は大文字と小文字を区別しません。</p>
+<p>チャネル名の正確な構文については、プロトコルの文法規則（<a href="labels/../the-irc-client-specification/message-format-in-augumented-bnf.html">2.3.1 項</a>）を参照してください。</p>
+<p>各接頭辞は、異なるチャネルタイプを特徴づけます。チャネルタイプの定義は、クライアントサーバプロトコルには関係ないので、このドキュメントの範囲外です。詳細は、<a href="https://solareenlo.com/rfc2811">&quot;Internet Relay Chat: チャネルマネジメント&quot; [IRC-CHAN]</a> に記載されています。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="2-irc-クライアント仕様"><a class="header" href="#2-irc-クライアント仕様">2. IRC クライアント仕様</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="21-概要"><a class="header" href="#21-概要">2.1 概要</a></h1>
+<p>本書で説明するプロトコルは、クライアントがユーザ登録する際のクライアントからサーバへの接続にのみ使用されます。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="22-文字コード"><a class="header" href="#22-文字コード">2.2 文字コード</a></h1>
+<p>特定の文字セットは指定しません。プロトコルは、8 ビットで構成されるオクテット（Octet）という符号を基本としています。各メッセージはこのオクテットの数で構成されますが、一部のオクテット値はメッセージの区切りとなる制御コードに使用されます。</p>
+<p>8ビットプロトコルであるにもかかわらず、デリミタとキーワードがあるため、US-ASCII の端末と telnet 接続でほとんど使用可能です。</p>
+<p>IRC の起源はスカンジナビアンであるため、<code>{}|^</code> という文字は、それぞれ <code>[]\~</code> という文字に相当する小文字であると考えられています。これは、2つのニックネームやチャネル名の等価性を判断する際に重要な問題です。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="23-メッセージ"><a class="header" href="#23-メッセージ">2.3 メッセージ</a></h1>
+<p>サーバとクライアントは互いにメッセージを送り合い、その応答が発生することもあればしないこともあります。メッセージに有効なコマンドが含まれている場合、後の章で説明するように、クライアントは指定されたとおりの返答を期待すべきですが、返答を永遠に待つことはお勧めできません。クライアントからサーバ、サーバからサーバへの通信は、本質的に非同期です。</p>
+<p>各 IRC メッセージは、接頭辞（オプション）、コマンド、コマンドパラメータ（最大15個）の最大3つの主要部分から構成されることができます。接頭辞、コマンド、およびすべてのパラメータは、それぞれ1つの ASCII スペース文字（<code>0x20</code>）で区切られます。</p>
+<p>接頭辞の存在は、先頭の ASCII コロン文字（<code>:</code>、<code>0x3b</code>）1つで示され、これはメッセージ自体の最初の文字でなければなりません。コロンと接頭辞の間にギャップ（空白）を入れてはいけません。接頭辞は、サーバがメッセージの本当の出所を示すために使われます。接頭辞がない場合、そのメッセージは受信したコネクションから発信されたものとみなされます。クライアントはメッセージを送るときに接頭辞を使うべきではありません。もし使うなら、有効な接頭辞はそのクライアントに関連付けられた登録済みのニックネームだけです。</p>
+<p>コマンドは、有効な IRC コマンドか、ASCII テキストで表現された3桁の数字でなければなりません。</p>
+<p>IRC メッセージは常に CR-LF（キャリッジリターン-ラインフィード）のペアで終了する文字の行であり、これらのメッセージは最後の CR-LF を含むすべての文字をカウントして512文字を超えないものとします。従って、コマンドとそのパラメータには最大510文字が許されます。メッセージ行の継続については規定されていません。現在の実装の詳細については、<a href="the-irc-client-specification/../current-implementations/index.html">6 章</a> を参照してください。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="231-拡張-bnf-によるメッセージフォーマット"><a class="header" href="#231-拡張-bnf-によるメッセージフォーマット">2.3.1 拡張 BNF によるメッセージフォーマット</a></h1>
+<p>プロトコルメッセージは、オクテットの連続したストリームから抽出されなければなりません。現在の解決策は、CR と LF という2つの文字をメッセージのセパレータとして指定することです。空のメッセージは黙って無視されるので、メッセージ間で CR-LF のシーケンスが余分な問題なく使用できるようになります。</p>
+<p>抽出されたメッセージは、<code>&lt;prefix&gt;</code>、<code>&lt;command&gt;</code>、パラメータのリスト（<code>&lt;params&gt;</code>）という構成要素にパースされます。</p>
+<p>これに対する拡張 BNF 表現は以下の通りです。</p>
+<pre><code>    message    =  [ &quot;:&quot; prefix SPACE ] command [ params ] crlf
+    prefix     =  servername / ( nickname [ [ &quot;!&quot; user ] &quot;@&quot; host ] )
+    command    =  1*letter / 3digit
+    params     =  *14( SPACE middle ) [ SPACE &quot;:&quot; trailing ]
+               =/ 14( SPACE middle ) [ SPACE [ &quot;:&quot; ] trailing ]
+
+    nospcrlfcl =  %x01-09 / %x0B-0C / %x0E-1F / %x21-39 / %x3B-FF
+                    ; any octet except NUL, CR, LF, &quot; &quot; and &quot;:&quot;
+    middle     =  nospcrlfcl *( &quot;:&quot; / nospcrlfcl )
+    trailing   =  *( &quot;:&quot; / &quot; &quot; / nospcrlfcl )
+
+    SPACE      =  %x20        ; space character
+    crlf       =  %x0D %x0A   ; &quot;carriage return&quot; &quot;linefeed&quot;
+</code></pre>
+<p>NOTES:</p>
+<ol>
+<li>
+<p>パラメータリスト抽出後、<code>&lt;middle&gt;</code> と <code>&lt;trailing&gt;</code> のどちらでマッチしても、すべてのパラメータは等しくなります。<code>&lt;trailing&gt;</code> は、パラメータ内のスペースを許容するための構文上のトリックに過ぎません。</p>
+</li>
+<li>
+<p><code>NUL</code>（<code>%x00</code>）文字は、メッセージのフレーム化において特別なものではなく、基本的にパラメーターの中に入ってしまう可能性があります。しかし、通常の C 言語の文字列処理では余計な複雑さを引き起こすことになります。したがって、<code>NUL</code> はメッセージ内では使用できません。</p>
+</li>
+</ol>
+<p>ほとんどのプロトコルメッセージは、リスト内の位置によって、抽出されたパラメータ文字列の追加のセマンティクスとシンタックスを指定しています。例えば、多くのサーバコマンドは、コマンドの後の最初のパラメータがターゲットのリストであると仮定し、これを記述することができます。</p>
+<pre><code>  target     =  nickname / server
+  msgtarget  =  msgto *( &quot;,&quot; msgto )
+  msgto      =  channel / ( user [ &quot;%&quot; host ] &quot;@&quot; servername )
+  msgto      =/ ( user &quot;%&quot; host ) / targetmask
+  msgto      =/ nickname / ( nickname &quot;!&quot; user &quot;@&quot; host )
+  channel    =  ( &quot;#&quot; / &quot;+&quot; / ( &quot;!&quot; channelid ) / &quot;&amp;&quot; ) chanstring
+                [ &quot;:&quot; chanstring ]
+  servername =  hostname
+  host       =  hostname / hostaddr
+  hostname   =  shortname *( &quot;.&quot; shortname )
+  shortname  =  ( letter / digit ) *( letter / digit / &quot;-&quot; )
+                *( letter / digit )
+                  ; as specified in RFC 1123 [HNAME]
+  hostaddr   =  ip4addr / ip6addr
+  ip4addr    =  1*3digit &quot;.&quot; 1*3digit &quot;.&quot; 1*3digit &quot;.&quot; 1*3digit
+  ip6addr    =  1*hexdigit 7( &quot;:&quot; 1*hexdigit )
+  ip6addr    =/ &quot;0:0:0:0:0:&quot; ( &quot;0&quot; / &quot;FFFF&quot; ) &quot;:&quot; ip4addr
+  nickname   =  ( letter / special ) *8( letter / digit / special / &quot;-&quot; )
+  targetmask =  ( &quot;$&quot; / &quot;#&quot; ) mask
+                  ; see details on allowed masks in section 3.3.1
+  chanstring =  %x01-07 / %x08-09 / %x0B-0C / %x0E-1F / %x21-2B
+  chanstring =/ %x2D-39 / %x3B-FF
+                  ; any octet except NUL, BELL, CR, LF, &quot; &quot;, &quot;,&quot; and &quot;:&quot;
+  channelid  = 5( %x41-5A / digit )   ; 5( A-Z / 0-9 )
+
+  Other parameter syntaxes are:
+
+  user       =  1*( %x01-09 / %x0B-0C / %x0E-1F / %x21-3F / %x41-FF )
+                  ; any octet except NUL, CR, LF, &quot; &quot; and &quot;@&quot;
+  key        =  1*23( %x01-05 / %x07-08 / %x0C / %x0E-1F / %x21-7F )
+                  ; any 7-bit US_ASCII character,
+                  ; except NUL, CR, LF, FF, h/v TABs, and &quot; &quot;
+  letter     =  %x41-5A / %x61-7A       ; A-Z / a-z
+  digit      =  %x30-39                 ; 0-9
+  hexdigit   =  digit / &quot;A&quot; / &quot;B&quot; / &quot;C&quot; / &quot;D&quot; / &quot;E&quot; / &quot;F&quot;
+  special    =  %x5B-60 / %x7B-7D
+                   ; &quot;[&quot;, &quot;]&quot;, &quot;\&quot;, &quot;`&quot;, &quot;_&quot;, &quot;^&quot;, &quot;{&quot;, &quot;|&quot;, &quot;}&quot;
+</code></pre>
+<p>NOTES:</p>
+<ol>
+<li>
+<p><code>&lt;hostaddr&gt;</code> 構文は、IP アドレスのために従うべき形式を示すことのみを目的としてここで与えられています。これは、このプロトコルの唯一の実装が、基礎となるネットワークプロトコルとして TCP/IP を使用しているという事実を反映していますが、他のプロトコルを使用することを妨げるものではありません。</p>
+</li>
+<li>
+<p><code>&lt;hostname&gt;</code> の長さは最大63文字です。これは、(特に)インターネット上のホスト名が長くなる可能性があるため、プロトコルの制限事項となっています。IRC のメッセージは512文字に制限されているため、このような制限が必要なのです。63文字より長いホスト名から接続するクライアントは、ホスト名ではなく、ホスト（数字）アドレスを使って登録されます。</p>
+</li>
+<li>
+<p>このドキュメントの以下の章で使用されるいくつかのパラメータは、便宜上使用されている名前以外、特に何もないため、ここでは定義されていません。これらのパラメータは、<code>&lt;params&gt;</code> に定義された一般的な構文に従います。</p>
+</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="24-数値返信"><a class="header" href="#24-数値返信">2.4 数値返信</a></h1>
+<p>サーバに送信されたメッセージのほとんどは、何らかの応答を生成します。最も一般的な返信は数値による返信で、エラーと正常な返信の両方に使用されます。数値返信は、送信者接頭辞、3桁の数値、リプライのターゲットからなる1つのメッセージとして送信する必要があります。数値返信は，クライアントから発信することはできません。キーワードが文字列ではなく3桁の数字で構成されていることを除けば、その他の点では、数値による返信は通常のメッセージと同じです。さまざまな返信の一覧は、<a href="the-irc-client-specification/../replies/index.html">5 章（返信）</a> に記載されています。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="25-ワイルドカード表現"><a class="header" href="#25-ワイルドカード表現">2.5 ワイルドカード表現</a></h1>
+<p>文字列の中にワイルドカードが許される場合を &quot;マスク&quot; と呼びます。</p>
+<p>文字列のマッチングのために、プロトコルは二つの特殊文字を使うことができます。<code>?</code>（<code>%x3F</code>）は一文字だけにマッチし、<code>*</code>（<code>%x2A</code>）は任意の数の任意の文字にマッチすます。これらの2つの文字は、<code>second</code>（<code>%x5C</code>）という文字を使ってエスケープすることができます。</p>
+<p>これを表す拡張 BNF 構文は以下の通りです。</p>
+<pre><code>    mask       =  *( nowild / noesc wildone / noesc wildmany )
+    wildone    =  %x3F
+    wildmany   =  %x2A
+    nowild     =  %x01-29 / %x2B-3E / %x40-FF
+                    ; NUL, &quot;*&quot;, &quot;?&quot; 以外の任意のオクテット。
+    noesc      =  %x01-5B / %x5D-FF
+                    ; NUL と &quot;\&quot; 以外の任意のオクテット。
+    matchone   =  %x01-FF
+                    ; matches wildone
+    matchmany  =  *matchone
+                    ; matches wildmany
+
+   Examples:
+
+   a?c         ; &quot;a&quot; で始まり &quot;c&quot; で終わる3文字以内の文字列に一致する。
+
+   a*c         ; &quot;a&quot; で始まり &quot;c&quot; で終わる2文字以上の文字列と一致する。
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="3-メッセージの詳細"><a class="header" href="#3-メッセージの詳細">3. メッセージの詳細</a></h1>
+<p>次のページでは、IRC サーバとクライアントが認識する各メッセージについて説明します。この章で説明されているすべてのコマンドは、このプロトコルのすべてのサーバで実装されている必要があります。</p>
+<p>ERR_NOSUCHSERVER が返信された場合、メッセージのターゲットが見つからなかったことを意味します。サーバは、このエラー以降、そのコマンドに対して他の応答を送ってはなりません。</p>
+<p>クライアントが接続されているサーバは、メッセージ全体を解析し、適切なエラーを返すことが要求されます。</p>
+<p>複数のパラメータが提示された場合、それぞれのパラメータの有効性を確認し、適切なレスポンスをクライアントに返さなければなりません。カンマで区切られたパラメータリストを使用した不正なメッセージの場合、各項目に対して応答を送信しなければなりません。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="31-コネクション登録"><a class="header" href="#31-コネクション登録">3.1 コネクション登録</a></h1>
+<p>ここで説明するコマンドは、IRC サーバにユーザとして接続を登録する場合と、正しく切断する場合に使用します。</p>
+<p>&quot;PASS&quot; コマンドは、クライアント接続の登録には必要ありませんが、NICK/USER の組み合わせ（ユーザ接続の場合）または SERVICE コマンド（サービス接続の場合）のうち、後者のコマンドの前に置く必要があります。推奨されるクライアントの登録順序は、以下の通りです。</p>
+<pre><code>                       1. Pass message
+       2. Nick message                 2. Service message
+       3. User message
+</code></pre>
+<p>成功すると、クライアントは RPL_WELCOME（ユーザ用）または RPL_YOURESERVICE（サービス用）メッセージを受け取り、その接続が現在登録されて IRC ネットワーク全体に知られていることを示します。応答メッセージには、登録された完全なクライアント識別子が含まれていなければなりません。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="311-password-メッセージ"><a class="header" href="#311-password-メッセージ">3.1.1 Password メッセージ</a></h1>
+<pre><code>   Command: PASS
+Parameters: &lt;password&gt;
+</code></pre>
+<p>PASS コマンドは、&quot;接続パスワード&quot; を設定するために使用します。オプションのパスワードは、接続を登録しようとする前に設定することができ、また設定しなければなりません。現在、NICK/USER の組み合わせを送信する前に、PASS コマンドを送信することが必要です。</p>
+<p>数値返信：</p>
+<pre><code>        ERR_NEEDMOREPARAMS              ERR_ALREADYREGISTRED
+</code></pre>
+<p>例：</p>
+<pre><code>        PASS secretpasswordhere
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="312-nick-メッセージ"><a class="header" href="#312-nick-メッセージ">3.1.2 Nick メッセージ</a></h1>
+<pre><code>   Command: NICK
+Parameters: &lt;nickname&gt;
+</code></pre>
+<p>NICK コマンドは、ユーザにニックネームを与えたり、既存のニックネームを変更するために使用されます。</p>
+<p>数値返信：</p>
+<pre><code>        ERR_NONICKNAMEGIVEN             ERR_ERRONEUSNICKNAME
+        ERR_NICKNAMEINUSE               ERR_NICKCOLLISION
+        ERR_UNAVAILRESOURCE             ERR_RESTRICTED
+</code></pre>
+<p>例：</p>
+<pre><code>NICK Wiz
+    ; セッションが未登録の場合、新しいニックネーム &quot;Wiz&quot; を導入、
+      またはユーザがニックネームを &quot;Wiz&quot; に変更した場合。
+
+
+:WiZ!jto@tolsun.oulu.fi NICK Kilroy
+    ; WiZ が Kilroy にニックネームを変更したことを伝えるサーバ。
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="313-user-メッセージ"><a class="header" href="#313-user-メッセージ">3.1.3 User メッセージ</a></h1>
+<pre><code>   Command: USER
+Parameters: &lt;user&gt; &lt;mode&gt; &lt;unused&gt; &lt;realname&gt;
+</code></pre>
+<p>USER コマンドは、接続の最初に使用し、新規ユーザのユーザ名、ホスト名、リアルネームを指定します。</p>
+<p><code>&lt;mode&gt;</code> パラメータには数値を指定し、サーバに登録する際にユーザモードを自動的に設定することができます。このパラメータはビットマスクで、2ビットだけが意味を持ちます。ビット2が設定されるとユーザモード <code>w</code> が設定され、ビット3が設定されるとユーザモード <code>i</code> が設定されます。（<a href="message-details/./user-mode-message.html">3.1.5 節 &quot;ユーザモード&quot;</a> を参照）。</p>
+<p><code>&lt;realname&gt;</code> には空白文字が含まれることがあります。</p>
+<p>数値返信：</p>
+<pre><code>        ERR_NEEDMOREPARAMS              ERR_ALREADYREGISTRED
+</code></pre>
+<p>例：</p>
+<pre><code>USER guest 0 * :Ronnie Reagan
+    ; ユーザ名 &quot;guest&quot;、本名 &quot;Ronnie Reagan&quot; で登録したユーザ。
+
+USER guest 8 * :Ronnie Reagan
+    ; ユーザ名 &quot;guest&quot;、本名 &quot;Ronnie Reagan&quot; で登録し、非表示にすることを依頼するユーザ。
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="314-oper-メッセージ"><a class="header" href="#314-oper-メッセージ">3.1.4 Oper メッセージ</a></h1>
+<pre><code>   Command: OPER
+Parameters: &lt;name&gt; &lt;password&gt;
+</code></pre>
+<p>一般ユーザは、OPER コマンドを使用してオペレータ権限を取得します。オペレータ権限を得るには，<code>&lt;name&gt;</code> と <code>&lt;password&gt;</code> の組み合わせが必要です。成功すると、新しいユーザモードを示す MODE メッセージ（<a href="message-details/./user-mode-message.html">3.1.5 節</a> を参照）がユーザに送信されます。</p>
+<p>数値返信：</p>
+<pre><code>        ERR_NEEDMOREPARAMS              RPL_YOUREOPER
+        ERR_NOOPERHOST                  ERR_PASSWDMISMATCH
+</code></pre>
+<p>例：</p>
+<pre><code>OPER foo bar
+    ; ユーザ名に &quot;foo&quot;、パスワードに &quot;bar&quot; を用いてオペレータ登録を試みる。
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="315-user-モードメッセージ"><a class="header" href="#315-user-モードメッセージ">3.1.5 User モードメッセージ</a></h1>
+<pre><code>   Command: MODE
+Parameters: &lt;nickname&gt;
+            *( ( &quot;+&quot; / &quot;-&quot; ) *( &quot;i&quot; / &quot;w&quot; / &quot;o&quot; / &quot;O&quot; / &quot;r&quot; ) )
+</code></pre>
+<p>ユーザモードは通常、クライアントが他者からどのように見られるか、またはクライアントがどのような &quot;追加&quot; メッセージを送信するかに影響する変更です。</p>
+<p>ユーザモードのコマンドは、メッセージの送信者とパラメータとして与えられたニックネームの両方が同じである場合にのみ受け入れられなければなりません。もし他のパラメータが与えられなければ、サーバはニックネームに対する現在の設定を返します。</p>
+<p>使用可能なモードは以下の通りです。</p>
+<pre><code>        a - ユーザが不在であることを示すフラグが立てられる。
+        i - ユーザを非表示とマークする。
+        w - ユーザが Wallops を受け取る。
+        r - ユーザ接続を制限する。
+        o - オペレータフラグ。
+        O - ローカルオペレータフラグ。
+        s - サーバ通知を受信するユーザをマークする。
+</code></pre>
+<p>後日、追加のモードも用意される予定です。</p>
+<p>MODE コマンドでフラグ <code>a</code> をトグルしてはならず、AWAY コマンドでトグルします。</p>
+<p>ユーザが <code>+o</code> または <code>+O</code> フラグを使用して自分自身をオペレータにしようとした場合、OPER コマンドの認証メカニズムをバイパスすることができるため、その試みは無視されるべきです。しかし、（<code>-o</code> または <code>-O</code> を使って）自分自身を &quot;脱落&quot; させることについては、何ら制限はありません。</p>
+<p>一方、ユーザが <code>-r</code> フラグを使って無制限化しようとした場合、その試みは無視されるべきです。しかし、（<code>+r</code> を使って）自分自身を &quot;停止&quot; させることについては、何の制限もありません。このフラグは、通常、管理上の理由から、接続時にサーバによって設定されます。どのような制限を加えるかは実装次第ですが、制限されたユーザがニックネームを変更したり、チャネルオペレータのステータスをチャネルで使用したりすることを許可しないのが一般的です。</p>
+<p>フラグ <code>s</code> は廃止されましたが、まだ使用できるかもしれません。</p>
+<p>数値返信：</p>
+<pre><code>        ERR_NEEDMOREPARAMS              ERR_USERSDONTMATCH
+        ERR_UMODEUNKNOWNFLAG            RPL_UMODEIS
+</code></pre>
+<p>例：</p>
+<pre><code>MODE WiZ -w
+    ; WiZ が WALLOPS メッセージの受信をオフにするコマンド。
+
+MODE Angel +i
+    ; Angel からの、自分を非表示にするコマンド。
+
+MODE WiZ -o
+    ; WiZ の &quot;デオッピング&quot;（オペレータの地位を取り除くこと）。
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="316-service-メッセージ"><a class="header" href="#316-service-メッセージ">3.1.6 Service メッセージ</a></h1>
+<pre><code>   Command: SERVICE
+Parameters: &lt;nickname&gt; &lt;reserved&gt; &lt;distribution&gt; &lt;type&gt;
+            &lt;reserved&gt; &lt;info&gt;
+</code></pre>
+<p>新しいサービスを登録するための SERVICE コマンドです。コマンドのパラメータは、新しいサービスのニックネーム、ディストリビューション、タイプ、情報を指定します。</p>
+<p><code>&lt;distribution&gt;</code> パラメータは，サービスの可視性を指定するために使用します．サービスは，ディストリビューションに一致する名前を持つサーバにのみ知られる可能性があります。名前が一致するサーバがサービスを知るためには，そのサーバとサービスが接続されているサーバとの間のネットワークパスが，すべてマスクに一致するサーバで構成されている必要があります。</p>
+<p><code>&lt;type&gt;</code> パラメータは現在、将来の使用のために予約されています。</p>
+<p>数値返信：</p>
+<pre><code>        ERR_ALREADYREGISTRED            ERR_NEEDMOREPARAMS
+        ERR_ERRONEUSNICKNAME
+        RPL_YOURESERVICE                RPL_YOURHOST
+        RPL_MYINFO
+</code></pre>
+<p>例：</p>
+<pre><code>SERVICE dict * *.fr 0 0 :French Dictionary
+    ; &quot;dict&quot; という名前で自分自身を登録するサービス。
+      このサービスは、名前が &quot;*.fr&quot; にマッチするサーバでのみ利用可能です。
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="317-quit"><a class="header" href="#317-quit">3.1.7 Quit</a></h1>
+<pre><code>   Command: QUIT
+Parameters: [ &lt;Quit Message&gt; ]
+</code></pre>
+<p>クライアントのセッションは、Quit メッセージで終了します。サーバは、ERROR メッセージをクライアントに送信することでこれを確認します。</p>
+<p>数値返信：</p>
+<pre><code>        None.
+</code></pre>
+<p>例：</p>
+<pre><code>QUIT :Gone to have lunch
+    ; 望ましいメッセージの形式。
+
+:syrk!kalt@millennium.stealth.net QUIT :Gone to have lunch
+    ; ユーザ syrk は昼食のために IRC を終了しました。
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="318-squit"><a class="header" href="#318-squit">3.1.8 Squit</a></h1>
+<pre><code>   Command: SQUIT
+Parameters: &lt;server&gt; &lt;comment&gt;
+</code></pre>
+<p>SQUIT コマンドはオペレータのみ使用可能です。サーバのリンクを切断するために使用されます。また、サーバはエラー状態の時に SQUIT メッセージを生成することができます。SQUIT メッセージは、リモートサーバの接続をターゲットにすることもできます。この場合、SQUIT メッセージはオペレータとリモートサーバ間のサーバに影響を与えることなく、単にリモートサーバに送信されます。</p>
+<p><code>&lt;comment&gt;</code> は、リモートサーバに対して SQUIT を実行するすべてのオペレータによって供給されなければなりません。相手の切断を命じられたサーバは，<code>&lt;comment&gt;</code> を含む WALLOPS メッセージを生成し，他のユーザがこの動作の理由を知ることができるようにします。</p>
+<p>数値返信：</p>
+<pre><code>        ERR_NOPRIVILEGES                ERR_NOSUCHSERVER
+        ERR_NEEDMOREPARAMS
+</code></pre>
+<p>例：</p>
+<pre><code>SQUIT tolsun.oulu.fi :Bad Link ?
+    ; tolson.oulu.fi の uplink に &quot;Bad Link&quot; というコメントで接続を終了させるコマンド。
+
+:Trillian SQUIT cm22.eng.umd.edu :Server out of control
+    ; Trillianからの &quot;Server out of control&quot; というコメントとともに
+      &quot;cm22.eng.umd.edu&quot; をネットから切断するコマンド。
+
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="32-チャネル操作"><a class="header" href="#32-チャネル操作">3.2 チャネル操作</a></h1>
+<p>このメッセージ群は，チャネル，そのプロパティ（チャネルモード），およびそのコンテンツ（通常はユーザ）を操作することに関係しています。このため，これらのメッセージはサービスから利用可能であってはなりません。</p>
+<p>これらのメッセージはすべて、サーバが許可するかしないかのリクエストです。サーバは、リクエストが許可されたか、拒否されたか、あるいはエラーが発生したかを知らせる応答を送信しなければなりません。サーバがリクエストを許可した場合、メッセージは最終的にユーザ自身に設定された接頭辞で再フォーマットされて送り返されるのが一般的です。</p>
+<p>チャネルをどのように管理するかというルールは、サーバによって強制されます。これらのルールは、このドキュメントの範囲外です。詳しくは、<a href="https://solareenlo.com/rfc2811/">&quot;Internet Relay Chat: チャネル管理&quot; [IRC-CHAN]</a> を参照してください。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="321-join-メッセージ"><a class="header" href="#321-join-メッセージ">3.2.1 Join メッセージ</a></h1>
+<pre><code>   Command: JOIN
+Parameters: ( &lt;channel&gt; *( &quot;,&quot; &lt;channel&gt; ) [ &lt;key&gt; *( &quot;,&quot; &lt;key&gt; ) ] )
+            / &quot;0&quot;
+</code></pre>
+<p>JOIN コマンドは、ユーザが特定のチャネルのリスニング開始を要求するために使用されます。サーバは、ターゲットのリスト形式で引数をパースできなければなりませんが、クライアントに JOIN メッセージを送るときには、リストを使うべきではありません。</p>
+<p>ユーザがチャネルに参加すると、そのチャネルに影響するサーバが受け取るすべてのコマンドに関する情報を受け取ります。これには、JOIN、MODE、KICK、PART、QUIT、そしてもちろん PRIVMSG/NOTICE が含まれます。これにより、チャネルのメンバは、他のチャネルメンバやチャネルモードを把握することができます。</p>
+<p>JOIN が成功した場合、ユーザは確認として JOIN メッセージを受け取り、次に RPL_TOPIC を使用してチャネルのトピックを、RPL_NAMREPLY を使用してチャネルに参加しているユーザのリストを送信します（これには参加ユーザを含める必要があります）。</p>
+<p>このメッセージは特別な引数（<code>0</code>）を受け取ることに注意してください。これは、ユーザが現在所属しているすべてのチャネルから退出するための特別な要求です。サーバはこのメッセージを、あたかもユーザがメンバである各チャネルに対して PART コマンド（<a href="message-details/./part-message.html">3.2.2 節</a> を参照) を送信したかのように処理します。</p>
+<p>数値返信：</p>
+<pre><code>        ERR_NEEDMOREPARAMS              ERR_BANNEDFROMCHAN
+        ERR_INVITEONLYCHAN              ERR_BADCHANNELKEY
+        ERR_CHANNELISFULL               ERR_BADCHANMASK
+        ERR_NOSUCHCHANNEL               ERR_TOOMANYCHANNELS
+        ERR_TOOMANYTARGETS              ERR_UNAVAILRESOURCE
+        RPL_TOPIC
+</code></pre>
+<p>例：</p>
+<pre><code>JOIN #foobar
+    ; チャネル #foobar に参加するコマンド。
+
+
+JOIN &amp;foo fubar
+    ; キー &quot;fubar &quot;を使ってチャネル &quot;&amp;foo&quot; に参加するコマンド。
+
+JOIN #foo,&amp;bar fubar
+    ; キー &quot;fubar&quot; を使ってチャネル #foo に、キー無しで &amp;bar に参加するコマンド。
+
+JOIN #foo,#bar fubar,foobar
+    ; キー &quot;fubar&quot; を使ってチャネル #foo に、
+      キー &quot;foobar&quot; を使ってチャネル #bar に参加するコマンド。
+
+JOIN #foo,#bar
+    ; チャネル #foo と #bar に参加するコマンド。
+
+JOIN 0
+    ; 現在参加しているすべてのチャネルを去るコマンド。
+
+
+:WiZ!jto@tolsun.oulu.fi JOIN #Twilight_zone
+    ; WiZ からのチャンネル #Twilight_zone への JOIN メッセージ。
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="322-part-メッセージ"><a class="header" href="#322-part-メッセージ">3.2.2 Part メッセージ</a></h1>
+<pre><code>   Command: PART
+Parameters: &lt;channel&gt; *( &quot;,&quot; &lt;channel&gt; ) [ &lt;Part Message&gt; ]
+</code></pre>
+<p>PART コマンドは、メッセージを送信したユーザを、パラメータ文字列で指定されたすべてのチャネルのアクティブメンバリストの対象から除外します。もし &quot;Part メッセージ&quot; が指定された場合、デフォルトメッセージであるニックネームの代わりにこれが送信されます。このリクエストはサーバによって常に許可されます。</p>
+<p>サーバは、ターゲットのリスト形式で引数を解析できなければなりませんが、クライアントに PART メッセージを送信する際には、リストを使用すべきではありません。</p>
+<p>数値返信：</p>
+<pre><code>        ERR_NEEDMOREPARAMS              ERR_NOSUCHCHANNEL
+        ERR_NOTONCHANNEL
+</code></pre>
+<p>例：</p>
+<pre><code>PART #twilight_zone
+    ; Command to leave channel &quot;#twilight_zone&quot;
+    ; チャネル &quot;#twilight_zone&quot; を抜けるコマンド。
+
+PART #oz-ops,&amp;group5
+    ; &quot;&amp;group5&quot; と &quot;#oz-ops&quot; の両チャネルを抜けるコマンド。
+
+:WiZ!jto@tolsun.oulu.fi PART #playzone :I lost
+    ; &quot;I lost&quot; というメッセージとともにチャネル &quot;#playzone&quot; を去るユーザ WiZ。
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="323-channel-モードメッセージ"><a class="header" href="#323-channel-モードメッセージ">3.2.3 Channel モードメッセージ</a></h1>
+<pre><code>   Command: MODE
+Parameters: &lt;channel&gt; *( ( &quot;-&quot; / &quot;+&quot; ) *&lt;modes&gt; *&lt;modeparams&gt; )
+</code></pre>
+<p>MODE コマンドは、ユーザがチャネルの特性を照会したり変更したりするために用意されています。利用可能なモードとその用途の詳細については、<a href="https://solareenlo.com/rfc2811/">&quot;Internet Relay Chat: チャンネル管理&quot; [IRC-CHAN]</a> を参照してください。パラメータを取るモードでは、1回のコマンドで3回までしか変更できないことに注意してください。</p>
+<p>数値返信：</p>
+<pre><code>        ERR_NEEDMOREPARAMS              ERR_KEYSET
+        ERR_NOCHANMODES                 ERR_CHANOPRIVSNEEDED
+        ERR_USERNOTINCHANNEL            ERR_UNKNOWNMODE
+        RPL_CHANNELMODEIS
+        RPL_BANLIST                     RPL_ENDOFBANLIST
+        RPL_EXCEPTLIST                  RPL_ENDOFEXCEPTLIST
+        RPL_INVITELIST                  RPL_ENDOFINVITELIST
+        RPL_UNIQOPIS
+</code></pre>
+<p>以下の例は、MODE コマンドの構文を理解するためのものですが、<a href="https://solareenlo.com/rfc2811/">&quot;Internet Relay Chat: チャンネル管理&quot; [IRC-CHAN]</a> で定義されているモードを参照しています。</p>
+<p>例：</p>
+<pre><code>MODE #Finnish +imI *!*@*.fi
+    ; ホスト名が *.fi に一致するユーザが自動的に招待される、
+      #Finnish チャネルをモデレートされた '招待制' にするコマンド。
+
+MODE #Finnish +o Kilroy
+    ; チャネル #Finnish の Kilroy に 'chanop' 権限を付与するコマンド。
+
+MODE #Finnish +v Wiz
+    ; WiZ が #Finnish で発言することを許可するコマンド。
+
+MODE #Fins -s
+    ; チャネル #Fins から 'secret' フラグを削除するコマンド。
+
+MODE #42 +k oulu
+    ;チャンネルキーを &quot;ulu&quot; に設定するコマンド。
+
+MODE #42 -k oulu
+    ; チャネル &quot;#42&quot; の &quot;oulu&quot; チャネルキーを削除するコマンド。
+
+MODE #eu-opers +l 10
+    ; チャネル &quot;#eu-opers&quot; のユーザ数の上限を10に設定するコマンド。
+
+:WiZ!jto@tolsun.oulu.fi MODE #eu-opers -l
+    ; ユーザ &quot;WiZ&quot; がチャネル &quot;#eu-opers&quot; のユーザ数制限を解除しました。
+
+MODE &amp;oulu +b
+    ; チャネル &quot;&amp;oulu&quot; に設定された禁止マスクをリストアップするコマンド。
+
+MODE &amp;oulu +b *!*@*
+    ; すべてのユーザを参加させないようにするためのコマンド。
+
+
+MODE &amp;oulu +b *!*@*.edu +e *!*@*.bu.edu
+    ; ホスト名が *.edu に一致するユーザが参加できないようにするコマンド。
+      ただし、*.bu.edu に一致する場合は除く。
+
+MODE #bu +be *!*@*.edu *!*@*.bu.edu
+    ; *.bu.edu にマッチする場合を除き、
+      *.edu にマッチするホスト名のユーザが参加できないようにするコメント。
+
+MODE #meditation e
+    ; チャネル &quot;#meditation&quot; に設定された例外マスクを一覧表示するコマンド。
+
+MODE #meditation I
+    ; チャネル &quot;#meditation&quot; に設定された招待マスクを一覧表示するコマンド。
+
+
+MODE !12345ircd O
+    ; &quot;!12345ircd&quot; のチャネル作成者が誰かを問い合わせるコマンド。
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="324-topic-メッセージ"><a class="header" href="#324-topic-メッセージ">3.2.4 Topic メッセージ</a></h1>
+<pre><code>   Command: TOPIC
+Parameters: &lt;channel&gt; [ &lt;topic&gt; ]
+</code></pre>
+<p>TOPIC コマンドは、チャネルのトピックを変更または表示するために使用されます。<code>&lt;topic&gt;</code> が指定されていない場合は、チャネル <code>&lt;channel&gt;</code> のトピックが返されます。<code>&lt;topic&gt;</code> パラメータが指定された場合、そのチャネルのトピックが変更されます（要求したユーザがこの操作を許可している場合）。<code>&lt;topic&gt;</code> パラメータが空の文字列である場合、そのチャネルのトピックは削除されます。</p>
+<p>数値返信：</p>
+<pre><code>        ERR_NEEDMOREPARAMS              ERR_NOTONCHANNEL
+        RPL_NOTOPIC                     RPL_TOPIC
+        ERR_CHANOPRIVSNEEDED            ERR_NOCHANMODES
+</code></pre>
+<p>例：</p>
+<pre><code>:WiZ!jto@tolsun.oulu.fi TOPIC #test :New topic
+    ; ユーザ Wiz がトピックを設定します。
+
+TOPIC #test :another topic
+    ; #test のトピックを &quot;another topic&quot; に設定するコマンド。
+
+TOPIC #test :
+    ; #test のトピックを消去するコマンド。
+
+TOPIC #test
+    ; #test のトピックを確認するコマンド。
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="325-names-メッセージ"><a class="header" href="#325-names-メッセージ">3.2.5 Names メッセージ</a></h1>
+<pre><code>   Command: NAMES
+Parameters: [ &lt;channel&gt; *( &quot;,&quot; &lt;channel&gt; ) [ &lt;target&gt; ] ]
+</code></pre>
+<p>NAMES コマンドを使用すると、ユーザが表示可能なすべてのニックネームを一覧表示することができます。見えるものと見えないものの詳細については、<a href="https://solareenlo.com/rfc2811/">&quot;Internet Relay Chat: チャネル管理&quot; [IRC-CHAN]</a> を参照してください。<code>&lt;channel&gt;</code> パラメータは、情報を返すチャネルを指定します。不正なチャネル名に対するエラー返信はありません。</p>
+<p><code>&lt;channel&gt;</code> パラメータが与えられない場合、すべてのチャネルとその占有者のリストが返されます。このリストの最後には、見えているがどのチャネルにも入っていない、あるいは見えているチャネルにも入っていないユーザのリストが <code>channel</code> <code>*</code> にあるとしてリストアップされます。</p>
+<p><code>&lt;target&gt;</code> パラメータが指定された場合、リクエストをそのサーバに転送し、そのサーバが応答を生成します。</p>
+<p><code>&lt;target&gt;</code> パラメータには、ワイルドカードを使用できます。</p>
+<p>数値返信：</p>
+<pre><code>        ERR_TOOMANYMATCHES              ERR_NOSUCHSERVER
+        RPL_NAMREPLY                    RPL_ENDOFNAMES
+</code></pre>
+<p>例：</p>
+<pre><code>NAMES #twilight_zone,#42
+    ; #twilight_zone と #42 で表示可能なユーザーをリストアップするコマンド。
+
+NAMES
+    ; 表示可能なすべてのチャネルとユーザを一覧表示するコマンド。
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="326-list-メッセージ"><a class="header" href="#326-list-メッセージ">3.2.6 List メッセージ</a></h1>
+<pre><code>   Command: LIST
+Parameters: [ &lt;channel&gt; *( &quot;,&quot; &lt;channel&gt; ) [ &lt;target&gt; ] ]
+</code></pre>
+<p>LIST コマンドは、チャネルとそのトピックを一覧表示するために使用されます。<code>&lt;channel&gt;</code> パラメータを指定した場合は，そのチャネルの状態のみを表示します。</p>
+<p><code>&lt;target&gt;</code>パラメータが指定された場合、リクエストをそのサーバに転送し、そのサーバが応答を生成します。</p>
+<p><code>&lt;target&gt;</code> パラメータには、ワイルドカードを使用できます。</p>
+<p>数値返信：</p>
+<pre><code>        ERR_TOOMANYMATCHES              ERR_NOSUCHSERVER
+        RPL_LIST                        RPL_LISTEND
+</code></pre>
+<p>例：</p>
+<pre><code>LIST
+    ; 全チャネルを一覧表示するコマンド。
+
+LIST #twilight_zone,#42
+    ; チャネル #twilight_zone と #42 をリストアップするコマンド。
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="327-invite-メッセージ"><a class="header" href="#327-invite-メッセージ">3.2.7 Invite メッセージ</a></h1>
+<pre><code>   Command: INVITE
+Parameters: &lt;nickname&gt; &lt;channel&gt;
+</code></pre>
+<p>INVITE コマンドは、ユーザをチャネルに招待するために使用します。パラメータ <code>&lt;nickname&gt;</code> には、対象のチャネル <code>&lt;channel&gt;</code> に招待する人のニックネームを指定します。ターゲットユーザが招待されるチャネルが存在すること、または有効なチャネルであることは要求されていません。ただし、チャネルが存在する場合、そのチャネルのメンバのみが他のユーザを招待することができます。チャネルに招待専用フラグが設定されている場合、チャネルオペレータのみが INVITE コマンドを発行できます。</p>
+<p>招待の通知は、招待したユーザと招待されたユーザのみが受け取ります。他のチャネルメンバには通知されません。（これは MODE 変更と異なり、時々ユーザを悩ませる原因となっています。）</p>
+<p>数値返信：</p>
+<pre><code>        ERR_NEEDMOREPARAMS              ERR_NOSUCHNICK
+        ERR_NOTONCHANNEL                ERR_USERONCHANNEL
+        ERR_CHANOPRIVSNEEDED
+        RPL_INVITING                    RPL_AWAY
+</code></pre>
+<p>例：</p>
+<pre><code>:Angel!wings@irc.org INVITE Wiz #Dust
+    ; WiZ が Angel からチャネル #Dust に招待されたときのメッセージ。
+
+
+INVITE Wiz #Twilight_Zone
+    ; WiZ を #Twilight_zone に招待するコマンド
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="328-kick-コマンド"><a class="header" href="#328-kick-コマンド">3.2.8 Kick コマンド</a></h1>
+<pre><code>   Command: KICK
+Parameters: &lt;channel&gt; *( &quot;,&quot; &lt;channel&gt; ) &lt;user&gt; *( &quot;,&quot; &lt;user&gt; )
+            [&lt;comment&gt;]
+</code></pre>
+<p>KICK コマンドは、チャネルからユーザを強制的に削除することを要求するために使用します。これは <code>&lt;user&gt;</code> を <code>&lt;channel&gt;</code> から強制的に PART させます。メッセージが構文的に正しいものであるためには、1つのチャネルパラメータと複数のユーザパラメータ、またはユーザパラメータと同数のチャネルパラメータがなければなりません。&quot;comment&quot; が指定された場合、デフォルトメッセージの代わりに、KICK を発行したユーザのニックネームが送信されます。</p>
+<p>サーバは、複数のチャネルまたはユーザを含む KICK メッセージをクライアントに送信してはなりません。これは、古いクライアントソフトウェアとの後方互換性を維持するために必要なことです。</p>
+<p>数値返信：</p>
+<pre><code>        ERR_NEEDMOREPARAMS              ERR_NOSUCHCHANNEL
+        ERR_BADCHANMASK                 ERR_CHANOPRIVSNEEDED
+        ERR_USERNOTINCHANNEL            ERR_NOTONCHANNEL
+</code></pre>
+<p>例：</p>
+<pre><code>KICK &amp;Melbourne Matthew
+    ; &amp;Melbourne から Matthew を追い出す指令
+
+KICK #Finnish John :Speaking English
+    ; &quot;Speaking English&quot; を理由（コメント）に #Finnish から John を追い出すコマンド。
+
+:WiZ!jto@tolsun.oulu.fi KICK #Finnish John
+    ; チャネル #Finnish から John を外すという WiZ からの KICK メッセージ。
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="33-メッセージの送信"><a class="header" href="#33-メッセージの送信">3.3 メッセージの送信</a></h1>
+<p>IRC プロトコルの主な目的は、クライアントが互いに通信するための基盤を提供することです。<a href="message-details/./server-queries-and-commands.html">3.5 サービスのクエリとコマンド</a> で説明されている PRIVMSG、NOTICE、SQUERY は、あるクライアントから別のクライアントへのテキストメッセージの配信を実際に実行する唯一のメッセージであり、残りのものはそれを可能にし、それが信頼性と構造化の方法で起こることを保証しようとするだけです。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="331-private-メッセージ"><a class="header" href="#331-private-メッセージ">3.3.1 Private メッセージ</a></h1>
+<pre><code>   Command: PRIVMSG
+Parameters: &lt;msgtarget&gt; &lt;text to be sent&gt;
+</code></pre>
+<p>PRIVMSG は、ユーザ間のプライベートメッセージの送信や、チャネルへのメッセージの送信に使用されます。<code>&lt;msgtarget&gt;</code> は通常メッセージの受信者のニックネームか、チャネル名です。</p>
+<p><code>&lt;msgtarget&gt;</code> パラメータには、ホストマスク（<code>#&lt;mask&gt;</code>）またはサーバマスク（<code>$&lt;mask&gt;</code>）を指定することも可能です。どちらの場合も、サーバはそのマスクに一致するサーバやホストを持つ人にのみ PRIVMSG を送ります。マスクには少なくとも1つの <code>.</code> を入れなければならず、最後の <code>.</code> の後にはワイルドカードを入れてはいけません。 この条件は、<code>#*</code> や <code>$*</code> にメッセージを送ると、すべてのユーザにブロードキャストされてしまうことを防ぐために存在します。ワイルドカードとは、<code>*</code> および <code>？</code> 文字のことです。PRIVMSG コマンドのこの拡張機能は、オペレータのみが使用できます。</p>
+<p>数値返信：</p>
+<pre><code>        ERR_NORECIPIENT                 ERR_NOTEXTTOSEND
+        ERR_CANNOTSENDTOCHAN            ERR_NOTOPLEVEL
+        ERR_WILDTOPLEVEL                ERR_TOOMANYTARGETS
+        ERR_NOSUCHNICK
+        RPL_AWAY
+</code></pre>
+<p>例：</p>
+<pre><code>:Angel!wings@irc.org PRIVMSG Wiz :Are you receiving this message ?
+    ; Angel から Wiz へのメッセージ
+
+PRIVMSG Angel :yes I'm receiving it !
+    ; Angel へメッセージを送信するコマンド。
+
+PRIVMSG jto@tolsun.oulu.fi :Hello !
+    ; サーバ tolsun.oulu.fi のユーザ名 &quot;jto&quot; のユーザにメッセージを送信するコマンド。
+
+PRIVMSG kalt%millennium.stealth.net@irc.stealth.net :Are you a frog?
+    ; サーバ irc.stealth.net のユーザ名 &quot;kalt&quot; のユーザへのメッセージ。
+      で、そのユーザはホスト millennium.stealth.net から接続している。
+
+PRIVMSG kalt%millennium.stealth.net :Do you like cheese?
+    ; ローカルサーバのユーザ名 &quot;kalt&quot; のユーザへのメッセージ。
+      で、そのユーザはホスト millennium.stealth.net から接続している。
+
+PRIVMSG Wiz!jto@tolsun.oulu.fi :Hello !
+    ; ホスト tolsun.oulu.fi から接続している
+      ニックネーム Wiz、ユーザ名 &quot;jto&quot; のユーザへのメッセージ。
+
+PRIVMSG $*.fi :Server tolsun.oulu.fi rebooting.
+    ; サーバ上の *.fi に一致する名前を持つすべての人へのメッセージ。
+
+PRIVMSG #*.edu :NSFNet is undergoing work, expect interruptions
+    ; *.edu に一致する名前を持つホストから来たすべてのユーザへのメッセージ。
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="332-notice"><a class="header" href="#332-notice">3.3.2 Notice</a></h1>
+<pre><code>   Command: NOTICE
+Parameters: &lt;msgtarget&gt; &lt;text&gt;
+</code></pre>
+<p>NOTICE コマンドは、PRIVMSG と同様に使用されます。NOTICE と PRIVMSG の違いは、NOTICE メッセージに応答して自動返信が決して送られてはならないことです。この規則はサーバにも適用されます。サーバは、NOTICE を受信したときに、クライアントにエラー応答を返してはいけません。このルールの目的は、クライアントが受信した何かに応答して自動的に何かを送るというループを避けることです。</p>
+<p>このコマンドは、ユーザだけでなく、サービスでも使用できます。</p>
+<p>これは通常、サービスやオートマトン（AI や他の対話型プログラムが行動を制御するクライアント）で使用されます。</p>
+<p>返信の詳細および例については、PRIVMSG を参照してください。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="34-サーバへのクエリとコマンド"><a class="header" href="#34-サーバへのクエリとコマンド">3.4 サーバへのクエリとコマンド</a></h1>
+<p>サーバクエリコマンド群は、ネットワークに接続されているあらゆるサーバの情報を返すように設計されています。</p>
+<p>これらのクエリでは、パラメータが <code>&lt;target&gt;</code> と表示されている場合、通常ワイルドカードマスクが有効です。しかし、各パラメータに対して、1つのクエリと返信のセットだけが生成されます。ほとんどの場合、ニックネームが与えられると、それはユーザが接続しているサーバを意味します。</p>
+<p>これらのメッセージは一般的にサービスにとってほとんど価値がないため、サービスでの利用を禁止することをお勧めします。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="341-motd-メッセージ"><a class="header" href="#341-motd-メッセージ">3.4.1 Motd メッセージ</a></h1>
+<pre><code>   Command: MOTD
+Parameters: [ &lt;target&gt; ]
+</code></pre>
+<p>MOTD コマンドは、指定されたサーバ（<code>&lt;target&gt;</code> が省略された場合は現在のサーバ）の &quot;今日のメッセージ&quot; を取得するために使用されます。</p>
+<p><code>&lt;target&gt;</code> パラメータには、ワイルドカードを使用できます。</p>
+<p>数値返信：</p>
+<pre><code>        RPL_MOTDSTART                   RPL_MOTD
+        RPL_ENDOFMOTD                   ERR_NOMOTD
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="342-lusers-メッセージ"><a class="header" href="#342-lusers-メッセージ">3.4.2 Lusers メッセージ</a></h1>
+<pre><code>   Command: LUSERS
+Parameters: [ &lt;mask&gt; [ &lt;target&gt; ] ]
+</code></pre>
+<p>LUSERS コマンドは、IRC ネットワークのサイズに関する統計を取るために使用されます。パラメータが与えられない場合、ネット全体についての返答があります。<code>&lt;mask&gt;</code> が指定された場合、そのマスクに一致するサーバによって形成されたネットワークの一部分に関する情報のみが返信されます。最後に、<code>&lt;target&gt;</code> パラメータが指定された場合、リクエストは応答を生成するサーバに転送されます。</p>
+<p><code>&lt;target&gt;</code> パラメータには、ワイルドカードを使用できます。</p>
+<p>数値返信：</p>
+<pre><code>        RPL_LUSERCLIENT                 RPL_LUSEROP
+        RPL_LUSERUNKOWN                 RPL_LUSERCHANNELS
+        RPL_LUSERME                     ERR_NOSUCHSERVER
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="343-version-メッセージ"><a class="header" href="#343-version-メッセージ">3.4.3 Version メッセージ</a></h1>
+<pre><code>   Command: VERSION
+Parameters: [ &lt;target&gt; ]
+</code></pre>
+<p>VERSION コマンドは、サーバプログラムのバージョンを問い合わせるために使用します。オプションのパラメータ <code>&lt;target&gt;</code> は、クライアントが直接接続していないサーバプログラムのバージョンを問い合わせるために使用されます。</p>
+<p><code>&lt;target&gt;</code> パラメータには、ワイルドカードを使用できます。</p>
+<p>数値返信：</p>
+<pre><code>        ERR_NOSUCHSERVER                RPL_VERSION
+</code></pre>
+<p>例：</p>
+<pre><code>VERSION tolsun.oulu.fi
+    ; サーバ tolsun.oulu.fi のバージョンを確認するコマンド。
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="344-stats-メッセージ"><a class="header" href="#344-stats-メッセージ">3.4.4 Stats メッセージ</a></h1>
+<pre><code>   Command: STATS
+Parameters: [ &lt;query&gt; [ &lt;target&gt; ] ]
+</code></pre>
+<p>STATS コマンドは、特定のサーバの統計情報を問い合わせるために使用します。<code>&lt;query&gt;</code> パラメータを省略した場合は，統計情報の末尾のみを返送します。</p>
+<p>クエリは、任意の1文字について指定することができ、宛先サーバでのみチェックされ、それ以外の中間サーバで無視され、変更されずに渡されます。</p>
+<p><code>&lt;target&gt;</code> パラメータには、ワイルドカードを使用できます。</p>
+<p>以下のものを除き、有効なクエリのリストは実装に依存します。以下の標準的なクエリは、サーバ側でサポートされている必要があります。</p>
+<pre><code>    l - サーバの接続のリストを返します。
+        各接続の確立時間、その接続上のトラフィックを Kbyte および各方向のメッセージで表示します。
+    m - サーバがサポートする各コマンドの使用回数を返します。
+        使用回数が 0 のコマンドは省略できます。
+    o - 構成された特権ユーザ、オペレータのリストを返します。
+    u - サーバが稼働している時間を示す文字列を返します。
+</code></pre>
+<p>また、クライアントやサーバのアクセス設定もこの方法で公開することが推奨されます。</p>
+<p>数値返信：</p>
+<pre><code>        ERR_NOSUCHSERVER
+        RPL_STATSLINKINFO                RPL_STATSUPTIME
+        RPL_STATSCOMMANDS                RPL_STATSOLINE
+        RPL_ENDOFSTATS
+</code></pre>
+<p>例：</p>
+<pre><code>STATS m
+    ; 接続中のサーバーのコマンド使用状況を確認するためのコマンド
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="345-links-メッセージ"><a class="header" href="#345-links-メッセージ">3.4.5 Links メッセージ</a></h1>
+<pre><code>   Command: LINKS
+Parameters: [ [ &lt;remote server&gt; ] &lt;server mask&gt; ]
+</code></pre>
+<p>LINKS を使用すると、ユーザは、クエリに答えるサーバが知っているすべてのサーバ名をリストアップすることができます。返されるサーバのリストはマスクと一致しなければならず、マスクが与えられない場合は完全なリストが返されます。</p>
+<p><code>&lt;server mask&gt;</code> に加えて <code>&lt;remote server&gt;</code> が指定された場合、LINKS コマンドはその名前にマッチする最初のサーバに転送され、そのサーバは問い合わせに答えることが要求されます。</p>
+<p>数値返信：</p>
+<pre><code>        ERR_NOSUCHSERVER
+        RPL_LINKS                        RPL_ENDOFLINKS
+</code></pre>
+<p>例：</p>
+<pre><code>LINKS *.au
+    ; 名前が *.au に一致するサーバをすべてリストアップするコマンド。
+
+
+LINKS *.edu *.bu.edu
+    ; *.bu.edu に一致するサーバを、*.edu に一致する最初のサーバから見てリストアップするコマンド。
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="346-time-メッセージ"><a class="header" href="#346-time-メッセージ">3.4.6 Time メッセージ</a></h1>
+<pre><code>   Command: TIME
+Parameters: [ &lt;target&gt; ]
+</code></pre>
+<p>TIME コマンドは、指定されたサーバからローカルタイムを問い合わせるために使用されます。<code>&lt;target&gt;</code> パラメータを指定しない場合、コマンドを受信したサーバは問い合わせに応答する必要があります。</p>
+<p><code>&lt;target&gt;</code> パラメータには、ワイルドカードを使用できます。</p>
+<p>数値返信：</p>
+<pre><code>        ERR_NOSUCHSERVER              RPL_TIME
+</code></pre>
+<p>例：</p>
+<pre><code>TIME tolsun.oulu.fi
+    ; サーバ &quot;tolson.oulu.fi&quot; の時刻を確認する。
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="347-connect-メッセージ"><a class="header" href="#347-connect-メッセージ">3.4.7 Connect メッセージ</a></h1>
+<pre><code>   Command: CONNECT
+Parameters: &lt;target server&gt; &lt;port&gt; [ &lt;remote server&gt; ]
+</code></pre>
+<p>CONNECT コマンドは、他のサーバとの新しい接続を直ちに試みるようにサーバに要求するために使用することができます。CONNECT は特権的なコマンドであり、IRC オペレータのみが使用できるようにすべきです。 <code>&lt;remote server&gt;</code> が与えられ、そのマスクが解析サーバの名前と一致しない場合、CONNECT の試行は最初に一致したリモートサーバに送られます。それ以外の場合は、リクエストを処理するサーバによって CONNECT が試行されます。</p>
+<p>リモート CONNECT コマンドを受信したサーバは、リクエストのソースとターゲットを記述する WALLOPS メッセージを生成する必要があります。</p>
+<p>数値返信：</p>
+<pre><code>        ERR_NOSUCHSERVER              ERR_NOPRIVILEGES
+        ERR_NEEDMOREPARAMS
+</code></pre>
+<p>例：</p>
+<pre><code>CONNECT tolsun.oulu.fi 6667
+    ; ローカルサーバから tolsun.oulu.fi のポート6667への接続を試行するコマンド。
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="348-trace-メッセージ"><a class="header" href="#348-trace-メッセージ">3.4.8 Trace メッセージ</a></h1>
+<pre><code>   Command: TRACE
+Parameters: [ &lt;target&gt; ]
+</code></pre>
+<p>TRACE コマンドは、特定のサーバへの経路とそのピアの情報を見つけるために使用されます。このコマンドを処理した各サーバは、送信者にそのことを報告しなければなりません。パススルー・リンクからの応答は連鎖を形成し、目的地までの経路を示します。この応答を返した後、与えられた <code>&lt;target&gt;</code> サーバに到達するまで、次のサーバに問い合わせを送信する必要があります。</p>
+<p>TRACE コマンドは、特定のサーバへの経路を検索するために使用されます。このメッセージを処理する各サーバは、パススルーリンクであることを示す応答を送信して送信者に伝え、応答の連鎖を形成する必要があります。この応答を返した後、指定されたサーバに到達するまで、次のサーバに TRACE メッセージを送信しなければなりません。<code>&lt;target&gt;</code> パラメータが省略された場合、TRACE コマンドはローカルサーバがどのサーバに直接接続しているかを示すメッセージを送信者に送信することを推奨します。</p>
+<p><code>&lt;target&gt;</code> で指定された宛先が実際のサーバの場合、宛先サーバは接続されている全てのサーバ、サービス、オペレータを報告する必要があります。オペレータによってコマンドが発行された場合、サーバは接続されている全てのユーザを報告してもかまいません。<code>&lt;target&gt;</code> で指定された宛先がニックネームの場合、そのニックネームに対する応答のみが返されます。<code>&lt;target&gt;</code> パラメータが省略された場合、TRACE コマンドは処理中のサーバをターゲットとして解析されることが推奨されます。</p>
+<p><code>&lt;target&gt;</code> パラメータには、ワイルドカードを使用できます。</p>
+<p>数値返信：</p>
+<pre><code>        ERR_NOSUCHSERVER
+</code></pre>
+<p>TRACE メッセージが他のサーバに向けられた場合、すべての中間サーバは RPL_TRACELINK 応答を返して、TRACE がそれを通過したことと次の行き先を示さなければなりません。</p>
+<pre><code>        RPL_TRACELINK
+</code></pre>
+<p>TRACE 応答は、以下の数値応答からいくつでも構成することができます。</p>
+<pre><code>        RPL_TRACECONNECTING           RPL_TRACEHANDSHAKE
+        RPL_TRACEUNKNOWN              RPL_TRACEOPERATOR
+        RPL_TRACEUSER                 RPL_TRACESERVER
+        RPL_TRACESERVICE              RPL_TRACENEWTYPE
+        RPL_TRACECLASS                RPL_TRACELOG
+        RPL_TRACEEND
+</code></pre>
+<p>例：</p>
+<pre><code>TRACE *.oulu.fi
+    ; *.oulu.fi に一致するサーバーへの TRACE
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="349-admin-コマンド"><a class="header" href="#349-admin-コマンド">3.4.9 Admin コマンド</a></h1>
+<pre><code>   Command: ADMIN
+Parameters: [ &lt;target&gt; ]
+</code></pre>
+<p>ADMIN コマンドは、指定されたサーバ（<code>&lt;target&gt;</code> パラメータが省略された場合は現在のサーバ）の管理者情報を検索するために使用されます。各サーバは、ADMIN メッセージを他のサーバに転送する機能を持つ必要があります。</p>
+<p><target>パラメータには、ワイルドカードを使用できます。</p>
+<p>数値返信：</p>
+<pre><code>        ERR_NOSUCHSERVER
+        RPL_ADMINME                   RPL_ADMINLOC1
+        RPL_ADMINLOC2                 RPL_ADMINEMAIL
+</code></pre>
+<p>例：</p>
+<pre><code>ADMIN tolsun.oulu.fi
+    ; tolsun.oulu.fi から ADMIN の返信を要求します。
+
+ADMIN syrk
+    ; ユーザ syrk が接続しているサーバへの ADMIN リクエスト。
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="3410-info-コマンド"><a class="header" href="#3410-info-コマンド">3.4.10 Info コマンド</a></h1>
+<pre><code>   Command: INFO
+Parameters: [ &lt;target&gt; ]
+</code></pre>
+<p>INFO コマンドは、サーバのバージョン、コンパイル日、パッチレベル、起動日、その他関連すると思われる雑多な情報など、サーバに関する情報を返すことが要求されます。</p>
+<p><code>&lt;target&gt;</code> パラメータには、ワイルドカードを使用できます。</p>
+<p>数値返信：</p>
+<pre><code>        ERR_NOSUCHSERVER
+        RPL_INFO                      RPL_ENDOFINFO
+</code></pre>
+<p>例：</p>
+<pre><code>INFO csd.bu.edu
+    ; csd.bu.edu からの INFO 応答を要求します。
+
+INFO Angel
+    ; Angel が接続しているサーバに情報を要求します。
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="35-サービスへのクエリとコマンド"><a class="header" href="#35-サービスへのクエリとコマンド">3.5 サービスへのクエリとコマンド</a></h1>
+<p>サービスクエリコマンド群は、ネットワークに接続されているあらゆるサービスの情報を返すように設計されています。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="351-servlist-メッセージ"><a class="header" href="#351-servlist-メッセージ">3.5.1 Servlist メッセージ</a></h1>
+<pre><code>   Command: SERVLIST
+Parameters: [ &lt;mask&gt; [ &lt;type&gt; ] ]
+</code></pre>
+<p>SERVLIST コマンドは、現在ネットワークに接続され、コマンドを発行したユーザから見えるサービスの一覧を表示するために使用されます。オプションのパラメータを使用すると、クエリの結果を一致するサービス名とサービスタイプに制限することができます。</p>
+<p>数値返信：</p>
+<pre><code>        RPL_SERVLIST                  RPL_SERVLISTEND
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="352-squery"><a class="header" href="#352-squery">3.5.2 Squery</a></h1>
+<pre><code>   Command: SQUERY
+Parameters: &lt;servicename&gt; &lt;text&gt;
+</code></pre>
+<p>SQUERY コマンドは、PRIVMSG と同様の使い方をします。唯一の違いは、受信者がサービスでなければならないことです。これは、テキストメッセージをサービスに配信する唯一の方法です。</p>
+<p>返信の詳細および例については、PRIVMSG を参照してください。</p>
+<p>例：</p>
+<pre><code>SQUERY irchelp :HELP privmsg
+    ; irchelp というニックネームのサービスに対するメッセージ。
+
+SQUERY dict@irc.fr :fr2en blaireau
+    ; Message to the service with name dict@irc.fr.
+    ; 名前 dict@irc.fr のサービスに対するメッセージ。
+
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="36-ユーザベースのクエリ"><a class="header" href="#36-ユーザベースのクエリ">3.6 ユーザベースのクエリ</a></h1>
+<p>ユーザクエリは、特定のユーザまたはグループユーザの詳細を検索することを主目的とするコマンド群です。これらのコマンドでワイルドカードを使用する場合、それらが一致すると、あなたが &quot;見えている&quot; ユーザの情報のみが返されます。ユーザの可視性は、ユーザのモードと、あなたが共にいる共通のチャネルセットの組み合わせで決定されます。</p>
+<p>サービスはこのクラスのメッセージを使用するべきではありませんが、使用することは可能です。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="361-who-クエリ"><a class="header" href="#361-who-クエリ">3.6.1 Who クエリ</a></h1>
+<pre><code>   Command: WHO
+Parameters: [ &lt;mask&gt; [ &quot;o&quot; ] ]
+</code></pre>
+<p>WHO コマンドは、クライアントが指定した <code>&lt;mask&gt;</code> パラメータに &quot;一致&quot; する情報のリストを返すクエリを生成するために使用されます。<code>&lt;mask&gt;</code> パラメータがない場合、すべての可視（不可視（ユーザモード <code>+i</code>）でなく、要求元のクライアントと共通のチャネルを持っていないユーザ）のリストが表示されます。<code>&lt;mask&gt;</code> に <code>0</code> を指定しても同じ結果が得られますが、ワイルドカードを使用すると、すべての可視ユーザにマッチすることになります。</p>
+<p>WHO に渡された <code>&lt;mask&gt;</code> は、チャネル <code>&lt;mask&gt;</code> が見つからない場合、ユーザのホスト、サーバ、実名、ニックネームと照合されます。</p>
+<p><code>o</code> を指定した場合は、指定した <code>&lt;mask&gt;</code> に従ってオペレータのみが返されます。</p>
+<p>数値返信：</p>
+<pre><code>        ERR_NOSUCHSERVER
+        RPL_WHOREPLY                  RPL_ENDOFWHO
+</code></pre>
+<p>例：</p>
+<pre><code>WHO *.fi
+    ; &quot;*.fi&quot; にマッチするすべてのユーザをリストアップするコマンド。
+
+WHO jto* o
+    ; &quot;jto*&quot; にマッチするユーザがオペレータである場合に、そのユーザの一覧を表示するコマンド。
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="362-whois-クエリ"><a class="header" href="#362-whois-クエリ">3.6.2 Whois クエリ</a></h1>
+<pre><code>   Command: WHOIS
+Parameters: [ &lt;target&gt; ] &lt;mask&gt; *( &quot;,&quot; &lt;mask&gt; )
+</code></pre>
+<p>このコマンドは、特定のユーザに関する情報を照会するために使用されます。サーバはこのコマンドに対して、マスクにマッチする各ユーザのさまざまなステータスを示すいくつかの数値メッセージを返します（あなたがそれらを見る権利がある場合）。<code>&lt;mask&gt;</code> にワイルドカードが含まれていない場合、そのニックネームに関する、閲覧が許可されているすべての情報が表示されます。</p>
+<p><code>&lt;target&gt;</code> パラメータを指定した場合、特定のサーバーに問い合わせを行います。これは、該当するユーザがどれくらいの時間アイドル状態であったかを知りたい場合に有効で、その情報はローカルサーバ（ユーザが直接接続しているサーバ）のみが知っており、その他の情報はグローバルに知られています。</p>
+<p><code>&lt;target&gt;</code> パラメータには、ワイルドカードを使用できます。</p>
+<p>数値返信：</p>
+<pre><code>        ERR_NOSUCHSERVER              ERR_NONICKNAMEGIVEN
+        RPL_WHOISUSER                 RPL_WHOISCHANNELS
+        RPL_WHOISCHANNELS             RPL_WHOISSERVER
+        RPL_AWAY                      RPL_WHOISOPERATOR
+        RPL_WHOISIDLE                 ERR_NOSUCHNICK
+        RPL_ENDOFWHOIS
+</code></pre>
+<p>例：</p>
+<pre><code>WHOIS wiz
+    ; ニックネーム WiZ に関する利用可能なユーザ情報を返します。
+
+WHOIS eff.org trillian
+    ; trillian に関するユーザ情報をサーバ eff.org に問い合わせます。
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="363-whowas"><a class="header" href="#363-whowas">3.6.3 Whowas</a></h1>
+<pre><code>   Command: WHOWAS
+Parameters: &lt;nickname&gt; *( &quot;,&quot; &lt;nickname&gt; ) [ &lt;count&gt; [ &lt;target&gt; ] ]
+</code></pre>
+<p>WHOWAS は、もう存在しないニックネームに関する情報を要求します。これはニックネームの変更か、ユーザが IRC を去ったかのどちらかでしょう。この問い合わせに対して、サーバはニックネームの履歴を検索し、字句的に同じニックネームを探します（ここではワイルドカードによるマッチングは 行なわれません）。履歴は後方から検索され、最新のエントリが最初に返されます。複数のエントリがある場合は、<code>&lt;count&gt;</code> 個までの返答が返されます（<code>&lt;count&gt;</code> パラメータが与えられていない場合は、それらすべてが返されます）。<code>&lt;count&gt;</code> として正でない数字が渡された場合、完全な検索が行われます。</p>
+<p><code>&lt;target&gt;</code> パラメータには、ワイルドカードを使用できます。</p>
+<p>数値返信：</p>
+<pre><code>        ERR_NONICKNAMEGIVEN           ERR_WASNOSUCHNICK
+        RPL_WHOWASUSER                RPL_WHOISSERVER
+        RPL_ENDOFWHOWAS
+</code></pre>
+<p>例：</p>
+<pre><code>WHOWAS Wiz
+    ; ニックネーム &quot;WiZ&quot; に関するニックネーム履歴の全ての情報を返します。
+
+
+WHOWAS Mermaid 9
+    ; &quot;Mermaid&quot; のニックネーム履歴のうち、最大で最新の9件を返します。
+
+WHOWAS Trillian 1 *.edu
+    ; &quot;Trillian&quot; の最新の履歴を、&quot;*.edu&quot; にマッチする最初に見つかったサーバから返します。
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="37-その他のメッセージ"><a class="header" href="#37-その他のメッセージ">3.7 その他のメッセージ</a></h1>
+<p>このカテゴリのメッセージは、上記のどのカテゴリにも当てはまりませんが、それでもプロトコルの一部であり、要求されるものです。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="371-kill-メッセージ"><a class="header" href="#371-kill-メッセージ">3.7.1 Kill メッセージ</a></h1>
+<pre><code>   Command: KILL
+Parameters: &lt;nickname&gt; &lt;comment&gt;
+</code></pre>
+<p>KILL コマンドは、クライアントとサーバの接続を、実際に接続しているサーバによって切断させるために使用します。サーバはニックネームの衝突の際に KILL メッセージを生成します。また、オペレータステータスを持つユーザが利用できるかもしれません。</p>
+<p>自動再接続のアルゴリズムを持っているクライアントは、切断が短時間であるため、このコマンドは事実上無意味です。しかし、データの流れを断ち切るので、悪用するユーザや事故から大量の &quot;フラッディング&quot; を止めるのに使うことができます。悪用するユーザは通常、すぐに再接続して悪用行為を再開するので、気にすることはありません。このコマンドが悪用されるのを防ぐために、どのユーザも他のユーザがトラブルスポットを &quot;監視&quot; するために生成される KILL メッセージを受け取ることを選択することができます。</p>
+<p>ニックネームは常にグローバルにユニークであることが要求されるため、&quot;重複&quot;（同じニックネームで2人のユーザーを登録しようとすること）が検出されると、KILL メッセージが送られ、2人とも消えて1人だけが再び現れることが期待されています。</p>
+<p>KILL メッセージの結果クライアントが削除された場合、サーバはそのニックネームを利用できないニックネームのリストに追加して、クライアントがすぐにこの名前を再利用することを避けるようにすべきです。これは通常、無駄な &quot;KILL ループ&quot; を引き起こす悪用行為のパターンです。この手順に関するより詳しい情報は <a href="https://solareenlo.com/rfc2813/">&quot;IRC サーバプロトコル&quot; ドキュメント [IRC-SERVER]</a> を参照してください。</p>
+<p>コメントには、KILL の実際の理由を反映させる必要があります。サーバが生成した KILL の場合は、通常、2つの衝突するニックネームの起源に関する詳細が含まれます。ユーザの場合は、それを見た人が満足するような適切な理由を提供するように任されています。KILLer を隠すために偽の KILL が生成されるのを防ぐために、コメントには 'kill-path' が表示され、通過する各サーバによってそのパスが更新され、それぞれのサーバ名が先頭に追加されます。</p>
+<p>数値返信：</p>
+<pre><code>        ERR_NOPRIVILEGES              ERR_NEEDMOREPARAMS
+        ERR_NOSUCHNICK                ERR_CANTKILLSERVER
+</code></pre>
+<p>NOTE：</p>
+<p>KILL コマンドで他のユーザをキルすることができるのは、オペレータだけであることが推奨されています。このコマンドは長年にわたって多くの論争の的となっており、上記の推奨事項とともに、オペレータであってもリモートサーバ上のユーザをキルすることは許されるべきではないということも広く認識されています。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="372-ping-メッセージ"><a class="header" href="#372-ping-メッセージ">3.7.2 Ping メッセージ</a></h1>
+<pre><code>   Command: PING
+Parameters: &lt;server1&gt; [ &lt;server2&gt; ]
+</code></pre>
+<p>PING コマンドは、接続の相手側にアクティブなクライアントまたはサーバが存在するかどうかをテストするために使用されます。サーバは、接続から他のアクティビティが検出されない場合、一定の間隔で PING メッセージを送信します。接続が一定時間内に PING メッセージに応答しない場合、その接続は閉じられます。PING メッセージは、接続がアクティブであっても送信されることがあります。</p>
+<p>PING メッセージを受信したら、できるだけ早く適切な PONG メッセージを <code>&lt;server1&gt;</code>（PING メッセージを発信したサーバ）に返信する必要があります。<code>&lt;server2&gt;</code> が指定されている場合は、PING の送信先を表し、メッセージはそこに転送されます。</p>
+<p>数値返信：</p>
+<pre><code>        ERR_NOORIGIN                  ERR_NOSUCHSERVER
+</code></pre>
+<p>例：</p>
+<pre><code>PING tolsun.oulu.fi
+    ; サーバに PING メッセージを送信するコマンド。
+
+PING WiZ tolsun.oulu.fii
+    ; WiZ からサーバ &quot;tolsun.oulu.fi&quot; への PING メッセージ送信コマンド
+
+PING :irc.funet.fi
+    ; サーバ &quot;irc.funet.fi&quot; から送信された Ping メッセージ。
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="373-pong-メッセージ"><a class="header" href="#373-pong-メッセージ">3.7.3 Pong メッセージ</a></h1>
+<pre><code>   Command: PONG
+Parameters: &lt;server&gt; [ &lt;server2&gt; ]
+</code></pre>
+<p>PONG メッセージは、Ping メッセージに対する応答です。パラメータ <code>&lt;server2&gt;</code> が指定された場合、このメッセージは指定されたターゲットに転送されなければなりません。<code>&lt;server&gt;</code> パラメータには，PING メッセージに応答してこのメッセージを生成したエンティティの名前を指定します。</p>
+<p>数値返信：</p>
+<pre><code>        ERR_NOORIGIN                  ERR_NOSUCHSERVER
+</code></pre>
+<p>例：</p>
+<pre><code>PONG csd.bu.edu tolsun.oulu.fi
+    ; csd.bu.edu から tolsun.oulu.fi への PONG メッセージ
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="374-error"><a class="header" href="#374-error">3.7.4 Error</a></h1>
+<pre><code>   Command: ERROR
+Parameters: &lt;error message&gt;
+</code></pre>
+<p>ERROR コマンドは、サーバが重大なエラーや致命的なエラーを仲間に報告するときに使用します。また、あるサーバから別のサーバに送信することもできますが、通常の未知のクライアントからは受け入れてはなりません。</p>
+<p>サーバ間のリンクで発生したエラーの報告には、ERROR メッセージのみを使用すべきです。ERROR メッセージは、相手側のサーバ（適切なローカルユーザとログに報告される）と自身の適切なローカルユーザーとログに送信されます。サーバーから受信した場合、サーバから他のサーバに渡されることはありません。</p>
+<p>ERROR メッセージは、クライアント接続を終了する前にも使用されます。</p>
+<p>サーバが受信した ERROR メッセージをそのオペレータに送るとき、メッセージは NOTICE メッセージの中にカプセル化され、クライアントがエラーに責任がないことを示すべきです。</p>
+<p>数値返信：</p>
+<pre><code>        None.
+</code></pre>
+<p>例：</p>
+<pre><code>ERROR :Server *.fi already exists
+    ; このエラーを発生させた相手サーバに ERROR メッセージを送ります。
+
+
+NOTICE WiZ :ERROR from csd.bu.edu -- Server *.fi already exists
+    ; 上記と同じ ERROR メッセージが、他のサーバのユーザ WiZ に送信されます。
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="4-オプション機能"><a class="header" href="#4-オプション機能">4. オプション機能</a></h1>
+<p>この章では、OPTIONAL メッセージについて説明します。これらは、ここで説明するプロトコルの実用的なサーバ実装では必要ありません。この機能がない場合、エラー応答メッセージが生成されるか、未知のコマンドエラーが発生しなければなりません。もしメッセージが他のサーバに応答するように運命づけられているなら、それは渡されなければなりません（初歩的なパースが必要です）。このために割り当てられた数値は、以下のメッセージとともにリストされています。</p>
+<p>この章から、USERHOST と ISON のメッセージのみサービスが利用可能です。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="41-away"><a class="header" href="#41-away">4.1 Away</a></h1>
+<pre><code>   Command: AWAY
+Parameters: [ &lt;text&gt; ]
+</code></pre>
+<p>AWAY コマンドを使用すると、クライアントは自分宛の PRIVMSG コマンド（自分がいるチャネル宛ではない）に対して、自動返信文字列を設定することができます。サーバは、PRIVMSG コマンドを送信しているクライアントに自動応答を送ります。返信するサーバは、送信側クライアントが接続しているサーバのみです。</p>
+<p>AWAY コマンドは、1つのパラメータで AWAY メッセージを設定する場合と、パラメータなしで AWAY メッセージを削除する場合に使用します。</p>
+<p>AWAY メッセージはメモリと帯域幅のコストが高いため、クライアントとサーバ間の通信にのみ使用する必要があります。サーバは、他のサーバから受け取った AWAY メッセージを黙って無視することを選択できます。サーバ間でクライアントの離席状態を更新するためには、代わりにユーザモード <code>a</code> を使用すべきです。（<a href="optional-features/../message-details/user-mode-message.html">3.1.5 節</a> を参照）</p>
+<p>数値返信：</p>
+<pre><code>        RPL_UNAWAY                    RPL_NOWAWAY
+</code></pre>
+<p>例：</p>
+<pre><code>AWAY :Gone to lunch.  Back in 5
+    ; 離席メッセージを &quot;Gone to lunch. Back in 5&quot; に設定するコマンド。
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="42-rehash-メッセージ"><a class="header" href="#42-rehash-メッセージ">4.2 Rehash メッセージ</a></h1>
+<pre><code>   Command: REHASH
+Parameters: None
+</code></pre>
+<p>REHASH コマンドは管理用コマンドで、オペレータがサーバに設定ファイルの再読み込みと処理を強制するために使用することができます。</p>
+<p>数値返信：</p>
+<pre><code>        RPL_REHASHING                 ERR_NOPRIVILEGES
+</code></pre>
+<p>例：</p>
+<pre><code>REHASH
+    ; オペレータステータスを持つユーザからサーバに設定ファイルの再読込を依頼するメッセージ。
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="43-die-メッセージ"><a class="header" href="#43-die-メッセージ">4.3 Die メッセージ</a></h1>
+<pre><code>   Command: DIE
+Parameters: None
+</code></pre>
+<p>オペレータは、DIE コマンドを使用してサーバをシャットダウンすることができます。任意の人がオペレータとしてサーバに接続し、このコマンドを実行することはリスクとみなされる可能性があるため、このメッセージはオプションです。</p>
+<p>DIE コマンドは、常に送信側クライアントが接続しているサーバで完全に処理されなければならず、接続している他のサーバに渡してはなりません。</p>
+<p>数値返信：</p>
+<pre><code>        ERR_NOPRIVILEGES
+</code></pre>
+<p>例：</p>
+<pre><code>DIE
+    ; パラメータは必要ありません。
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="44-restart-メッセージ"><a class="header" href="#44-restart-メッセージ">4.4 Restart メッセージ</a></h1>
+<pre><code>   Command: RESTART
+Parameters: None
+</code></pre>
+<p>オペレータは RESTART コマンドを使用して、サーバを強制的に再起動させることができます。任意の人がオペレータとしてサーバに接続してこのコマンドを実行し、（少なくとも）サービスの停止を引き起こすことはリスクとみなされる可能性があるため、このメッセージはオプションとします。</p>
+<p>RESTART コマンドは、常に送信側クライアントが接続しているサーバで完全に処理されなければならず、接続している他のサーバに渡してはなりません。</p>
+<p>数値返信：</p>
+<pre><code>        ERR_NOPRIVILEGES
+</code></pre>
+<p>例：</p>
+<pre><code>RESTART
+    ; パラメータは必要ありません。
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="45-summon-メッセージ"><a class="header" href="#45-summon-メッセージ">4.5 Summon メッセージ</a></h1>
+<pre><code>   Command: SUMMON
+Parameters: &lt;user&gt; [ &lt;target&gt; [ &lt;channel&gt; ] ]
+</code></pre>
+<p>SUMMON コマンドは、IRC サーバを実行しているホストにいるユーザに、IRC に参加してくださいというメッセージを送るために使用することができます。このメッセージは、ターゲットサーバが (a) SUMMON を有効にしていて、(b) ユーザがログインしていて、(c) サーバプロセスがユーザの tty（または同様のもの）に書き込める場合にのみ送信されます。</p>
+<p><code>&lt;server&gt;</code> パラメータを指定しない場合、クライアントが接続しているサーバから <code>&lt;user&gt;</code> を呼び出そうとするものとします。</p>
+<p>サーバで SUMMON が有効でない場合、ERR_SUMMONDISABLED の数値を返す必要があります。</p>
+<p>数値返信：</p>
+<pre><code>        ERR_NORECIPIENT               ERR_FILEERROR
+        ERR_NOLOGIN                   ERR_NOSUCHSERVER
+        ERR_SUMMONDISABLED            RPL_SUMMONING
+</code></pre>
+<p>例：</p>
+<pre><code>SUMMON jto
+    ; summon user jto on the server's host
+    ; サーバのホストでユーザ jto を召喚します。
+
+SUMMON jto tolsun.oulu.fi
+    ; &quot;tolsun.ulu.fi&quot; という名前のサーバが動作しているホストで、jto というユーザを召喚します。
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="46-users"><a class="header" href="#46-users">4.6 Users</a></h1>
+<pre><code>   Command: USERS
+Parameters: [ &lt;target&gt; ]
+</code></pre>
+<p>USERS コマンドは、UNIX コマンドの who(1), rusers(1), finger(1) と同様のフォーマットで、サーバにログインしているユーザの一覧を返します。無効の場合、それを示す正しい数値が返されなければなりません。</p>
+<p>このようなコマンドはセキュリティに影響するため、サーバの実装ではデフォルトで無効化されるべきです。有効にするためには、単にオプションを切り替えてサーバを再起動するのではなく、サーバの再コンパイルや同等の変更が必要になるはずです。このコマンドを有効にする手順には、適切な大きさのコメントを含める必要があります。</p>
+<p>数値返信：</p>
+<pre><code>        ERR_NOSUCHSERVER              ERR_FILEERROR
+        RPL_USERSSTART                RPL_USERS
+        RPL_NOUSERS                   RPL_ENDOFUSERS
+        ERR_USERSDISABLED
+</code></pre>
+<p>返信不可：</p>
+<pre><code>        ERR_USERSDISABLED
+</code></pre>
+<p>例：</p>
+<pre><code>USERS eff.org
+    ; request a list of users logged in on server eff.org
+    ; サーバ eff.org にログインしているユーザのリストを要求します。
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="47-operwall-メッセージ"><a class="header" href="#47-operwall-メッセージ">4.7 Operwall メッセージ</a></h1>
+<pre><code>   Command: WALLOPS
+Parameters: &lt;Text to be sent&gt;
+</code></pre>
+<p>WALLOPS コマンドは、現在接続しているユーザのうち、自分に <code>w</code> ユーザモードを設定しているユーザ全てにメッセージを送信するために使用されます。（<a href="optional-features/../message-details/user-mode-message.html">3.1.5節 &quot;ユーザーモード&quot;</a> 参照）。</p>
+<p>WALLOPS をユーザコマンドとして実装した後、多くの人にメッセージを送る手段として、しばしば悪用されることがわかりました。このため、WALLOPS の実装では、サーバのみを WALLOPS の発信元として許可・認識することが推奨されます。</p>
+<p>数値返信：</p>
+<pre><code>        ERR_NEEDMOREPARAMS
+</code></pre>
+<p>例：</p>
+<pre><code>:csd.bu.edu WALLOPS :Connect '*.uiuc.edu 6667' from Joshua
+    ; csd.bu.edu からの WALLOPS メッセージは、Joshua から受信した CONNECT メッセージに対応することを告知しています。
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="48-userhost-メッセージ"><a class="header" href="#48-userhost-メッセージ">4.8 Userhost メッセージ</a></h1>
+<pre><code>   Command: USERHOST
+Parameters: &lt;nickname&gt; *( SPACE &lt;nickname&gt; )
+</code></pre>
+<p>USERHOST コマンドはスペース文字で区切られた最大5つのニックネームのリストを受け取り、見つけたそれぞれのニックネームに関する情報のリストを返します。返されるリストには、それぞれの返答がスペースで区切られています。</p>
+<p>数値返信：</p>
+<pre><code>        RPL_USERHOST                  ERR_NEEDMOREPARAMS
+</code></pre>
+<p>例：</p>
+<pre><code>USERHOST Wiz Michael syrk
+    ; USERHOST によるニックネーム &quot;Wiz&quot;, &quot;Michael&quot;, &quot;syrk&quot; の情報提供の依頼。
+
+:ircd.stealth.net 302 yournick :syrk=+syrk@millennium.stealth.net
+    ; ユーザ syrk への返信。
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="49-ison-メッセージ"><a class="header" href="#49-ison-メッセージ">4.9 Ison メッセージ</a></h1>
+<pre><code>   Command: ISON
+Parameters: &lt;nickname&gt; *( SPACE &lt;nickname&gt; )
+</code></pre>
+<p>ISON コマンドは、与えられたニックネームが現在 IRC 上にあるかどうかについての応答を得るための、迅速かつ効率的な手段を提供するために実装されました。ISON は1種類のパラメータしか受け取りません：空白で区切られたニックネームのリストです。リスト中のそれぞれのニックネームが存在する場合、サーバはその応答文字列にそれを追加します。したがって、応答文字列は空（与えられたニックネームが一つもない）、パラメータ文字列の完全なコピー（すべてのニックネームがある）、パラメータで与えられたニックネームのセットの他のサブセットを返すかもしれません。チェックするニックの数に関する唯一の制限は、サーバが512文字に収まるように切り捨てるほど、ニックの合計の長さが大きすぎてはいけないということです。</p>
+<p>ISON は、コマンドを送信したクライアントのローカルサーバでのみ処理されるため、他のサーバに渡されてさらに処理されることはありません。</p>
+<p>数値返信：</p>
+<pre><code>        RPL_ISON                      ERR_NEEDMOREPARAMS
+</code></pre>
+<p>例：</p>
+<pre><code>ISON phone trillian WiZ jarlek Avalon Angel Monstah syrk
+    ; サンプル ISON のリクエストは7ニックスです。
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="5-返信"><a class="header" href="#5-返信">5. 返信</a></h1>
+<p>以下は、上記のコマンドに応答して生成される数値返信のリストです。各数値は、番号、名前、返信文字列で示されます。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="51-コマンド返答"><a class="header" href="#51-コマンド返答">5.1 コマンド返答</a></h1>
+<p>001から099の範囲の数値は、クライアントとサーバの接続にのみ使用され、サーバ間を移動することはありません。コマンドに対する応答として生成されるリプライは、200から399の範囲にあります。</p>
+<pre><code>001    RPL_WELCOME
+       &quot;Welcome to the Internet Relay Network
+        &lt;nick&gt;!&lt;user&gt;@&lt;host&gt;&quot;
+002    RPL_YOURHOST
+       &quot;Your host is &lt;servername&gt;, running version &lt;ver&gt;&quot;
+003    RPL_CREATED
+       &quot;This server was created &lt;date&gt;&quot;
+004    RPL_MYINFO
+       &quot;&lt;servername&gt; &lt;version&gt; &lt;available user modes&gt;
+        &lt;available channel modes&gt;&quot;
+</code></pre>
+<ul>
+<li>サーバは、登録に成功したユーザに対して、返信001～004を送信します。</li>
+</ul>
+<pre><code>005    RPL_BOUNCE
+       &quot;Try server &lt;server name&gt;, port &lt;port number&gt;&quot;
+</code></pre>
+<ul>
+<li>代替サーバを提案するために、サーバからユーザに送信されます。これは、サーバがすでに満杯で接続を拒否された場合によく使われます。</li>
+</ul>
+<pre><code>302    RPL_USERHOST
+       &quot;:*1&lt;reply&gt; *( &quot; &quot; &lt;reply&gt; )&quot;
+</code></pre>
+<ul>
+<li>
+<p>USERHOST がクエリリストの返信を一覧表示するために使用する返信フォーマット。返信文字列は以下のように構成されます。</p>
+<p><code>reply = nickname [ &quot;*&quot; ] &quot;=&quot; ( &quot;+&quot; / &quot;-&quot; ) hostname</code></p>
+<p><code>*</code> は、クライアントがオペレータとして登録されているかどうかを示します。<code>-</code>, <code>+</code> は，それぞれクライアントが AWAY メッセージを設定しているか否かを示します。</p>
+</li>
+</ul>
+<pre><code>303    RPL_ISON
+       &quot;:*1&lt;nick&gt; *( &quot; &quot; &lt;nick&gt; )&quot;
+</code></pre>
+<ul>
+<li>ISON がクエリリストに対する返信を一覧表示するために使用する返信フォーマット。</li>
+</ul>
+<pre><code>301    RPL_AWAY
+       &quot;&lt;nick&gt; :&lt;away message&gt;&quot;
+305    RPL_UNAWAY
+       &quot;:You are no longer marked as being away&quot;
+306    RPL_NOWAWAY
+       &quot;:You have been marked as being away&quot;
+</code></pre>
+<ul>
+<li>これらの応答は、AWAY コマンドと一緒に使用されます（許可されている場合）。RPL_AWAY は、離席中のクライアントに PRIVMSG を送信するすべてのクライアントに送信されます。RPL_AWAY は、クライアントが接続されているサーバによってのみ送信されます。応答 RPL_UNAWAY と RPL_NOWAWAY は、クライアントが AWAY メッセージを削除して設定するときに送信されます。</li>
+</ul>
+<pre><code>311    RPL_WHOISUSER
+       &quot;&lt;nick&gt; &lt;user&gt; &lt;host&gt; * :&lt;real name&gt;&quot;
+312    RPL_WHOISSERVER
+       &quot;&lt;nick&gt; &lt;server&gt; :&lt;server info&gt;&quot;
+313    RPL_WHOISOPERATOR
+       &quot;&lt;nick&gt; :is an IRC operator&quot;
+
+317    RPL_WHOISIDLE
+       &quot;&lt;nick&gt; &lt;integer&gt; :seconds idle&quot;
+318    RPL_ENDOFWHOIS
+       &quot;&lt;nick&gt; :End of WHOIS list&quot;
+319    RPL_WHOISCHANNELS
+       &quot;&lt;nick&gt; :*( ( &quot;@&quot; / &quot;+&quot; ) &lt;channel&gt; &quot; &quot; )&quot;
+</code></pre>
+<ul>
+<li>返信 311 - 313, 317 - 319 は、すべて WHOIS メッセージに応答して生成される返信です。十分な数のパラメータが存在する場合、応答サーバは上記の数値から応答を作成するか（クエリニックが見つかった場合）、エラー応答を返す必要があります。RPL_WHOISUSER の <code>*</code> はワイルドカードとしてではなく、リテラル文字として存在します。各返事セットについて、RPL_WHOISCHANNELS だけが複数回現れるかもしれません（チャネル名の長いリストの場合）。チャネル名の横にある <code>@</code> と <code>+</code> の文字は、クライアントがチャネルオペレータであるか、モデレートされたチャネルで発言する許可を得ているかどうかを示します。RPL_ENDOFWHOIS 応答は、WHOIS メッセージの処理の終了をマークするために使用されます。</li>
+</ul>
+<pre><code>314    RPL_WHOWASUSER
+       &quot;&lt;nick&gt; &lt;user&gt; &lt;host&gt; * :&lt;real name&gt;&quot;
+369    RPL_ENDOFWHOWAS
+       &quot;&lt;nick&gt; :End of WHOWAS&quot;
+</code></pre>
+<ul>
+<li>WHOWAS メッセージに返信するとき、サーバは提示されたリストの各ニックネームに対して RPL_WHOWASUSER、RPL_WHOISSERVER または ERR_WASNOSUCHNICK の返信を使用しなければなりません。すべての応答バッチの終わりには、たとえ1つの応答しかなく、それがエラーであったとしても、RPL_ENDOFWHOWAS がなければなりません。</li>
+</ul>
+<pre><code>321    RPL_LISTSTART
+       Obsolete. Not used.
+
+322    RPL_LIST
+       &quot;&lt;channel&gt; &lt;# visible&gt; :&lt;topic&gt;&quot;
+323    RPL_LISTEND
+       &quot;:End of LIST&quot;
+</code></pre>
+<ul>
+<li>返信 RPL_LIST、RPL_LISTENDは、LIST コマンドに対するサーバの応答のデータと終了を伴う実際の返信をマークします。返送可能なチャネルがない場合は、終了応答のみを送信する必要があります。</li>
+</ul>
+<pre><code>325    RPL_UNIQOPIS
+       &quot;&lt;channel&gt; &lt;nickname&gt;&quot;
+
+324    RPL_CHANNELMODEIS
+       &quot;&lt;channel&gt; &lt;mode&gt; &lt;mode params&gt;&quot;
+
+331    RPL_NOTOPIC
+       &quot;&lt;channel&gt; :No topic is set&quot;
+332    RPL_TOPIC
+       &quot;&lt;channel&gt; :&lt;topic&gt;&quot;
+</code></pre>
+<ul>
+<li>チャネルのトピックを決定する TOPIC メッセージを送信する場合、2つの返信のうち 1つを送信します。トピックが設定されていれば、RPL_TOPIC が返送され、そうでなければ RPL_NOTOPIC が返送されます。</li>
+</ul>
+<pre><code>341    RPL_INVITING
+       &quot;&lt;channel&gt; &lt;nick&gt;&quot;
+</code></pre>
+<ul>
+<li>試行された INVITE メッセージが成功し、エンドクライアントに渡されることを示すためにサーバから返されます。</li>
+</ul>
+<pre><code>342    RPL_SUMMONING
+       &quot;&lt;user&gt; :Summoning user to IRC&quot;
+</code></pre>
+<ul>
+<li>SUMMON メッセージに応答したサーバが、そのユーザを呼び出していることを示すために返されます。</li>
+</ul>
+<pre><code>346    RPL_INVITELIST
+       &quot;&lt;channel&gt; &lt;invitemask&gt;&quot;
+347    RPL_ENDOFINVITELIST
+       &quot;&lt;channel&gt; :End of channel invite list&quot;
+</code></pre>
+<ul>
+<li>与えられたチャネルの &quot;招待マスク&quot; をリストするとき、サーバは RPL_INVITELIST と RPL_ENDOFINVITELIST メッセージを使用してリストを送り返すことが要求されます。別々の RPL_INVITELIST が各アクティブマスクに対して送信されます。マスクがリストされた後、または1つも存在しない場合、RPL_ENDOFINVITELIST を送信する必要があります。</li>
+</ul>
+<pre><code>348    RPL_EXCEPTLIST
+       &quot;&lt;channel&gt; &lt;exceptionmask&gt;&quot;
+349    RPL_ENDOFEXCEPTLIST
+       &quot;&lt;channel&gt; :End of channel exception list&quot;
+</code></pre>
+<ul>
+<li>与えられたチャネルの &quot;例外マスク&quot; をリストするとき、サーバは RPL_EXCEPTLIST および RPL_ENDOFEXCEPTLIST メッセージを使用してリストを送り返すことが要求されます。アクティブなマスクごとに個別の RPL_EXCEPTLIST が送信されます。マスクがリストアップされた後、または1つも存在しない場合は、RPL_ENDOFEXCEPTLIST を送信する必要があります。</li>
+</ul>
+<pre><code>351    RPL_VERSION
+       &quot;&lt;version&gt;.&lt;debuglevel&gt; &lt;server&gt; :&lt;comments&gt;&quot;
+</code></pre>
+<ul>
+<li>
+<p>サーバがそのバージョンの詳細を示す返信。<code>&lt;version&gt;</code> はパッチレベルのリビジョンを含む使用中のソフトウェアのバージョンで、<code>&lt;debuglevel&gt;</code> はサーバが &quot;デバッグモード&quot; で動作しているかどうかを示すために使用されます。</p>
+<p>&quot;comments&quot; 欄には、バージョンに関するコメントや、さらなるバージョンに関する詳細情報を入力することができます。</p>
+</li>
+</ul>
+<pre><code>352    RPL_WHOREPLY
+       &quot;&lt;channel&gt; &lt;user&gt; &lt;host&gt; &lt;server&gt; &lt;nick&gt;
+       ( &quot;H&quot; / &quot;G&quot; &gt; [&quot;*&quot;] [ ( &quot;@&quot; / &quot;+&quot; ) ]
+       :&lt;hopcount&gt; &lt;real name&gt;&quot;
+
+315    RPL_ENDOFWHO
+       &quot;&lt;name&gt; :End of WHO list&quot;
+</code></pre>
+<ul>
+<li>RPL_WHOREPLY と RPL_ENDOFWHO のペアは、WHO メッセージに答えるために使用されます。RPL_WHOREPLY は、WHO クエリに適切なマッチがある場合にのみ送信されます。WHO メッセージで供給されるパラメータのリストがある場合、<code>&lt;name&gt;</code> を項目とする各リスト項目を処理した後に RPL_ENDOFWHO を送信する必要があります。</li>
+</ul>
+<pre><code>353    RPL_NAMREPLY
+       &quot;( &quot;=&quot; / &quot;*&quot; / &quot;@&quot; ) &lt;channel&gt;
+        :[ &quot;@&quot; / &quot;+&quot; ] &lt;nick&gt; *( &quot; &quot; [ &quot;@&quot; / &quot;+&quot; ] &lt;nick&gt; )
+  - &quot;@&quot; is used for secret channels, &quot;*&quot; for private
+    channels, and &quot;=&quot; for others (public channels).
+
+366    RPL_ENDOFNAMES
+       &quot;&lt;channel&gt; :End of NAMES list&quot;
+</code></pre>
+<ul>
+<li>NAMES メッセージに返信するために、RPL_NAMREPLY と RPL_ENDOFNAMES からなる返信ペアがサーバからクライアントに返送されます。クエリのように見つかったチャネルがない場合、RPL_ENDOFNAMES だけが返されます。この例外は、NAMES メッセージがパラメータなしで送信され、すべての可視チャネルとコンテンツが一連の RPL_NAMEREPLY メッセージで送り返され、RPL_ENDOFNAMES で終了をマークする場合です。</li>
+</ul>
+<pre><code>364    RPL_LINKS
+       &quot;&lt;mask&gt; &lt;server&gt; :&lt;hopcount&gt; &lt;server info&gt;&quot;
+365    RPL_ENDOFLINKS
+       &quot;&lt;mask&gt; :End of LINKS list&quot;
+</code></pre>
+<ul>
+<li>LINKS メッセージに返信する際、サーバは RPL_LINKS 数値を使用して返信を送り、RPL_ENDOFLINKS 返信を使用してリストの終わりをマークしなければなりません。</li>
+</ul>
+<pre><code>367    RPL_BANLIST
+       &quot;&lt;channel&gt; &lt;banmask&gt;&quot;
+368    RPL_ENDOFBANLIST
+       &quot;&lt;channel&gt; :End of channel ban list&quot;
+</code></pre>
+<ul>
+<li>特定のチャネルのアクティブな &quot;禁止&quot; をリストアップする場合、サーバは RPL_BANLIST と RPL_ENDOFBANLIST メッセージを使用してリストを送り返すことが要求されます。アクティブな禁止マスクごとに別々の RPL_BANLIST が送信されます。禁止マスクがリストアップされた後、または1つも存在しない場合は、RPL_ENDOFBANLIST を送信する必要があります。</li>
+</ul>
+<pre><code>371    RPL_INFO
+       &quot;:&lt;string&gt;&quot;
+374    RPL_ENDOFINFO
+       &quot;:End of INFO list&quot;
+</code></pre>
+<ul>
+<li>INFO メッセージに応答するサーバは、そのすべての &quot;info&quot; を一連の RPL_INFO メッセージで送信し、返信の終わりを示すために RPL_ENDOFINFO 返信をすることが要求されます。</li>
+</ul>
+<pre><code>375    RPL_MOTDSTART
+       &quot;:- &lt;server&gt; Message of the day - &quot;
+372    RPL_MOTD
+       &quot;:- &lt;text&gt;&quot;
+376    RPL_ENDOFMOTD
+       &quot;:End of MOTD command&quot;
+</code></pre>
+<ul>
+<li>MOTD メッセージに応答し、MOTD ファイルが見つかった場合、RPL_MOTD 形式の返信で、1行80文字以内で1行ずつ表示されます。これらは、RPL_MOTD の前に RPL_MOTDSTART、後に RPL_ENDOFMOTD で囲む必要があります。</li>
+</ul>
+<pre><code>381    RPL_YOUREOPER
+       &quot;:You are now an IRC operator&quot;
+</code></pre>
+<ul>
+<li>RPL_YOUREOPER は、OPER メッセージを正常に発行し、オペレータ・ステータスを得たばかりのクライアントに返送されます。</li>
+</ul>
+<pre><code>382    RPL_REHASHING
+       &quot;&lt;config file&gt; :Rehashing&quot;
+</code></pre>
+<ul>
+<li>REHASH オプションが使用され、オペレータが REHASH メッセージを送信する場合、RPL_REHASHING がオペレータに返送されます。</li>
+</ul>
+<pre><code>383    RPL_YOURESERVICE
+       &quot;You are service &lt;servicename&gt;&quot;
+</code></pre>
+<ul>
+<li>登録に成功したときにサーバからサービスに送信されます。</li>
+</ul>
+<pre><code>391    RPL_TIME
+       &quot;&lt;server&gt; :&lt;string showing server's local time&gt;&quot;
+</code></pre>
+<ul>
+<li>TIME メッセージに返信する場合、サーバは上記の RPL_TIME 形式を使用して返信を送信する必要があります。時刻を示す文字列は、そこに正しい曜日と時刻を含むだけでよいです。時刻を示す文字列には、それ以上の要件はありません。</li>
+</ul>
+<pre><code>392    RPL_USERSSTART
+       &quot;:UserID   Terminal  Host&quot;
+393    RPL_USERS
+       &quot;:&lt;username&gt; &lt;ttyline&gt; &lt;hostname&gt;&quot;
+394    RPL_ENDOFUSERS
+       &quot;:End of users&quot;
+395    RPL_NOUSERS
+       &quot;:Nobody logged in&quot;
+</code></pre>
+<ul>
+<li>USERS メッセージがサーバによって処理される場合、応答 RPL_USERSTART、RPL_USERS、RPL_ENDOFUSERS、RPL_NOUSERS が使用されます。RPL_USERSSTART を最初に送信し、その後に一連の RPL_USERS または単一の RPL_NOUSER のいずれかを送信する必要があります。これに続くのは RPL_ENDOFUSERS です。</li>
+</ul>
+<pre><code>200    RPL_TRACELINK
+       &quot;Link &lt;version &amp; debug level&gt; &lt;destination&gt;
+        &lt;next server&gt; V&lt;protocol version&gt;
+        &lt;link uptime in seconds&gt; &lt;backstream sendq&gt;
+        &lt;upstream sendq&gt;&quot;
+201    RPL_TRACECONNECTING
+       &quot;Try. &lt;class&gt; &lt;server&gt;&quot;
+202    RPL_TRACEHANDSHAKE
+       &quot;H.S. &lt;class&gt; &lt;server&gt;&quot;
+203    RPL_TRACEUNKNOWN
+       &quot;???? &lt;class&gt; [&lt;client IP address in dot form&gt;]&quot;
+204    RPL_TRACEOPERATOR
+       &quot;Oper &lt;class&gt; &lt;nick&gt;&quot;
+205    RPL_TRACEUSER
+       &quot;User &lt;class&gt; &lt;nick&gt;&quot;
+206    RPL_TRACESERVER
+       &quot;Serv &lt;class&gt; &lt;int&gt;S &lt;int&gt;C &lt;server&gt;
+        &lt;nick!user|*!*&gt;@&lt;host|server&gt; V&lt;protocol version&gt;&quot;
+207    RPL_TRACESERVICE
+       &quot;Service &lt;class&gt; &lt;name&gt; &lt;type&gt; &lt;active type&gt;&quot;
+208    RPL_TRACENEWTYPE
+       &quot;&lt;newtype&gt; 0 &lt;client name&gt;&quot;
+209    RPL_TRACECLASS
+       &quot;Class &lt;class&gt; &lt;count&gt;&quot;
+210    RPL_TRACERECONNECT
+       Unused.
+261    RPL_TRACELOG
+       &quot;File &lt;logfile&gt; &lt;debug level&gt;&quot;
+262    RPL_TRACEEND
+       &quot;&lt;server name&gt; &lt;version &amp; debug level&gt; :End of TRACE&quot;
+</code></pre>
+<ul>
+<li><code>RPL_TRACE*</code> はすべて TRACE メッセージに応答してサーバから返されます。いくつ返されるかは、TRACE メッセージとそれがオペレータによって送信されたかどうかに依存します。どれが最初に起こるか、あらかじめ定義された順序はありません。リプライ RPL_TRACEUNKNOWN、RPL_TRACECONNECTING、RPL_TRACEHANDSHAKE はすべて、完全に確立されていない接続、不明、まだ接続しようとしている、または &quot;サーバハンドシェイク&quot; の完了プロセスのいずれかに使用されています。RPL_TRACELINK は、TRACE メッセージを処理し、それを別のサーバに渡す必要があるすべてのサーバによって送信されます。IRC ネットワーク を横断する TRACE コマンドに応答して送信される RPL_TRACELINK のリストは、その経路に沿ったサーバ自身の実際の接続性を反映する必要があります。RPL_TRACENEWTYPE は、他のカテゴリに当てはまらないが、とにかく表示される接続に使用されます。RPL_TRACEEND は、リストの終わりを示すために送信されます。</li>
+</ul>
+<pre><code>211    RPL_STATSLINKINFO
+       &quot;&lt;linkname&gt; &lt;sendq&gt; &lt;sent messages&gt;
+        &lt;sent Kbytes&gt; &lt;received messages&gt;
+        &lt;received Kbytes&gt; &lt;time open&gt;&quot;
+</code></pre>
+<ul>
+<li>接続に関する統計情報を報告します。<code>&lt;linkname&gt;</code> は特定の接続を識別し、<code>&lt;sendq&gt;</code> はキューに入れられ送信待ちのデータ量、<code>&lt;sent messages&gt;</code> は送信したメッセージ数、<code>&lt;sent Kbytes&gt;</code> は送信データ量（Kbytes 単位）を表わします。<code>&lt;received messages&gt;</code> と <code>&lt;received Kbytes&gt;</code> は、それぞれ受信データの <code>&lt;sent messages&gt;</code> と <code>&lt;sent Kbytes&gt;</code> に相当します。<code>&lt;time open&gt;</code> は、接続が開かれてから何日経ったかを秒単位で示します。</li>
+</ul>
+<pre><code>212    RPL_STATSCOMMANDS
+       &quot;&lt;command&gt; &lt;count&gt; &lt;byte count&gt; &lt;remote count&gt;&quot;
+</code></pre>
+<ul>
+<li>コマンドの使用に関する統計情報を報告します。</li>
+</ul>
+<pre><code>219    RPL_ENDOFSTATS
+       &quot;&lt;stats letter&gt; :End of STATS report&quot;
+
+242    RPL_STATSUPTIME
+       &quot;:Server Up %d days %d:%02d:%02d&quot;
+</code></pre>
+<ul>
+<li>サーバーの稼働時間を報告します。</li>
+</ul>
+<pre><code>243    RPL_STATSOLINE
+       &quot;O &lt;hostmask&gt; * &lt;name&gt;&quot;
+</code></pre>
+<ul>
+<li>ユーザが IRC オペレータになることを許可するホストを報告します。</li>
+</ul>
+<pre><code>221    RPL_UMODEIS
+       &quot;&lt;user mode string&gt;&quot;
+</code></pre>
+<ul>
+<li>クライアント自身のモードに関するクエリに答えるために、RPL_UMODEIS が返送されます。</li>
+</ul>
+<pre><code>234    RPL_SERVLIST
+       &quot;&lt;name&gt; &lt;server&gt; &lt;mask&gt; &lt;type&gt; &lt;hopcount&gt; &lt;info&gt;&quot;
+
+235    RPL_SERVLISTEND
+       &quot;&lt;mask&gt; &lt;type&gt; :End of service listing&quot;
+</code></pre>
+<ul>
+<li>SERVLIST メッセージに応答してサービスをリストアップするとき、サーバは RPL_SERVLIST と RPL_SERVLISTEND メッセージを使用してリストを送り返すことが要求されます。各サービスに対して別々の RPL_SERVLIST が送信されます。サービスがリストアップされた後、または何も存在しない場合は、RPL_SERVLISTEND を送信する必要があります。</li>
+</ul>
+<pre><code>251    RPL_LUSERCLIENT
+       &quot;:There are &lt;integer&gt; users and &lt;integer&gt;
+        services on &lt;integer&gt; servers&quot;
+252    RPL_LUSEROP
+       &quot;&lt;integer&gt; :operator(s) online&quot;
+253    RPL_LUSERUNKNOWN
+       &quot;&lt;integer&gt; :unknown connection(s)&quot;
+254    RPL_LUSERCHANNELS
+       &quot;&lt;integer&gt; :channels formed&quot;
+255    RPL_LUSERME
+       &quot;:I have &lt;integer&gt; clients and &lt;integer&gt;
+         servers&quot;
+</code></pre>
+<ul>
+<li>LUSERS メッセージの処理では、サーバは RPL_LUSERCLIENT、RPL_LUSEROP、RPL_USERUNKNOWN、RPL_LUSERCHANNELS および RPL_LUSERME から一式の応答を送信します。返信するとき、サーバは RPL_LUSERCLIENT と RPL_LUSERME を送り返さなければなりません。他の返信は、それらにゼロでないカウントが見つかった場合にのみ送り返されます。</li>
+</ul>
+<pre><code>256    RPL_ADMINME
+       &quot;&lt;server&gt; :Administrative info&quot;
+257    RPL_ADMINLOC1
+       &quot;:&lt;admin info&gt;&quot;
+258    RPL_ADMINLOC2
+       &quot;:&lt;admin info&gt;&quot;
+259    RPL_ADMINEMAIL
+       &quot;:&lt;admin info&gt;&quot;
+</code></pre>
+<ul>
+<li>ADMIN メッセージに返信する場合、サーバは RPL_ADMINME から RPL_ADMINEMAIL までの返信を使用し、それぞれにテキストメッセージを提供することが期待されています。RPL_ADMINLOC1 には、サーバがある都市、州、国の説明が期待され、次に機関の詳細 RPL_ADMINLOC2、最後にサーバの管理連絡先 RPL_ADMINEMAIL にはメールアドレスが必要です。</li>
+</ul>
+<pre><code>263    RPL_TRYAGAIN
+       &quot;&lt;command&gt; :Please wait a while and try again.&quot;
+</code></pre>
+<ul>
+<li>サーバがコマンドを処理せずにドロップした場合、応答 RPL_TRYAGAIN を使用して発信元クライアントに通知する必要があります。</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="52-エラー返信"><a class="header" href="#52-エラー返信">5.2 エラー返信</a></h1>
+<p>400から599の範囲にエラー返信が見られます。</p>
+<pre><code>401    ERR_NOSUCHNICK
+      &quot;&lt;nickname&gt; :No such nick/channel&quot;
+</code></pre>
+<ul>
+<li>コマンドに与えられたニックネームパラメータが現在未使用であることを示すために使用されます。</li>
+</ul>
+<pre><code>402    ERR_NOSUCHSERVER
+      &quot;&lt;server name&gt; :No such server&quot;
+</code></pre>
+<ul>
+<li>指定されたサーバ名が現在存在しないことを示すために使用されます。</li>
+</ul>
+<pre><code>403    ERR_NOSUCHCHANNEL
+      &quot;&lt;channel name&gt; :No such channel&quot;
+</code></pre>
+<ul>
+<li>与えられたチャネル名が無効であることを示すために使用されます。</li>
+</ul>
+<pre><code>404    ERR_CANNOTSENDTOCHAN
+      &quot;&lt;channel name&gt; :Cannot send to channel&quot;
+</code></pre>
+<ul>
+<li>(a) <code>mode +n</code> が設定されているチャネルにいない、または (b) <code>mode +m</code> が設定されているチャネルの chanop（または <code>mode +v</code>）でない、またはユーザが禁止されていてそのチャネルに PRIVMSG メッセージを送信しようとしているユーザに対して送信されます。</li>
+</ul>
+<pre><code>405    ERR_TOOMANYCHANNELS
+      &quot;&lt;channel name&gt; :You have joined too many channels&quot;
+</code></pre>
+<ul>
+<li>ユーザが許可された最大数のチャネルに参加し、さらに別のチャネルに参加しようとしたときに送信されます。</li>
+</ul>
+<pre><code>406    ERR_WASNOSUCHNICK
+      &quot;&lt;nickname&gt; :There was no such nickname&quot;
+</code></pre>
+<ul>
+<li>WHOWAS により、そのニックネームの履歴情報がないことを示すために返されます。</li>
+</ul>
+<pre><code>407    ERR_TOOMANYTARGETS
+      &quot;&lt;target&gt; :&lt;error code&gt; recipients. &lt;abort message&gt;&quot;
+</code></pre>
+<ul>
+<li>
+<p>PRIVMSG/NOTICE を user@host の宛先フォーマットで、user@host が複数存在する場合に送信しようとしたクライアントに返されます。</p>
+</li>
+<li>
+<p>PRIVMSG/NOTICE をあまりにも多くの受信者に送信しようとしたクライアントに返されます。</p>
+</li>
+<li>
+<p>安全なチャネルに JOIN しようとするクライアントが、そのようなチャネルが複数存在する場合に返されます。</p>
+</li>
+</ul>
+<pre><code>408    ERR_NOSUCHSERVICE
+      &quot;&lt;service name&gt; :No such service&quot;
+</code></pre>
+<ul>
+<li>存在しないサービスに対して SQUERY を送信しようとしたクライアントに返されます。</li>
+</ul>
+<pre><code>409    ERR_NOORIGIN
+      &quot;:No origin specified&quot;
+</code></pre>
+<ul>
+<li>PING または PONG メッセージの発信者パラメータがありません。</li>
+</ul>
+<pre><code>411    ERR_NORECIPIENT
+      &quot;:No recipient given (&lt;command&gt;)&quot;
+412    ERR_NOTEXTTOSEND
+      &quot;:No text to send&quot;
+413    ERR_NOTOPLEVEL
+      &quot;&lt;mask&gt; :No toplevel domain specified&quot;
+414    ERR_WILDTOPLEVEL
+      &quot;&lt;mask&gt; :Wildcard in toplevel domain&quot;
+415    ERR_BADMASK
+      &quot;&lt;mask&gt; :Bad Server/host mask&quot;
+</code></pre>
+<ul>
+<li>412 - 415は、何らかの理由でメッセージが届かなかったことを示すために PRIVMSG が返すものです。ERR_NOTOPLEVEL と ERR_WILDTOPLEVEL は <code>PRIVMSG $&lt;server&gt;</code> または <code>PRIVMSG #&lt;host&gt;</code> を不正に使用しようとしたときに返されるエラーです。</li>
+</ul>
+<pre><code>421    ERR_UNKNOWNCOMMAND
+      &quot;&lt;command&gt; :Unknown command&quot;
+</code></pre>
+<ul>
+<li>送信されたコマンドがサーバによって不明であることを示すために、登録されたクライアントに返されます。</li>
+</ul>
+<pre><code>422    ERR_NOMOTD
+      &quot;:MOTD File is missing&quot;
+</code></pre>
+<ul>
+<li>サーバーの MOTD ファイルを開くことができませんでした。</li>
+</ul>
+<pre><code>423    ERR_NOADMININFO
+      &quot;&lt;server&gt; :No administrative info available&quot;
+</code></pre>
+<ul>
+<li>ADMIN メッセージの応答として、適切な情報の検索に失敗した場合にサーバから返されます。</li>
+</ul>
+<pre><code>424    ERR_FILEERROR
+      &quot;:File error doing &lt;file op&gt; on &lt;file&gt;&quot;
+</code></pre>
+<ul>
+<li>メッセージの処理中にファイル操作の失敗を報告するために使用される一般的なエラーメッセージです。</li>
+</ul>
+<pre><code>431    ERR_NONICKNAMEGIVEN
+      &quot;:No nickname given&quot;
+</code></pre>
+<ul>
+<li>コマンドに期待したニックネームパラメータが見つからなかった場合に返されます。</li>
+</ul>
+<pre><code>432    ERR_ERRONEUSNICKNAME
+      &quot;&lt;nick&gt; :Erroneous nickname&quot;
+</code></pre>
+<ul>
+<li>定義された文字セットに該当しない文字を含む NICK メッセージを受信した後に返されます。有効なニックネームの詳細については、<a href="replies/../the-irc-client-specification/message-format-in-augumented-bnf.html">2.3.1 節</a> を参照してください。</li>
+</ul>
+<pre><code>433    ERR_NICKNAMEINUSE
+      &quot;&lt;nick&gt; :Nickname is already in use&quot;
+</code></pre>
+<ul>
+<li>NICK メッセージが処理された結果、現在存在するニックネームを変更しようとしたときに返されます。</li>
+</ul>
+<pre><code>436    ERR_NICKCOLLISION
+      &quot;&lt;nick&gt; :Nickname collision KILL from &lt;user&gt;@&lt;host&gt;&quot;
+</code></pre>
+<ul>
+<li>ニックネームの衝突（他のサーバによってすでに存在する NICK の登録）を検出したときにサーバからクライアントに返されます。</li>
+</ul>
+<pre><code>437    ERR_UNAVAILRESOURCE
+      &quot;&lt;nick/channel&gt; :Nick/channel is temporarily unavailable&quot;
+</code></pre>
+<ul>
+<li>
+<p>チャネル遅延メカニズムによって現在ブロックされているチャネルに参加しようとするユーザに対してサーバから返されます。</p>
+</li>
+<li>
+<p>ニックネーム遅延メカニズムによって希望するニックネームがブロックされた場合に、ニックネームを変更しようとするユーザにサーバから返されます。</p>
+</li>
+</ul>
+<pre><code>441    ERR_USERNOTINCHANNEL
+      &quot;&lt;nick&gt; &lt;channel&gt; :They aren't on that channel&quot;
+</code></pre>
+<ul>
+<li>コマンドのターゲットユーザが指定されたチャネルにいないことを示すために、サーバから返されます。</li>
+</ul>
+<pre><code>442    ERR_NOTONCHANNEL
+      &quot;&lt;channel&gt; :You're not on that channel&quot;
+</code></pre>
+<ul>
+<li>クライアントがメンバでないチャネルに影響を与えるコマンドを実行しようとしたときに、サーバから返されます。</li>
+</ul>
+<pre><code>443    ERR_USERONCHANNEL
+      &quot;&lt;user&gt; &lt;channel&gt; :is already on channel&quot;
+</code></pre>
+<ul>
+<li>クライアントが、既に参加しているチャネルにユーザを招待しようとしたときに返されます。</li>
+</ul>
+<pre><code>444    ERR_NOLOGIN
+      &quot;&lt;user&gt; :User not logged in&quot;
+</code></pre>
+<ul>
+<li>あるユーザに対する SUMMON コマンドがログインしていないために実行できなかった場合に、SUMMON から返されます。</li>
+</ul>
+<pre><code>445    ERR_SUMMONDISABLED
+      &quot;:SUMMON has been disabled&quot;
+</code></pre>
+<ul>
+<li>SUMMON コマンドの応答として返されます。これを実装していないサーバは必ず返さなければなりません。</li>
+</ul>
+<pre><code>446    ERR_USERSDISABLED
+      &quot;:USERS has been disabled&quot;
+</code></pre>
+<ul>
+<li>USERS コマンドの応答として返されます。これを実装していないサーバは必ず返さなければなりません。</li>
+</ul>
+<pre><code>451    ERR_NOTREGISTERED
+      &quot;:You have not registered&quot;
+</code></pre>
+<ul>
+<li>サーバが返す値で、サーバが詳細な解析を許可する前にクライアントを登録する必要があることを示します。</li>
+</ul>
+<pre><code>461    ERR_NEEDMOREPARAMS
+      &quot;&lt;command&gt; :Not enough parameters&quot;
+</code></pre>
+<ul>
+<li>サーバが多数のコマンドで返すもので、クライアントに十分なパラメータが供給されていないことを示します。</li>
+</ul>
+<pre><code>462    ERR_ALREADYREGISTRED
+      &quot;:Unauthorized command (already registered)&quot;
+</code></pre>
+<ul>
+<li>2つ目の USER メッセージからパスワードやユーザ情報などの登録情報の一部を変更しようとするリンクに対して、サーバから返されるメッセージです。</li>
+</ul>
+<pre><code>463    ERR_NOPERMFORHOST
+      &quot;:Your host isn't among the privileged&quot;
+</code></pre>
+<ul>
+<li>接続しようとしたホストからの接続を許可するように設定されていないサーバに登録しようとしたクライアントに返されます。</li>
+</ul>
+<pre><code>464    ERR_PASSWDMISMATCH
+      &quot;:Password incorrect&quot;
+</code></pre>
+<ul>
+<li>パスワードが要求された接続の登録に失敗したことを示すために返されるもので、パスワードが与えられなかったか、不正確であったためです。</li>
+</ul>
+<pre><code>465    ERR_YOUREBANNEDCREEP
+      &quot;:You are banned from this server&quot;
+</code></pre>
+<ul>
+<li>接続を明示的に拒否するように設定されたサーバに接続し、自分自身を登録しようとした後に返されます。</li>
+</ul>
+<pre><code>466    ERR_YOUWILLBEBANNED
+</code></pre>
+<ul>
+<li>サーバからユーザに送信され、間もなくサーバへのアクセスが拒否されることを知らせます。</li>
+</ul>
+<pre><code>467    ERR_KEYSET
+      &quot;&lt;channel&gt; :Channel key already set&quot;
+471    ERR_CHANNELISFULL
+      &quot;&lt;channel&gt; :Cannot join channel (+l)&quot;
+472    ERR_UNKNOWNMODE
+      &quot;&lt;char&gt; :is unknown mode char to me for &lt;channel&gt;&quot;
+473    ERR_INVITEONLYCHAN
+      &quot;&lt;channel&gt; :Cannot join channel (+i)&quot;
+474    ERR_BANNEDFROMCHAN
+      &quot;&lt;channel&gt; :Cannot join channel (+b)&quot;
+475    ERR_BADCHANNELKEY
+      &quot;&lt;channel&gt; :Cannot join channel (+k)&quot;
+476    ERR_BADCHANMASK
+      &quot;&lt;channel&gt; :Bad Channel Mask&quot;
+477    ERR_NOCHANMODES
+      &quot;&lt;channel&gt; :Channel doesn't support modes&quot;
+478    ERR_BANLISTFULL
+      &quot;&lt;channel&gt; &lt;char&gt; :Channel list is full&quot;
+
+481    ERR_NOPRIVILEGES
+      &quot;:Permission Denied- You're not an IRC operator&quot;
+</code></pre>
+<ul>
+<li>操作にオペレータ権限が必要なコマンドは、試行に失敗したことを示すためにこのエラーを返さなければなりません。</li>
+</ul>
+<pre><code>482    ERR_CHANOPRIVSNEEDED
+      &quot;&lt;channel&gt; :You're not channel operator&quot;
+</code></pre>
+<ul>
+<li>MODE メッセージのような &quot;chanop&quot; 権限を必要とするコマンドは、試行するクライアントが指定されたチャネルの chanop でない場合、このエラーを返さなければなりません。</li>
+</ul>
+<pre><code>483    ERR_CANTKILLSERVER
+      &quot;:You can't kill a server!&quot;
+</code></pre>
+<ul>
+<li>サーバ上で KILL コマンドを使用しようとすると、拒否され、このエラーが直接クライアントに返されます。</li>
+</ul>
+<pre><code>484    ERR_RESTRICTED
+      &quot;:Your connection is restricted!&quot;
+</code></pre>
+<ul>
+<li>接続時にサーバからユーザに送信され、接続の制限を示します（ユーザモード <code>+r</code>）。</li>
+</ul>
+<pre><code>485    ERR_UNIQOPPRIVSNEEDED
+      &quot;:You're not the original channel operator&quot;
+</code></pre>
+<ul>
+<li>&quot;チャネル作成者&quot; 権限を必要とする MODE は、試行するクライアントが指定されたチャネルのチャノップでない場合、このエラーを返さなければなりません。</li>
+</ul>
+<pre><code>491    ERR_NOOPERHOST
+      &quot;:No O-lines for your host&quot;
+</code></pre>
+<ul>
+<li>クライアントが OPER メッセージを送信し、サーバがクライアントのホストからの接続をオペレータとして許可するように設定されていない場合、このエラーを返さなければなりません。</li>
+</ul>
+<pre><code>501    ERR_UMODEUNKNOWNFLAG
+      &quot;:Unknown MODE flag&quot;
+</code></pre>
+<ul>
+<li>ニックネームパラメータを持つ MODE メッセージが送信され、送信されたモードフラグが認識されなかったことを示すためにサーバによって返されます。</li>
+</ul>
+<pre><code>502    ERR_USERSDONTMATCH
+      &quot;:Cannot change mode for other users&quot;
+</code></pre>
+<ul>
+<li>自分以外のユーザのユーザーモードを表示または変更しようとしたユーザに送られるエラー。</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="53-予約済み数値"><a class="header" href="#53-予約済み数値">5.3 予約済み数値</a></h1>
+<p>これらの数値は、以下のいずれかに該当するため、上記では説明していません。</p>
+<ol>
+<li>
+<p>使われなくなった。</p>
+</li>
+<li>
+<p>将来の計画的な使用のために予約されている。</p>
+</li>
+<li>
+<p>現在使用されているが、現在の IRC サーバの非一般的な &quot;機能&quot; の一部である。</p>
+</li>
+</ol>
+<pre><code>        231    RPL_SERVICEINFO     232  RPL_ENDOFSERVICES
+        233    RPL_SERVICE
+        300    RPL_NONE            316  RPL_WHOISCHANOP
+        361    RPL_KILLDONE        362  RPL_CLOSING
+        363    RPL_CLOSEEND        373  RPL_INFOSTART
+        384    RPL_MYPORTIS
+
+        213    RPL_STATSCLINE      214  RPL_STATSNLINE
+        215    RPL_STATSILINE      216  RPL_STATSKLINE
+        217    RPL_STATSQLINE      218  RPL_STATSYLINE
+        240    RPL_STATSVLINE      241  RPL_STATSLLINE
+        244    RPL_STATSHLINE      244  RPL_STATSSLINE
+        246    RPL_STATSPING       247  RPL_STATSBLINE
+        250    RPL_STATSDLINE
+
+        492    ERR_NOSERVICEHOST
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="6-現在の実装"><a class="header" href="#6-現在の実装">6. 現在の実装</a></h1>
+<p>IRC ソフトウェア、バージョン 2.10 は、IRC プロトコル（クライアントとサーバ）の唯一の完全な実装です。<a href="https://solareenlo.com/rfc1459/">RFC 1459 [IRC]</a> の発行以来、クライアントプロトコルの変更はわずかであるため、それに続く実装はこのプロトコルに準拠するか、準拠に達するためにわずかな変更を必要とする可能性があります。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="7-現在の問題点"><a class="header" href="#7-現在の問題点">7. 現在の問題点</a></h1>
+<p>IRC クライアントプロトコル、そしてより一般的な IRC サーバプロトコルには、認識されている多くの問題があります。古いクライアントとの後方互換性を維持するために、このプロトコルは <a href="https://solareenlo.com/rfc1459/">RFC 1459 [IRC]</a> の発行以来ほとんど進化していません。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="71-ニックネーム"><a class="header" href="#71-ニックネーム">7.1 ニックネーム</a></h1>
+<p>IRC におけるニックネームの考え方は、ユーザがチャネル外で会話する際に非常に便利ですが、ニックネームのスペースは有限であり、そのようなものである以上、複数の人が同じニックネームを使いたいと思うことは珍しいことではありません。もしこのプロトコルを使って二人がニックネームを選んだ場合、どちらかが成功しないか、または両方がサーバの KILL（<a href="current-problems/../message-details/kill-message.html">3.7.1 節</a> 参照）を使うことによって削除されるでしょう。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="72-ワイルドカードの制限"><a class="header" href="#72-ワイルドカードの制限">7.2 ワイルドカードの制限</a></h1>
+<p>エスケープ文字 <code>\</code>（<code>%x5C</code>）をエスケープする方法がありません。通常は問題ありませんが、ワイルドカードの前にバックスラッシュ文字（<code>\</code>）を付けたマスクを作成することができなくなります。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="73-セキュリティへの配慮"><a class="header" href="#73-セキュリティへの配慮">7.3 セキュリティへの配慮</a></h1>
+<p>このプロトコルに関連するセキュリティの問題は、ほとんどが接続のサーバ側の問題であるため、<a href="https://solareenlo.com/rfc2813">&quot;IRC サーバプロトコル&quot; [IRC-SERVER]</a> で説明されています。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="8-現在のサポートと可用性"><a class="header" href="#8-現在のサポートと可用性">8. 現在のサポートと可用性</a></h1>
+<p>IRC関連の議論を行うためのメーリングリスト：</p>
+<ul>
+<li>General discussion: ircd-users@irc.org</li>
+<li>Protocol development: ircd-dev@irc.org</li>
+</ul>
+<p>ソフトウェアの実装：</p>
+<ul>
+<li><a href="ftp://ftp.irc.org/irc/server">ftp://ftp.irc.org/irc/server</a></li>
+<li><a href="ftp://ftp.funet.fi/pub/unix/irc">ftp://ftp.funet.fi/pub/unix/irc</a></li>
+<li><a href="ftp://ftp.irc.org/irc/clients">ftp://ftp.irc.org/irc/clients</a></li>
+</ul>
+<p>Newsgroup: alt.irc</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="9-謝辞"><a class="header" href="#9-謝辞">9. 謝辞</a></h1>
+<p>この文書の一部は、IRC プロトコルを最初に正式に文書化した <a href="https://solareenlo.com/rfc1459/">RFC 1459 [IRC]</a> からコピーされたものです。また、多くのレビューとコメントから恩恵を受けています。特に、以下の方々がこの文書に大きな貢献をされました。</p>
+<p>Matthew Green, Michael Neumayer, Volker Paulsen, Kurt Roeckx, Vesa Ruokonen, Magnus Tjernstrom, Stefan Zehl.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="10-参考"><a class="header" href="#10-参考">10. 参考</a></h1>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc2119">KEYWORDS</a>
+Bradner, S., &quot;Key words for use in RFCs to Indicate Requirement Levels&quot;, BCP 14, RFC 2119, March 1997.</p>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc2234">ABNF</a>
+Crocker, D. and P. Overell, &quot;Augmented BNF for Syntax Specifications: ABNF&quot;, RFC 2234, November 1997.</p>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc1123">HNAME</a>
+Braden, R., &quot;Requirements for Internet Hosts -- Application and Support&quot;, STD 3, RFC 1123, October 1989.</p>
+<p><a href="https://solareenlo.com/rfc1459/">IRC</a>
+Oikarinen, J. &amp; D. Reed, &quot;Internet Relay Chat Protocol&quot;, RFC 1459, May 1993.</p>
+<p><a href="https://solareenlo.com/rfc2810/">IRC-ARCH</a>
+Kalt, C., &quot;Internet Relay Chat: Architecture&quot;, RFC 2810, April 2000.</p>
+<p><a href="https://solareenlo.com/rfc2811/">IRC-CHAN</a>
+Kalt, C., &quot;Internet Relay Chat: Channel Management&quot;, RFC 2811, April 2000.</p>
+<p><a href="https://solareenlo.com/rfc2813/">IRC-SERVER</a>
+Kalt, C., &quot;Internet Relay Chat: Server Protocol&quot;, RFC 2813, April 2000.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="11-authors-address"><a class="header" href="#11-authors-address">11 Author's Address</a></h1>
+<p>Christophe Kalt
+99 Teaneck Rd, Apt #117
+Ridgefield Park, NJ 07660
+USA</p>
+<p>EMail: kalt@stealth.net</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="12-full-copyright-statement"><a class="header" href="#12-full-copyright-statement">12. Full Copyright Statement</a></h1>
+<pre><code>   Copyright (C) The Internet Society (2000).  All Rights Reserved.
+
+   This document and translations of it may be copied and furnished to
+   others, and derivative works that comment on or otherwise explain it
+   or assist in its implementation may be prepared, copied, published
+   and distributed, in whole or in part, without restriction of any
+   kind, provided that the above copyright notice and this paragraph are
+   included on all such copies and derivative works.  However, this
+   document itself may not be modified in any way, such as by removing
+   the copyright notice or references to the Internet Society or other
+   Internet organizations, except as needed for the purpose of
+   developing Internet standards in which case the procedures for
+   copyrights defined in the Internet Standards process must be
+   followed, or as required to translate it into languages other than
+   English.
+
+   The limited permissions granted above are perpetual and will not be
+   revoked by the Internet Society or its successors or assigns.
+
+   This document and the information contained herein is provided on an
+   &quot;AS IS&quot; basis and THE INTERNET SOCIETY AND THE INTERNET ENGINEERING
+   TASK FORCE DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING
+   BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION
+   HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF
+   MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+</code></pre>
+<p>Acknowledgement</p>
+<pre><code>   Funding for the RFC Editor function is currently provided by the
+   Internet Society.
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript" src="src/theme/theme-solarized_dark.js"></script>
+        <script type="text/javascript" src="src/theme/theme-solarized_light.js"></script>
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            MathJax.Hub.Register.StartupHook('End', function() {
+                window.setTimeout(window.print, 100);
+            });
+        });
+        </script>
+    </body>
+</html>
