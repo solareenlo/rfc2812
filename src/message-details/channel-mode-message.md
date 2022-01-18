@@ -1,4 +1,4 @@
-# 3.2.3 Channel モードメッセージ
+# 3.2.3 Mode メッセージ
 
 ```
    Command: MODE
