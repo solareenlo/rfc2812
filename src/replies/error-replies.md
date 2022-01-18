@@ -1,6 +1,6 @@
 # 5.2 エラー返信
 
-400から599の範囲にエラー返信が見られます。
+400 から 599 の範囲にエラー返信が見られます。
 
 ```
 401    ERR_NOSUCHNICK
@@ -124,7 +124,7 @@
       "<nick> :Erroneous nickname"
 ```
 
-- 定義された文字セットに該当しない文字を含む NICK メッセージを受信した後に返されます。有効なニックネームの詳細については、[2.3.1 節](../the-irc-client-specification/message-format-in-augumented-bnf.md) を参照してください。
+- 定義された文字セットに該当しない文字を含む NICK メッセージを受信した後に返されます。有効なニックネームの詳細については、[2.3.1 項](../the-irc-client-specification/message-format-in-augumented-bnf.md) を参照してください。
 
 ```
 433    ERR_NICKNAMEINUSE
