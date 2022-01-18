@@ -29,7 +29,7 @@
   - [チャネル操作](./message-details/channel-operations.md)
     - [Join メッセージ](./message-details/join-message.md)
     - [Part メッセージ](./message-details/part-message.md)
-    - [Channel モードメッセージ](./message-details/channel-mode-message.md)
+    - [Mode メッセージ](./message-details/channel-mode-message.md)
     - [Topic メッセージ](./message-details/topic-message.md)
     - [Names メッセージ](./message-details/names-message.md)
     - [List メッセージ](./message-details/list-message.md)
