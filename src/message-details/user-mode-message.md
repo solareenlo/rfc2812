@@ -1,4 +1,4 @@
-# 3.1.5 User モードメッセージ
+# 3.1.5 Mode メッセージ
 
 ```
    Command: MODE
