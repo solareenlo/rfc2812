@@ -22,7 +22,7 @@
     - [Nick メッセージ](./message-details/nick-message.md)
     - [User メッセージ](./message-details/user-message.md)
     - [Oper メッセージ](./message-details/oper-message.md)
-    - [Mode メッセージ](./message-details/user-mode-message.md)
+    - [User Mode メッセージ](./message-details/user-mode-message.md)
     - [Service メッセージ](./message-details/service-message.md)
     - [Quit](./message-details/quit.md)
     - [Squit](./message-details/squit.md)
