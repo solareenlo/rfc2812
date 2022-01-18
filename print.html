@@ -1880,7 +1880,7 @@ Parameters: &lt;nickname&gt; *( SPACE &lt;nickname&gt; )
 <div style="break-before: page; page-break-before: always;"></div><h1 id="7-現在の問題点"><a class="header" href="#7-現在の問題点">7. 現在の問題点</a></h1>
 <p>IRC クライアントプロトコル、そしてより一般的な IRC サーバプロトコルには、認識されている多くの問題があります。古いクライアントとの後方互換性を維持するために、このプロトコルは <a href="https://solareenlo.com/rfc1459/">RFC 1459 [IRC]</a> の発行以来ほとんど進化していません。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="71-ニックネーム"><a class="header" href="#71-ニックネーム">7.1 ニックネーム</a></h1>
-<p>IRC におけるニックネームの考え方は、ユーザがチャネル外で会話する際に非常に便利ですが、ニックネームのスペースは有限であり、そのようなものである以上、複数の人が同じニックネームを使いたいと思うことは珍しいことではありません。もしこのプロトコルを使って二人がニックネームを選んだ場合、どちらかが成功しないか、または両方がサーバの KILL（<a href="current-problems/../message-details/kill-message.html">3.7.1 節</a> 参照）を使うことによって削除されるでしょう。</p>
+<p>IRC におけるニックネームの考え方は、ユーザがチャネル外で会話する際に非常に便利ですが、ニックネームのスペースは有限であり、そのようなものである以上、複数の人が同じニックネームを使いたいと思うことは珍しいことではありません。もしこのプロトコルを使って二人がニックネームを選んだ場合、どちらかが成功しないか、または両方がサーバの KILL（<a href="current-problems/../message-details/kill-message.html">3.7.1 項</a> 参照）を使うことによって削除されるでしょう。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="72-ワイルドカードの制限"><a class="header" href="#72-ワイルドカードの制限">7.2 ワイルドカードの制限</a></h1>
 <p>エスケープ文字 <code>\</code>（<code>%x5C</code>）をエスケープする方法がありません。通常は問題ありませんが、ワイルドカードの前にバックスラッシュ文字（<code>\</code>）を付けたマスクを作成することができなくなります。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="73-セキュリティへの配慮"><a class="header" href="#73-セキュリティへの配慮">7.3 セキュリティへの配慮</a></h1>
