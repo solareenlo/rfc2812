@@ -16,5 +16,5 @@ PASS コマンドは、"接続パスワード" を設定するために使用し
 例：
 
 ```
-        PASS secretpasswordhere
+PASS secretpasswordhere
 ```
